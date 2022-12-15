@@ -89,7 +89,7 @@ author:
   googlescholar    : "https://scholar.google.com/citations?user=4Q3F054AAAAJ"
   email            : "lhanso14@jh.edu"
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
-  uri              : 
+  uri              : "https://eps.jhu.edu/directory/elle-hanson/"
   bitbucket        :
   codepen          :
   dribbble         :
@@ -97,6 +97,7 @@ author:
   facebook         :
   foursquare       :
   github           : "ellequelle"
+  ads		   : "https://ui.adsabs.harvard.edu/search/q=author%253A%22hanson%252C%20lavender%20elle%22"
   keybase          :
   instagram        :
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
