@@ -2,7 +2,7 @@
 title: "TA Assignments"
 collection: teaching
 excerpt: "A list of TA assignments"
-type: "Teaching assistanceships"
+type: "Teaching Assistant assignments"
 permalink: /teaching/TA-assignments
 venue: "PSU & JHU"
 date: 2014-08-01
