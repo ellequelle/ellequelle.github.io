@@ -106,9 +106,6 @@
       {% if author.googlescholar %}
         <li><a href="{{ author.googlescholar }}"><i class="fas fa-fw fa-graduation-cap"></i> Google Scholar</a></li>
       {% endif %}
-      {% if author.ads %}
-        <li><a href="{{ author.ads }}"><i class="ai ai-ads ai-fw"></i> ADS</a></li>
-      {% endif %}
       {% if author.pubmed %}
         <li><a href="{{ author.pubmed }}"><i class="ai ai-pubmed-square ai-fw"></i> PubMed</a></li>
       {% endif %}
@@ -121,6 +118,9 @@
       {% if author.wikipedia %}
         <li><a href="https://en.wikipedia.org/wiki/User:{{ author.wikipedia }}"><i class="fab fa-fw fa-wikipedia-w" aria-hidden="true"></i> Wikipedia</a></li>
 {% endif %}
+      {% if author.ads %}
+        <li><a href="{{ author.ads }}"><i class="ai ai-ads ai-fw"></i> ADS</a></li>
+      {% endif %}
     </ul>
   </div>
 </div>
