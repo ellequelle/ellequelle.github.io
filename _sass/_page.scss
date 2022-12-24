@@ -191,6 +191,17 @@
   }
 }
 
+.page__hero-refs {
+
+    font-size: $type-size-6;
+
+    ul li,
+    ol li {
+	margin-bottom: 0.1em;
+    }
+}
+
+
 /*
    Social sharing
    ========================================================================== */
