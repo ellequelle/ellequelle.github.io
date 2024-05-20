@@ -23,20 +23,26 @@ Earth is so much more massive than the Moon that the Earth-Moon barycenter is wi
 barycenters of other binary systems it may be between the two objects. For example, the Pluto-Charon
 barycenter is well outside Pluto's radius, about 10% of the way to Charon.
 
-In the case of our solar system, the barycenter is almost always less than 2 solar radii from the center
-of the Sun, but its precise location moves quite a bit depending where the planets are in their orbits.
+Recently when explaining the meaning of barycenter to someone, I started wondering how often the solar system barycenter is outside the Sun, so I decided to figure it out.
+JPL's [Navigation and Ancillary Information Facility](https://naif.jpl.nasa.gov/naif/) (NAIF) keeps track of all of the large objects in the solar system and publishes their positions and velocities and how they change over time, or what's known as the "ephemeris" data.
+Since everything in the solar system, including the Sun, orbits around the barycenter, this is the reference point from which every object's position and velocity is measured.
 
-Below is an animation of the solar system barycenter (the red "x") between 1950 and 2050.
-The black circle marks the outer boundar of the Sun and the colorful arrows point in the direction of 
+To visualize the Sub-barycenter orbit, I looked up the positions of the Sun and the giant planets (Jupiter, Saturn, Uranus, and Neptune) for a series of times between 1800 and 2200 and made a set of figures.
+Below is an animation of the position of the solar system barycenter (the red "x") in the horizontal plane between 1950 and 2050.
+The black circle marks the outer boundary of the Sun and the colored arrows point in the direction of 
 each of the the four giant planets.
 When the four giant planets are all on the same side the barycenter is pulled far beyond the solar radius,
 and when they are all pulling in different directions the barycenter falls close to the center of the Sun.
 
 <a href="https://ellequelle.github.io/images/barycenter.html"><img src="https://ellequelle.github.io/images/barycenter.gif" style="width:500px;"></a>
 
-This figure shows the position of the barycenter with respect to the Sun between 1800 and 2200, with 
-the distance from the center of the Sun plotted at the bottom.
-According to these calculations by JPL's [Navigation and Ancillary Information Facility](https://naif.jpl.nasa.gov/naif/), the solar system barycenter spends about 62% of its time outside the Sun's radius about and nearly 3% of its time beyond two solar radii.
-It rarely ventures close to the center of the Sun.
+Next, I wanted to see the position of the barycenter in all three coordinates over the entire time period.
+The figure below shows the Sun-barycenter distance in the x, y, and z directions, with the bottom plot showing the euclidian distance.
+It turns out our solar system's barycenter is almost always less than 2 solar radii from the center of the Sun (as you can see in the bottom plot), but its precise location varies quite a bit depending where the planets are in their orbits.
+According to these calculations the solar system barycenter spends about 62% of its time outside the Sun's radius about and nearly 3% of its time beyond two solar radii.
+The barycenter is only within the Sun about 38% of the time and within half a solar radius of the Sun's center less than 7% of the time.
+In other words, you could say Earth actually spends less than half of its time "orbiting the Sun."
 
 <img src="https://ellequelle.github.io/images/barycenter-400.png">
+
+Calculations can be reproduced using <a href="/files/ss_barycenter.ipynb">this Jupyter notebook</a> (<a href="/files/ss_barycenter.pdf">also available as pdf</a>).
