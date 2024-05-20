@@ -1,6 +1,7 @@
 ---
 title: Solar System Barycenter
-categories: solar system dynamics
+categories: solar_system_dynamics
+excerpt: "When thinking about solar system we usually imagine the planets orbiting the Sun, but in reality, every object in the solar system, including the Sun, orbits a moving point called the solar system barycenter..."
 author: Lavender Elle Hanson
 author_profile: true
 ---
