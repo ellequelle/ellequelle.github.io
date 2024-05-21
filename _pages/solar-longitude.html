@@ -1,0 +1,216 @@
+---
+title: "Solar Longitude"
+excerpt: "Solar Longitude"
+permalink: /Ls.html
+author_profile: true
+redirect_from:
+  - /Ls/
+---
+
+<!-- <script src="/assets/js/DataTables/jquery-3.7.1.min.js"></script> -->
+<script src="/assets/DataTables/datatables.js"></script>
+<!-- <script src="{{ base_path }}/assets/js/vendor/jquery/jquery-1.12.4.min.js"></script> -->
+<link rel="stylesheet" href="{{ base_path }}/assets/DataTables/datatables.css"></link>
+
+
+<!-- <table id="ls-uranus" class="display"><thead>
+  <tr>
+      <th>Date</th>
+      <th>Uranus L<sub>s</sub></th>
+  </tr>
+</thead>
+<tbody>
+  {% for row in site.data.uranus.data %}
+  <tr>
+      <td>{{ row.date }}</td>
+      <td>{{ row.Ls }}</td>
+  </tr>
+  {% endfor %}
+</table> -->
+
+
+<!-- <table id="ls-saturn" class="display"><thead>
+  <tr>
+      <th>Date</th>
+      <th>Saturn L<sub>s</sub></th>
+  </tr>
+</thead>
+<tbody>
+  {% for row in site.data.saturn.data %}
+  <tr>
+      <td>{{ row.date }}</td>
+      <td>{{ row.Ls }}</td>
+  </tr>
+  {% endfor %}
+</table> -->
+
+
+
+
+<!-- <ul>
+  <li><a href="#jupiter">Jupiter</a></li>
+  <li><a href="#saturn">Saturn</a></li>
+  <li><a href="#uranus">Uranus</a></li>
+</ul> -->
+
+
+<div class="tab">
+  <button class="tablinks active" onclick="openPlanet(event, 'Jupiter')">Jupiter</button>
+  <button class="tablinks" onclick="openPlanet(event, 'Saturn')">Saturn</button>
+  <button class="tablinks" onclick="openPlanet(event, 'Uranus')">Uranus</button>
+</div>
+
+<!-- <h2 id="jupiter">Jupiter Solar Longitude</h2> -->
+<div id="Jupiter" class="tabcontent">
+<table id="jupiter-table" class="display"><thead>
+  <tr>
+      <th>Date</th>
+      <th>Jupiter Ls</th>
+  </tr>
+</thead>
+<tfoot>
+  <tr>
+    <th>Date</th>
+    <th>Jupiter Ls</th>
+  </tr>
+</tfoot>
+</table>
+</div>
+
+<div id="Saturn" class="tabcontent">
+  <!-- <h2 id="saturn">Saturn Solar Longitude</h2> -->
+<table id="saturn-table" class="display"><thead>
+  <tr>
+      <th>Date</th>
+      <th>Saturn Ls</th>
+  </tr>
+</thead>
+<tfoot>
+  <tr>
+    <th>Date</th>
+    <th>Saturn Ls</th>
+  </tr>
+</tfoot>
+</table>
+</div>
+
+<div id="Uranus" class="tabcontent">
+<!-- <h2 id="uranus">Uranus Solar Longitude</h2> -->
+<table id="uranus-table" class="display"><thead>
+  <tr>
+      <th>Date</th>
+      <th>Uranus Ls</th>
+  </tr>
+</thead>
+<tfoot>
+  <tr>
+    <th>Date</th>
+    <th>Uranus Ls</th>
+  </tr>
+</tfoot>
+</table>
+</div>
+
+
+<script type="text/javascript">
+
+function openPlanet(evt, planetName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(planetName).style.display = "";
+  evt.currentTarget.className += " active";
+} 
+
+
+new DataTable('#jupiter-table', {
+    ajax: 'files/solar-longitude/jupiter.json',
+    columns: [
+        { data: 'date' },
+        { data: 'Ls' },
+        // { title: 'Office' },
+        // { title: 'Extn.' },
+        // { title: 'Start date' },
+        // { title: 'Salary' }
+    ]
+});
+  
+
+new DataTable('#saturn-table', {
+    ajax: 'files/solar-longitude/saturn.json',
+    columns: [
+        { data: 'date' },
+        { data: 'Ls' },
+        // { title: 'Office' },
+        // { title: 'Extn.' },
+        // { title: 'Start date' },
+        // { title: 'Salary' }
+    ]
+});
+
+
+
+new DataTable('#uranus-table', {
+    ajax: 'files/solar-longitude/uranus.json',
+    columns: [
+        { data: 'date' },
+        { data: 'Ls' },
+        // { title: 'Office' },
+        // { title: 'Extn.' },
+        // { title: 'Start date' },
+        // { title: 'Salary' }
+    ]
+});
+
+
+</script>
+
+
+<style > /* Style the tab */
+  .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons that are used to open the tab content */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    /* display: none; */
+    /* padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none; */
+  } </style>
