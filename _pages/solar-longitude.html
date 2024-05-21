@@ -33,9 +33,20 @@ redirect_from:
 </script> -->
 
 <ul>
+  <li><a href="#-ls-mercury" onclick="showPlanet(event, 'Mercury')">Mercury</a></li>
+  <li><a href="#-ls-venus" onclick="showPlanet(event, 'Venus')">Venus</a></li>
+  <li><a href="#-ls-mars" onclick="showPlanet(event, 'Mars')">Mars</a></li>
   <li><a href="#-ls-jupiter" onclick="showPlanet(event, 'Jupiter')">Jupiter</a></li>
   <li><a href="#-ls-saturn" onclick="showPlanet(event, 'Saturn')">Saturn</a></li>
   <li><a href="#-ls-uranus" onclick="showPlanet(event, 'Uranus')">Uranus</a></li>
+  <li><a href="#-ls-neptune" onclick="showPlanet(event, 'Neptune')">Neptune</a></li>
+  <li><a href="#-ls-pluto" onclick="showPlanet(event, 'Pluto')">Pluto</a></li>
+  <li><a href="#-ls-67p" onclick="showPlanet(event, '67p')">67P/Churyumov–Gerasimenko</a></li>
+  <li><a href="#-ls-eros" onclick="showPlanet(event, 'eros')">Eros</a></li>
+  <li><a href="#-ls-ceres" onclick="showPlanet(event, 'ceres')">Ceres</a></li>
+  <li><a href="#-ls-bennu" onclick="showPlanet(event, 'bennu')">Bennu</a></li>
+  <li><a href="#-ls-didymos" onclick="showPlanet(event, 'didymos')">Didymos</a></li>
+  <li><a href="#-ls-arrokoth" onclick="showPlanet(event, 'arrokoth')">Arrokoth</a></li>
 </ul>
 
 <style>
@@ -46,6 +57,63 @@ redirect_from:
     display: block;
   }
 </style>
+
+<div id="Mercury" class="tablediv hidden">
+  <h2>Mercury Solar Longitude</h2>
+<table id="ls-mercury" class="display"><thead>
+  <tr>
+      <th>Date</th>
+      <th>Mercury L<sub>s</sub></th>
+  </tr>
+</thead>
+<tbody>
+  {% for row in site.data.mercury.data %}
+  <tr>
+      <td>{{ row.date }}</td>
+      <td>{{ row.Ls }}</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
+
+<div id="Venus" class="tablediv hidden">
+  <h2>Venus Solar Longitude</h2>
+<table id="ls-venus" class="display"><thead>
+  <tr>
+      <th>Date</th>
+      <th>Venus L<sub>s</sub></th>
+  </tr>
+</thead>
+<tbody>
+  {% for row in site.data.venus.data %}
+  <tr>
+      <td>{{ row.date }}</td>
+      <td>{{ row.Ls }}</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
+
+<div id="Mars" class="tablediv hidden">
+  <h2>Mars Solar Longitude</h2>
+<table id="ls-mars" class="display"><thead>
+  <tr>
+      <th>Date</th>
+      <th>Mars L<sub>s</sub></th>
+  </tr>
+</thead>
+<tbody>
+  {% for row in site.data.mars.data %}
+  <tr>
+      <td>{{ row.date }}</td>
+      <td>{{ row.Ls }}</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
 
 <div id="Jupiter" class="tablediv hidden">
   <h2>Jupiter Solar Longitude</h2>
@@ -101,6 +169,150 @@ redirect_from:
   {% endfor %}
 </table>
 </div>
+
+<div id="Neptune" class="tablediv hidden">
+  <h2>Neptune Solar Longitude</h2>
+  <table id="ls-neptune" class="display"><thead>
+    <tr>
+        <th>Date</th>
+        <th>Neptune L<sub>s</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in site.data.neptune.data %}
+    <tr>
+        <td>{{ row.date }}</td>
+        <td>{{ row.Ls }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  </div>
+  
+<div id="Pluto" class="tablediv hidden">
+  <h2>Pluto Solar Longitude</h2>
+  <table id="ls-pluto" class="display"><thead>
+    <tr>
+        <th>Date</th>
+        <th>Pluto L<sub>s</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in site.data.pluto.data %}
+    <tr>
+        <td>{{ row.date }}</td>
+        <td>{{ row.Ls }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  </div>
+
+<div id="67p" class="tablediv hidden">
+  <h2>67P/Churyumov–Gerasimenko Solar Longitude</h2>
+  <table id="ls-67p" class="display"><thead>
+    <tr>
+        <th>Date</th>
+        <th>67P/Churyumov–Gerasimenko L<sub>s</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in site.data.67p.data %}
+    <tr>
+        <td>{{ row.date }}</td>
+        <td>{{ row.Ls }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  </div>
+
+<div id="eros" class="tablediv hidden">
+  <h2>Eros Solar Longitude</h2>
+  <table id="ls-eros" class="display"><thead>
+    <tr>
+        <th>Date</th>
+        <th>Eros L<sub>s</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in site.data.eros.data %}
+    <tr>
+        <td>{{ row.date }}</td>
+        <td>{{ row.Ls }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+ </div>
+
+ <div id="ceres" class="tablediv hidden">
+  <h2>Ceres Solar Longitude</h2>
+  <table id="ls-ceres" class="display"><thead>
+    <tr>
+        <th>Date</th>
+        <th>Ceres L<sub>s</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in site.data.ceres.data %}
+    <tr>
+        <td>{{ row.date }}</td>
+        <td>{{ row.Ls }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+ </div>
+
+ <div id="bennu" class="tablediv hidden">
+  <h2>Bennu Solar Longitude</h2>
+  <table id="ls-bennu" class="display"><thead>
+    <tr>
+        <th>Date</th>
+        <th>Bennu L<sub>s</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in site.data.bennu.data %}
+    <tr>
+        <td>{{ row.date }}</td>
+        <td>{{ row.Ls }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+ </div>
+
+ <div id="didymos" class="tablediv hidden">
+  <h2>Didymos Solar Longitude</h2>
+  <table id="ls-didymos" class="display"><thead>
+    <tr>
+        <th>Date</th>
+        <th>Didymos L<sub>s</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in site.data.didymos.data %}
+    <tr>
+        <td>{{ row.date }}</td>
+        <td>{{ row.Ls }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+ </div>
+
+ <div id="arrokoth" class="tablediv hidden">
+  <h2>Arrokoth Solar Longitude</h2>
+  <table id="ls-arrokoth" class="display"><thead>
+    <tr>
+        <th>Date</th>
+        <th>Arrokoth L<sub>s</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in site.data.arrokoth.data %}
+    <tr>
+        <td>{{ row.date }}</td>
+        <td>{{ row.Ls }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+ </div>
 
 
 <!-- <div class="tab">

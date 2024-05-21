@@ -2,10 +2,11 @@ from io import StringIO
 import pandas as pd
 
 file_paths = (
-"horizons_results_433-eros.txt",
-"horizons_results_65803-didymos.txt",
-"horizons_results_101955-bennu.txt",
-"horizons_results_486958-arrokoth.txt",
+"horizons_results_eros.txt",
+"horizons_results_didymos.txt",
+"horizons_results_bennu.txt",
+"horizons_results_arrokoth.txt",
+"horizons_results_67p.txt",
 "horizons_results_ceres.txt",
 "horizons_results_jupiter.txt",
 "horizons_results_mars.txt",
