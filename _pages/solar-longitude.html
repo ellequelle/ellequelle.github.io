@@ -13,23 +13,61 @@ redirect_from:
 <link rel="stylesheet" href="{{ base_path }}/assets/DataTables/datatables.css"></link>
 
 
-<!-- <table id="ls-uranus" class="display"><thead>
+
+
+
+<ul>
+  <li><a href="#-ls-jupiter" onclick="showPlanet(event, 'Jupiter')">Jupiter</a></li>
+  <li><a href="#-ls-saturn" onclick="showPlanet(event, 'Saturn')">Saturn</a></li>
+  <li><a href="#-ls-uranus" onclick="showPlanet(event, 'Uranus')">Uranus</a></li>
+</ul>
+
+<script>
+  function showPlanet(e,pname) {
+    els = document.getElementsByClassName("tablediv");
+    for (i = 0; i < els.length; i++) {
+      el = els[i];
+      el.className = el.className.replace(' active', " hidden");
+      // el.style.display = "none";
+      console.log(el, el.style.display);
+    }
+    el = document.getElementById(pname);
+    el.className = el.className.replace(' hidden', ' active');
+    // el.style.display = "block";
+  }
+</script>
+
+<style>
+  .tablediv-inactive {
+    display: none;
+  }
+  .tablediv-active {
+    display: block;
+  }
+</style>
+
+<div id="Jupiter" class="tablediv hidden">
+  <h2>Jupiter Solar Longitude</h2>
+<table id="ls-jupiter" class="display"><thead>
   <tr>
       <th>Date</th>
-      <th>Uranus L<sub>s</sub></th>
+      <th>Jupiter L<sub>s</sub></th>
   </tr>
 </thead>
 <tbody>
-  {% for row in site.data.uranus.data %}
+  {% for row in site.data.jupiter.data %}
   <tr>
       <td>{{ row.date }}</td>
       <td>{{ row.Ls }}</td>
   </tr>
   {% endfor %}
-</table> -->
+</table>
+</div>
 
 
-<!-- <table id="ls-saturn" class="display"><thead>
+<div id="Saturn" class="tablediv hidden">
+  <h2>Saturn Solar Longitude</h2>
+  <table id="ls-saturn" class="display"><thead>
   <tr>
       <th>Date</th>
       <th>Saturn L<sub>s</sub></th>
@@ -42,25 +80,34 @@ redirect_from:
       <td>{{ row.Ls }}</td>
   </tr>
   {% endfor %}
-</table> -->
+</table>
+</div>
+
+<div id="Uranus" class="tablediv hidden">
+<h2>Uranus Solar Longitude</h2>
+<table id="ls-uranus" class="display"><thead>
+  <tr>
+      <th>Date</th>
+      <th>Uranus L<sub>s</sub></th>
+  </tr>
+</thead>
+<tbody>
+  {% for row in site.data.uranus.data %}
+  <tr>
+      <td>{{ row.date }}</td>
+      <td>{{ row.Ls }}</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
 
 
-
-
-<!-- <ul>
-  <li><a href="#jupiter">Jupiter</a></li>
-  <li><a href="#saturn">Saturn</a></li>
-  <li><a href="#uranus">Uranus</a></li>
-</ul> -->
-
-
-<div class="tab">
+<!-- <div class="tab">
   <button class="tablinks active" onclick="openPlanet(event, 'Jupiter')">Jupiter</button>
   <button class="tablinks" onclick="openPlanet(event, 'Saturn')">Saturn</button>
   <button class="tablinks" onclick="openPlanet(event, 'Uranus')">Uranus</button>
 </div>
 
-<!-- <h2 id="jupiter">Jupiter Solar Longitude</h2> -->
 <div id="Jupiter" class="tabcontent">
 <table id="jupiter-table" class="display"><thead>
   <tr>
@@ -78,7 +125,6 @@ redirect_from:
 </div>
 
 <div id="Saturn" class="tabcontent">
-  <!-- <h2 id="saturn">Saturn Solar Longitude</h2> -->
 <table id="saturn-table" class="display"><thead>
   <tr>
       <th>Date</th>
@@ -95,7 +141,6 @@ redirect_from:
 </div>
 
 <div id="Uranus" class="tabcontent">
-<!-- <h2 id="uranus">Uranus Solar Longitude</h2> -->
 <table id="uranus-table" class="display"><thead>
   <tr>
       <th>Date</th>
@@ -213,4 +258,7 @@ new DataTable('#uranus-table', {
     /* padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none; */
-  } </style>
+  } </style> -->
+
+
+
