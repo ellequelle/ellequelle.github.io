@@ -14,15 +14,9 @@ redirect_from:
 
 
 
-<ul>
-  <li><a href="#-ls-jupiter" onclick="showPlanet(event, 'Jupiter')">Jupiter</a></li>
-  <li><a href="#-ls-saturn" onclick="showPlanet(event, 'Saturn')">Saturn</a></li>
-  <li><a href="#-ls-uranus" onclick="showPlanet(event, 'Uranus')">Uranus</a></li>
-</ul>
-
 <script type="text/javascript">
   //<![CDATA[
-  showPlanet = (e,pname) => {
+  function showPlanet(e,pname) {
     els = document.getElementsByClassName("tablediv");
     for (i = 0; i < els.length; i++) {
       el = els[i];
@@ -34,6 +28,12 @@ redirect_from:
   }
   //]]>
 </script>
+
+<ul>
+  <li><a href="#-ls-jupiter" onclick="showPlanet(event, 'Jupiter')">Jupiter</a></li>
+  <li><a href="#-ls-saturn" onclick="showPlanet(event, 'Saturn')">Saturn</a></li>
+  <li><a href="#-ls-uranus" onclick="showPlanet(event, 'Uranus')">Uranus</a></li>
+</ul>
 
 <style>
   .tablediv-inactive {
