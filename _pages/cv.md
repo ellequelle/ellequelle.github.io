@@ -46,3 +46,9 @@ Teaching
   <ul>{% for post in site.teaching %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
+
+Software
+======
+ * [mcspy](https://github.com/ellequelle/mcspy) python library to retrieve and consolidate atmospheric profile data from the [Mars Climate Sounder](https://mars.nasa.gov/mro/mission/instruments/mcs/)
+ * [saturnLs](https://github.com/ellequelle/solar-longitude) python script for converting between date and solar longitude at Saturn
+ 
