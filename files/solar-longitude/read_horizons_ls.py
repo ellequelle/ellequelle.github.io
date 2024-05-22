@@ -19,11 +19,9 @@ file_paths = (
 "horizons_results_earth.txt",
 )
 
-for fn in file_paths:
-    planet = fn[17:-4]
-
+def ingest_horizon_ephem(fn):
     s = ""
-    with open("horizons_output/"+fn, "r") as f:
+    with open(fn, "r") as f:
         lines = f.readlines()
         readit = False
         for line in lines:
@@ -38,10 +36,20 @@ for fn in file_paths:
 
     #  Date__(UT)__HR:MN, , , hEcl-Lon,hEcl-Lat,      PlAng,  Tru_Anom,  App_Lon_Sun,
     df = pd.read_csv(StringIO(s), names=["date",0,1,"lon","lat","plang","truanom","Ls"], index_col=False)
+    return df.drop(columns=[0,1])
+
+for fn in file_paths:
+    planet = fn[17:-4]
+
+    df = ingest_horizon_ephem("horizons_output/"+fn)
     dt = pd.to_datetime(df.date)
-    lx = (dt >= "1960-01-01") & (dt <= "2070-01-01") & df["date"].str.contains("-Jan-")
-    if planet == "earth":
+    lx = (dt >= "1960-01-01") & (dt <= "2070-01-01")
+    if planet in ["saturn", "uranus", "neptune", "pluto", "arrokoth"]:
+        lx &= df["date"].str.contains("-Jan-")
+    elif planet == "earth":
         lx = (dt >= "2000-01-01") & (dt <= "2040-01-01")
+    else:
+        lx &= df["date"].str.contains("-Jan-") | df["date"].str.contains("-Jun-")
     df = df.loc[lx]
     df["date"] = df["date"].str.strip().str[:11]
     df["Ls"] = df["Ls"].round(1)
