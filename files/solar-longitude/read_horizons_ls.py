@@ -49,7 +49,8 @@ for fn in file_paths:
     elif planet == "earth":
         lx = (dt >= "2000-01-01") & (dt <= "2040-01-01")
     else:
-        lx &= df["date"].str.contains("-Jan-") | df["date"].str.contains("-Jun-")
+        pass
+        # lx &= df["date"].str.contains("-Jan-") | df["date"].str.contains("-Jun-")
     df = df.loc[lx]
     df["date"] = df["date"].str.strip().str[:11]
     df["Ls"] = df["Ls"].round(1)
