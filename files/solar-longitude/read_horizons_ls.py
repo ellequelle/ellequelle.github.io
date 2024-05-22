@@ -16,6 +16,7 @@ file_paths = (
 "horizons_results_saturn.txt",
 "horizons_results_uranus.txt",
 "horizons_results_venus.txt",
+"horizons_results_earth.txt",
 )
 
 for fn in file_paths:
@@ -39,8 +40,13 @@ for fn in file_paths:
     df = pd.read_csv(StringIO(s), names=["date",0,1,"lon","lat","plang","truanom","Ls"], index_col=False)
     dt = pd.to_datetime(df.date)
     lx = (dt >= "1960-01-01") & (dt <= "2070-01-01") & df["date"].str.contains("-Jan-")
+    if planet == "earth":
+        lx = (dt >= "2000-01-01") & (dt <= "2040-01-01")
     df = df.loc[lx]
     df["date"] = df["date"].str.strip().str[:11]
     df["Ls"] = df["Ls"].round(1)
-    df[["date","Ls"]].set_index("date").to_json(f"../../_data/{planet}.json", orient="table")
-    df[["date","Ls"]].set_index("date").to_json(f"{planet}.json", orient="table")
+    fn = f"{planet}.json"
+    if planet == "67p":
+        fn = "_"+fn
+    df[["date","Ls"]].set_index("date").to_json("../../_data/"+fn, orient="table")
+    df[["date","Ls"]].set_index("date").to_json(fn, orient="table")
