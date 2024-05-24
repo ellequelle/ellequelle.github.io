@@ -19,8 +19,10 @@ file_paths = (
 "horizons_results_earth.txt",
 )
 
-planet_list = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto',
-      '67p', 'eros', 'ceres', 'bennu', 'didymos', 'arrokoth']
+planet_list = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 
+               'saturn', 'uranus', 'neptune', 'pluto',
+      '67p', 'eros', 'ceres', 'bennu', 'didymos', 'arrokoth',
+      ]
 
 def ingest_horizon_ephem(fn):
     s = ""
@@ -46,9 +48,10 @@ for planet in planet_list:
 
     df = ingest_horizon_ephem("horizons_output/"+fn)
     dt = pd.to_datetime(df.date)
+    df["date"] = dt.dt.strftime("%Y-%m-%d")
     lx = (dt >= "1960-01-01") & (dt <= "2070-01-01")
     if planet in ["saturn", "uranus", "neptune", "pluto", "arrokoth"]:
-        lx &= df["date"].str.contains("-Jan-")
+        lx &= df["date"].str.contains("-01-")
     elif planet == "earth":
         lx = (dt >= "2000-01-01") & (dt <= "2040-01-01")
     else:

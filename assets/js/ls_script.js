@@ -47,18 +47,13 @@ function showPlanet(e,pname) {
     planetList = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto',
       '67p', 'eros', 'ceres', 'bennu', 'didymos', 'arrokoth'];
 
-
     datenow = new Date();
     datenow_int = datenow.getTime();
-    // datenow_int = Date.parse('2024-Jan-29');
-    // el = document.getElementById('venus-ls-now');
-    // el.textContent = getLsPlanet(datenow_int, 'Venus');
+
+    let el = document.getElementById('date-now');
+    el.insertAdjacentHTML('beforeend', datenow.toLocaleString());
 
     let table = document.getElementById('ls-now-table');
-
-    let el = document.getElementById('ls-now-table-head-ls');
-    el.childNodes[0].insertAdjacentHTML('beforeend', '</br>')
-    el.childNodes[0].insertAdjacentHTML('beforeend', datenow.toLocaleString());
 
     for (let i=0; i<planetList.length; i++) {
       let pl = planetList[i];

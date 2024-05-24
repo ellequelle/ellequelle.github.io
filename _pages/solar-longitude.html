@@ -26,7 +26,8 @@ redirect_from:
 
 <section id="ls-description" class="ls-description">
 Solar longitude, often written <em>L<sub>s</sub></em>, is a kind of calendar to measure the time 
-of year for solar system bodies other than the Earth. Since the [Gregorian Calendar](https://en.wikipedia.org/wiki/Gregorian_calendar) 
+of year for solar system bodies other than the Earth. Since the 
+<a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian Calendar</a> 
 is based on Earth's 365.25 day orbital period, it isn't as useful for other planetary bodies that may have 
 much shorter or longer seasons. Instead, solar longitude measures the time of year as an angle measured from 
 vernal (spring) equinox in the northern hemisphere. One month on Earth corresponds to a solar longitude interval 
@@ -37,8 +38,8 @@ of approximately 30&deg;, and each season starts at a multiple of 90&deg;.
 <table id="ls-now-table" class="display">
   <thead>
     <tr>
-      <td><b>Planet</b></td>
-      <td id="ls-now-table-head-ls"><b>Current Ls (approximate)</b></td>
+      <th>Planet</th>
+      <th>Current L<sub>s</sub> (approximate)</br><b id="date-now"></b></th>
     </tr>
   </thead>
   <tbody id="ls-now-tbody">
@@ -69,6 +70,7 @@ Click a solar system body for a table of solar longitude every terrestrial month
   <li><a href="#-ls-arrokoth" onclick="showPlanet(event, 'arrokoth')">Arrokoth</a></li>
 </ul>
 
+
 <div id="Mercury" class="tablediv hidden">
   <h2>Mercury Solar Longitude</h2>
 <table id="ls-mercury" class="display"><thead>
@@ -77,7 +79,7 @@ Click a solar system body for a table of solar longitude every terrestrial month
       <th>Mercury L<sub>s</sub></th>
   </tr>
 </thead>
-<tbody>
+<tbody >
   {% for row in site.data.mercury.data %}
   <tr>
       <td>{{ row.date }}</td>
