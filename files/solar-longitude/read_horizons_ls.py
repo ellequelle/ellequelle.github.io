@@ -79,6 +79,9 @@ def do_extra_mars(df):
     df["insight"] = df["MSD"] - 51511 + (9 + (3 + 53/60)/60)/24
     # perseverance sol (local time, starting at sol 0)
     df["perseverance"] = df["MSD"] - 52304 + (5 + (9 + 43/60)/60)/24
+
+    # round MSD to single digit precision
+    df["MSD"] = df["MSD"].round(1)
     return df[["date", "Ls", "MSD", "MY"]]
 
 for planet in planet_list:
