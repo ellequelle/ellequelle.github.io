@@ -10,7 +10,7 @@ redirect_from:
 
 
 <!-- <script src="/assets/js/DataTables/jquery-3.7.1.min.js"></script> -->
-<!-- <script type="text/javascript" src="/assets/DataTables/datatables.js"></script> -->
+<script type="text/javascript" src="/assets/DataTables/datatables.js"></script>
 <script type="text/javascript" src="/assets/js/ls_script.js"></script>
 <!-- <script src="{{ base_path }}/assets/js/vendor/jquery/jquery-1.12.4.min.js"></script> -->
 <link rel="stylesheet" href="{{ base_path }}/assets/DataTables/datatables.css"></link>
@@ -22,9 +22,11 @@ redirect_from:
   .tablediv-active {
     display: block;
   }
+
 </style>
 
-<section id="ls-description" class="ls-description">
+<h2 class="pcollapsible">Solar Longitude description</h2>
+<section id="ls-description" class="ls-description pcontent">
 Solar longitude, often written <em>L<sub>s</sub></em>, is a kind of calendar to measure the time 
 of year for solar system bodies other than the Earth. Since the 
 <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian Calendar</a> 
@@ -34,8 +36,9 @@ vernal (spring) equinox in the northern hemisphere. One month on Earth correspon
 of approximately 30&deg;, and each season starts at a multiple of 90&deg;.
 </section>
 
+</br>
 
-<table id="ls-now-table" class="display">
+<table id="ls-now-table" class="display" style="width:80%">
   <thead>
     <tr>
       <th>Planet</th>
@@ -53,16 +56,16 @@ Click a solar system body for a table of solar longitude every terrestrial month
 
 
 <ul>
-  <li><a href="#-ls-mercury" onclick="showPlanet(event, 'Mercury')">Mercury</a></li>
-  <li><a href="#-ls-venus" onclick="showPlanet(event, 'Venus')">Venus</a></li>
-  <li><a href="#-ls-earth" onclick="showPlanet(event, 'Earth')">Earth</a></li>
-  <li><a href="#-ls-mars" onclick="showPlanet(event, 'Mars')">Mars</a></li>
-  <li><a href="#-ls-jupiter" onclick="showPlanet(event, 'Jupiter')">Jupiter</a></li>
-  <li><a href="#-ls-saturn" onclick="showPlanet(event, 'Saturn')">Saturn</a></li>
-  <li><a href="#-ls-uranus" onclick="showPlanet(event, 'Uranus')">Uranus</a></li>
-  <li><a href="#-ls-neptune" onclick="showPlanet(event, 'Neptune')">Neptune</a></li>
-  <li><a href="#-ls-pluto" onclick="showPlanet(event, 'Pluto')">Pluto</a></li>
-  <li><a href="#-ls-_67p" onclick="showPlanet(event, '67p')">67P/Churyumov–Gerasimenko</a></li>
+  <li><a href="#-ls-mercury" onclick="showPlanet(event, 'mercury')">Mercury</a></li>
+  <li><a href="#-ls-venus" onclick="showPlanet(event, 'venus')">Venus</a></li>
+  <li><a href="#-ls-earth" onclick="showPlanet(event, 'earth')">Earth</a></li>
+  <li><a href="#-ls-mars" onclick="showPlanet(event, 'mars')">Mars</a></li>
+  <li><a href="#-ls-jupiter" onclick="showPlanet(event, 'jupiter')">Jupiter</a></li>
+  <li><a href="#-ls-saturn" onclick="showPlanet(event, 'saturn')">Saturn</a></li>
+  <li><a href="#-ls-uranus" onclick="showPlanet(event, 'uranus')">Uranus</a></li>
+  <li><a href="#-ls-neptune" onclick="showPlanet(event, 'neptune')">Neptune</a></li>
+  <li><a href="#-ls-pluto" onclick="showPlanet(event, 'pluto')">Pluto</a></li>
+  <li><a href="#-ls-cp67p" onclick="showPlanet(event, 'cp67p')">67P/Churyumov–Gerasimenko</a></li>
   <li><a href="#-ls-eros" onclick="showPlanet(event, 'eros')">Eros</a></li>
   <li><a href="#-ls-ceres" onclick="showPlanet(event, 'ceres')">Ceres</a></li>
   <li><a href="#-ls-bennu" onclick="showPlanet(event, 'bennu')">Bennu</a></li>
@@ -71,279 +74,301 @@ Click a solar system body for a table of solar longitude every terrestrial month
 </ul>
 
 
-<div id="Mercury" class="tablediv hidden">
+<span id="mercury" class="tablediv hidden">
   <h2>Mercury Solar Longitude</h2>
-<table id="ls-mercury" class="display"><thead>
-  <tr>
-      <th>Date</th>
-      <th>Mercury L<sub>s</sub></th>
-  </tr>
-</thead>
-<tbody >
-  {% for row in site.data.mercury.data %}
-  <tr>
-      <td>{{ row.date }}</td>
-      <td>{{ row.Ls }}</td>
-  </tr>
-  {% endfor %}
-</table>
-</div>
+  <table id="ls-mercury" class="display compact" style="width:80%">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Mercury L<sub>s</sub></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Date</th>
+        <th>Mercury L<sub>s</sub></th>
+      </tr>
+    </tfoot>
+  </table>
+</span>
 
-
-<div id="Venus" class="tablediv hidden">
-  <h2>Venus Solar Longitude</h2>
-<table id="ls-venus" class="display"><thead>
-  <tr>
-      <th>Date</th>
-      <th>Venus L<sub>s</sub></th>
-  </tr>
-</thead>
-<tbody>
-  {% for row in site.data.venus.data %}
-  <tr>
-      <td>{{ row.date }}</td>
-      <td>{{ row.Ls }}</td>
-  </tr>
-  {% endfor %}
-</table>
-</div>
-
-<div id="Earth" class="tablediv hidden">
-  <h2>Earth Solar Longitude</h2>
-<table id="ls-earth" class="display"><thead>
-  <tr>
-      <th>Date</th>
-      <th>Earth L<sub>s</sub></th>
-  </tr>
-</thead>
-<tbody>
-  {% for row in site.data.earth.data %}
-  <tr>
-      <td>{{ row.date }}</td>
-      <td>{{ row.Ls }}</td>
-  </tr>
-  {% endfor %}
-</table>
-</div>
-
-
-<div id="Mars" class="tablediv hidden">
-  <h2>Mars Solar Longitude</h2>
-<table id="ls-mars" class="display"><thead>
-  <tr>
-      <th>Date</th>
-      <th>Mars L<sub>s</sub></th>
-  </tr>
-</thead>
-<tbody>
-  {% for row in site.data.mars.data %}
-  <tr>
-      <td>{{ row.date }}</td>
-      <td>{{ row.Ls }}</td>
-  </tr>
-  {% endfor %}
-</table>
-</div>
-
-
-<div id="Jupiter" class="tablediv hidden">
-  <h2>Jupiter Solar Longitude</h2>
-<table id="ls-jupiter" class="display"><thead>
-  <tr>
-      <th>Date</th>
-      <th>Jupiter L<sub>s</sub></th>
-  </tr>
-</thead>
-<tbody>
-  {% for row in site.data.jupiter.data %}
-  <tr>
-      <td>{{ row.date }}</td>
-      <td>{{ row.Ls }}</td>
-  </tr>
-  {% endfor %}
-</table>
-</div>
-
-
-<div id="Saturn" class="tablediv hidden">
-  <h2>Saturn Solar Longitude</h2>
-  <table id="ls-saturn" class="display"><thead>
-  <tr>
-      <th>Date</th>
-      <th>Saturn L<sub>s</sub></th>
-  </tr>
-</thead>
-<tbody>
-  {% for row in site.data.saturn.data %}
-  <tr>
-      <td>{{ row.date }}</td>
-      <td>{{ row.Ls }}</td>
-  </tr>
-  {% endfor %}
-</table>
-</div>
-
-<div id="Uranus" class="tablediv hidden">
-<h2>Uranus Solar Longitude</h2>
-<table id="ls-uranus" class="display"><thead>
-  <tr>
-      <th>Date</th>
-      <th>Uranus L<sub>s</sub></th>
-  </tr>
-</thead>
-<tbody>
-  {% for row in site.data.uranus.data %}
-  <tr>
-      <td>{{ row.date }}</td>
-      <td>{{ row.Ls }}</td>
-  </tr>
-  {% endfor %}
-</table>
-</div>
-
-<div id="Neptune" class="tablediv hidden">
-  <h2>Neptune Solar Longitude</h2>
-  <table id="ls-neptune" class="display"><thead>
+<span id="mercury" class="tablediv hidden">
+  <h2>Mercury Solar Longitude</h2>
+  <table id="ls-mercury" class="display" style="width:80%">
+    <thead>
     <tr>
         <th>Date</th>
-        <th>Neptune L<sub>s</sub></th>
+        <th>Mercury L<sub>s</sub></th>
     </tr>
-  </thead>
-  <tbody>
-    {% for row in site.data.neptune.data %}
-    <tr>
-        <td>{{ row.date }}</td>
-        <td>{{ row.Ls }}</td>
-    </tr>
-    {% endfor %}
+    </thead>
+    <tfoot>
+      <tr>
+          <th>Date</th>
+          <th>Mercury L<sub>s</sub></th>
+      </tr>
+    </tfoot>
   </table>
-  </div>
-  
-<div id="Pluto" class="tablediv hidden">
-  <h2>Pluto Solar Longitude</h2>
-  <table id="ls-pluto" class="display"><thead>
+</span>
+
+
+<span id="venus" class="tablediv hidden">
+  <h2>Venus Solar Longitude</h2>
+  <table id="ls-venus" class="display" style="width:80%">
+    <thead>
     <tr>
+        <th>Date</th>
+        <th>Venus L<sub>s</sub></th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Date</th>
+        <th>Venus L<sub>s</sub></th>
+    </tr>
+    </tfoot>
+  </table>
+</span>
+
+<span id="earth" class="tablediv hidden">
+  <h2>Earth Solar Longitude</h2>
+  <table id="ls-earth" class="display" style="width:80%">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Earth L<sub>s</sub></th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Date</th>
+        <th>Earth L<sub>s</sub></th>
+    </tr>
+    </tfoot>
+  </table>
+</span>
+
+
+<span id="mars" class="tablediv hidden">
+  <h2>Mars Solar Longitude</h2>
+  <table id="ls-mars" class="display" style="width:80%">
+    <thead>
+      <tr>
+          <th>Date</th>
+          <th>Mars Year (<a href="/images/Clancy-etal-JGR-2000.pdf" title="From Clancy et al. (2000)">Clancy+2000</a>)</th>
+          <th>Mars L<sub>s</sub></th>
+          <th>Mars Sol Date (<a href="/images/Allison-etal-PSS-2000.pdf" title="From Equation 32 in Allison et al. (2000)">Allison+2000</a>)</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+          <th>Date</th>
+          <th>Mars Year (<a href="/images/Clancy-etal-JGR-2000.pdf" title="From Clancy et al. (2000)">Clancy+2000</a>)</th>
+          <th>Mars L<sub>s</sub></th>
+          <th>Mars Sol Date (<a href="/images/Allison-etal-PSS-2000.pdf" title="From Equation 32 in Allison et al. (2000)">Allison+2000</a>)</th>
+      </tr>
+    </tfoot>
+  </table>
+</span>
+
+
+<span id="jupiter" class="tablediv hidden">
+  <h2>Jupiter Solar Longitude</h2>
+  <table id="ls-jupiter" class="display" style="width:80%">
+    <thead>
+      <tr>
+          <th>Date</th>
+          <th>Jupiter L<sub>s</sub></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+          <th>Date</th>
+          <th>Jupiter L<sub>s</sub></th>
+      </tr>
+    </tfoot>
+  </table>
+</span>
+
+
+<span id="saturn" class="tablediv hidden">
+  <h2>Saturn Solar Longitude</h2>
+  <table id="ls-saturn" class="display" style="width:80%">
+    <thead>
+      <tr>
+          <th>Date</th>
+          <th>Saturn L<sub>s</sub></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+          <th>Date</th>
+          <th>Saturn L<sub>s</sub></th>
+      </tr>
+    </tfoot>
+  </table>
+</span>
+
+<span id="uranus" class="tablediv hidden">
+  <h2>Uranus Solar Longitude</h2>
+  <table id="ls-uranus" class="display" style="width:80%">
+    <thead>
+      <tr>
+          <th>Date</th>
+          <th>Uranus L<sub>s</sub></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+          <th>Date</th>
+          <th>Uranus L<sub>s</sub></th>
+      </tr>
+    </tfoot>
+  </table>
+</span>
+
+<span id="neptune" class="tablediv hidden">
+  <h2>Neptune Solar Longitude</h2>
+  <table id="ls-neptune" class="display" style="width:80%">
+    <thead>
+      <tr>
+          <th>Date</th>
+          <th>Neptune L<sub>s</sub></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+         <th>Date</th>
+         <th>Neptune L<sub>s</sub></th>
+      </tr>
+    </tfoot>
+  </table>
+</span>
+  
+<span id="pluto" class="tablediv hidden">
+  <h2>Pluto Solar Longitude</h2>
+  <table id="ls-pluto" class="display" style="width:80%">
+    <thead>
+      <tr>
         <th>Date</th>
         <th>Pluto L<sub>s</sub></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for row in site.data.pluto.data %}
-    <tr>
-        <td>{{ row.date }}</td>
-        <td>{{ row.Ls }}</td>
-    </tr>
-    {% endfor %}
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Date</th>
+        <th>Pluto L<sub>s</sub></th>
+      </tr>
+    </tfoot>
   </table>
-  </div>
+</span>
 
-<div id="_67p" class="tablediv hidden">
+<span id="cp67p" class="tablediv hidden">
   <h2>67P/Churyumov–Gerasimenko Solar Longitude</h2>
-  <table id="ls-_67p" class="display"><thead>
-    <tr>
-        <th>Date</th>
-        <th>67P/Churyumov–Gerasimenko L<sub>s</sub></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for row in site.data._67p.data %}
-    <tr>
-        <td>{{ row.date }}</td>
-        <td>{{ row.Ls }}</td>
-    </tr>
-    {% endfor %}
+  <table id="ls-cp67p" class="display" style="width:80%">
+    <thead>
+      <tr>
+          <th>Date</th>
+          <th>67P/Churyumov–Gerasimenko L<sub>s</sub></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+          <th>Date</th>
+          <th>67P/Churyumov–Gerasimenko L<sub>s</sub></th>
+      </tr>
+    </tfoot>
   </table>
-  </div>
+</span>
 
-<div id="eros" class="tablediv hidden">
+<span id="eros" class="tablediv hidden">
   <h2>Eros Solar Longitude</h2>
-  <table id="ls-eros" class="display"><thead>
-    <tr>
-        <th>Date</th>
-        <th>Eros L<sub>s</sub></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for row in site.data.eros.data %}
-    <tr>
-        <td>{{ row.date }}</td>
-        <td>{{ row.Ls }}</td>
-    </tr>
-    {% endfor %}
+  <table id="ls-eros" class="display" style="width:80%">
+    <thead>
+      <tr>
+          <th>Date</th>
+          <th>Eros L<sub>s</sub></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+          <th>Date</th>
+          <th>Eros L<sub>s</sub></th>
+      </tr>
+    </tfoot>
   </table>
- </div>
+</span>
 
- <div id="ceres" class="tablediv hidden">
+<span id="ceres" class="tablediv hidden">
   <h2>Ceres Solar Longitude</h2>
-  <table id="ls-ceres" class="display"><thead>
-    <tr>
+  <table id="ls-ceres" class="display" style="width:80%">
+    <thead>
+      <tr>
         <th>Date</th>
         <th>Ceres L<sub>s</sub></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for row in site.data.ceres.data %}
-    <tr>
-        <td>{{ row.date }}</td>
-        <td>{{ row.Ls }}</td>
-    </tr>
-    {% endfor %}
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Date</th>
+        <th>Ceres L<sub>s</sub></th>
+      </tr>
+    </tfoot>
   </table>
- </div>
+</span>
 
- <div id="bennu" class="tablediv hidden">
+<span id="bennu" class="tablediv hidden">
   <h2>Bennu Solar Longitude</h2>
-  <table id="ls-bennu" class="display"><thead>
-    <tr>
-        <th>Date</th>
-        <th>Bennu L<sub>s</sub></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for row in site.data.bennu.data %}
-    <tr>
-        <td>{{ row.date }}</td>
-        <td>{{ row.Ls }}</td>
-    </tr>
-    {% endfor %}
+  <table id="ls-bennu" class="display" style="width:80%">
+    <thead>
+      <tr>
+          <th>Date</th>
+          <th>Bennu L<sub>s</sub></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+          <th>Date</th>
+          <th>Bennu L<sub>s</sub></th>
+      </tr>
+    </tfoot>
   </table>
- </div>
+</span>
 
- <div id="didymos" class="tablediv hidden">
+<span id="didymos" class="tablediv hidden">
   <h2>Didymos Solar Longitude</h2>
-  <table id="ls-didymos" class="display"><thead>
-    <tr>
-        <th>Date</th>
-        <th>Didymos L<sub>s</sub></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for row in site.data.didymos.data %}
-    <tr>
-        <td>{{ row.date }}</td>
-        <td>{{ row.Ls }}</td>
-    </tr>
-    {% endfor %}
+  <table id="ls-didymos" class="display" style="width:80%">
+    <thead>
+      <tr>
+          <th>Date</th>
+          <th>Didymos L<sub>s</sub></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+          <th>Date</th>
+          <th>Didymos L<sub>s</sub></th>
+      </tr>
+    </tfoot>
   </table>
- </div>
+</span>
 
- <div id="arrokoth" class="tablediv hidden">
+<span id="arrokoth" class="tablediv hidden">
   <h2>Arrokoth Solar Longitude</h2>
-  <table id="ls-arrokoth" class="display"><thead>
-    <tr>
-        <th>Date</th>
-        <th>Arrokoth L<sub>s</sub></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for row in site.data.arrokoth.data %}
-    <tr>
-        <td>{{ row.date }}</td>
-        <td>{{ row.Ls }}</td>
-    </tr>
-    {% endfor %}
+  <table id="ls-arrokoth" class="display" style="width:80%">
+    <thead>
+      <tr>
+          <th>Date</th>
+          <th>Arrokoth L<sub>s</sub></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+          <th>Date</th>
+          <th>Arrokoth L<sub>s</sub></th>
+      </tr>
+    </tfoot>
   </table>
- </div>
+</span>
 
 
 <!-- <div class="tab">
