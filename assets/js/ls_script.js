@@ -22,18 +22,24 @@ function showPlanet(e, pname) {
 
     dt = date_int;
     /* split up into multiple smaller files */
-    if (date_int <= Date.parse("1980-01-01")) {
+    if (date_int <= Date.parse("1930-01-01")) {
         return '-a';
-    } else if (dt > Date.parse("1980-01-01") & dt <= Date.parse("2000-01-01")) {
+    } else if (dt > Date.parse("1930-01-01") & dt <= Date.parse("1960-01-01")) {
         return '-b';
-    } else if (dt > Date.parse("2000-01-01") & dt <= Date.parse("2025-01-01")) {
+    } else if (dt > Date.parse("1960-01-01") & dt <= Date.parse("1980-01-01")) {
         return '-c';
-    } else if (dt > Date.parse("2025-01-01") & dt <= Date.parse("2050-01-01")) {
+    } else if (dt > Date.parse("1980-01-01") & dt <= Date.parse("2000-01-01")) {
         return '-d';
-    } else if (dt > Date.parse("2050-01-01") & dt <= Date.parse("2100-01-01")) {
+    } else if (dt > Date.parse("2000-01-01") & dt <= Date.parse("2025-01-01")) {
         return '-e';
-    } else if (dt > Date.parse("2100-01-01") & dt <= Date.parse("2200-01-01")) {
+    } else if (dt > Date.parse("2025-01-01") & dt <= Date.parse("2050-01-01")) {
         return '-f';
+    } else if (dt > Date.parse("2050-01-01") & dt <= Date.parse("2100-01-01")) {
+        return '-g';
+    } else if (dt > Date.parse("2100-01-01") & dt <= Date.parse("2150-01-01")) {
+        return '-h';
+    } else if (dt > Date.parse("2150-01-01") & dt <= Date.parse("2200-01-01")) {
+        return '-i';
     }
   }
 

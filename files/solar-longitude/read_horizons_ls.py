@@ -132,20 +132,29 @@ for planet in planet_list:
     dt = df["date_dt"]
 
     # split up into multiple smaller files with 3 months overlap
-    lx = (dt <= "1980-03-05")
+    lx = (dt <= "1930-03-05")
     df.loc[lx].to_json(fn.replace(".json", "-a.json"), orient="table")
 
-    lx = (dt >= "1979-09-01") & (dt <= "2000-03-05")
+    lx = (dt >= "1929-09-01") & (dt <= "1960-03-05")
     df.loc[lx].to_json(fn.replace(".json", "-b.json"), orient="table")
 
-    lx = (dt >= "1999-09-01") & (dt <= "2025-03-05")
+    lx = (dt >= "1959-09-01") & (dt <= "1980-03-05")
     df.loc[lx].to_json(fn.replace(".json", "-c.json"), orient="table")
 
-    lx = (dt >= "2024-09-01") & (dt <= "2050-03-05")
+    lx = (dt >= "1979-09-01") & (dt <= "2000-03-05")
     df.loc[lx].to_json(fn.replace(".json", "-d.json"), orient="table")
 
-    lx = (dt >= "2049-09-01") & (dt <= "2100-03-05")
+    lx = (dt >= "1999-09-01") & (dt <= "2025-03-05")
     df.loc[lx].to_json(fn.replace(".json", "-e.json"), orient="table")
 
-    lx = (dt >= "2099-09-01") & (dt <= "2200-03-05")
+    lx = (dt >= "2024-09-01") & (dt <= "2050-03-05")
     df.loc[lx].to_json(fn.replace(".json", "-f.json"), orient="table")
+
+    lx = (dt >= "2049-09-01") & (dt <= "2100-03-05")
+    df.loc[lx].to_json(fn.replace(".json", "-g.json"), orient="table")
+
+    lx = (dt >= "2099-09-01") & (dt <= "2150-03-05")
+    df.loc[lx].to_json(fn.replace(".json", "-h.json"), orient="table")
+
+    lx = (dt >= "2149-09-01") & (dt <= "2200-03-05")
+    df.loc[lx].to_json(fn.replace(".json", "-i.json"), orient="table")
