@@ -69,6 +69,15 @@ redirect_from:
   #ls-now-table {
     font-size: 0.8em;
     line-height: 1.2;
+    margin-bottom: 0.1em;
+  }
+
+  #ls-now-note {
+    display:inline-block;
+    line-height: 1.1;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
   }
 
   #date-now {
@@ -78,15 +87,32 @@ redirect_from:
 </style>
 
 <div id="ls-description" class="pcollapsible collapsible-section pactive">
-<h3 id="ls-description-title" class="pcollapsible-title">Solar Longitude description</h3>
+<h3 id="ls-description-title" class="pcollapsible-title">Description of Solar Longitude</h3>
 <section id="ls-description-content" class="ls-description pcontent" style="display: block">
-<a href="https://en.wikipedia.org/wiki/Solar_longitude">Solar longitude</a>, often written <em>L<sub>s</sub></em>, is a kind of calendar to measure the time 
-of year for solar system bodies other than the Earth. Since the 
-<a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian Calendar</a> 
-is based on Earth's 365.25 day orbital period, it isn't as useful for other planetary bodies that may have 
-much shorter or longer seasons. Instead, solar longitude measures the time of year as an angle measured from 
-vernal (spring) equinox in the northern hemisphere. One month on Earth corresponds to a solar longitude interval 
-of approximately 30&deg;, and each season starts at a multiple of 90&deg;.
+<p>
+  <a href="https://en.wikipedia.org/wiki/Solar_longitude">Solar longitude</a>, often written
+  <em>L<sub>s</sub></em>, is a kind of calendar to measure the time of year for solar system bodies other 
+  than the Earth. Since the <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian Calendar</a> 
+  is based on Earth's 365.25 day orbital period, it isn't as useful for other planetary bodies that may have 
+  much shorter or longer seasons. Instead, solar longitude denotes the time of year as an angle measured from 
+  vernal equinox in the northern hemisphere, which occurs when the Sun crosses the equator into the northern 
+  hemisphere.
+</p>
+<p>One month on Earth corresponds to a solar longitude interval of approximately 30&deg; and each season 
+  starts at a multiple of 90&deg;. Spring in the northern hemisphere begins at L<sub>s</sub> = 0&deg;
+   (the vernal equinox), summer at L<sub>s</sub> = 90&deg; (the summer solstice), fall at L<sub>s</sub> = 
+   180&deg; (the autumnal equinox), and winter at L<sub>s</sub> = 270&deg; (the winter solstice).
+</p>
+<p>
+  <b>Why is Pluto's L<sub>s</sub> changing so fast compared to Uranus and Neptune?</b> Charon, Pluto's largest moon,
+  is so large compared with Pluto itself that the two bodies form a binary system centered on a point in
+  space between them. Whenever Charon is ahead of Pluto in its orbit, the moon pulls Pluto along and makes 
+  it speed up, and when Charon is trailing behind Pluto, it makes Pluto orbit so much slower that it 
+  <a href="/assets/data/solar-longitude/horizons_results_pluto-sample.txt">actually moves backwards</a>
+  along its orbit about 49.6% of the time. So while it may appear from the rapidly changing solar longitude 
+  that Pluto is orbiting too fast, as much as 0.13&deg; per Earth day, its daily backward progress negates 
+  the bursts of rapid movement so that on average Pluto only orbits about 1.45&deg; every Earth year.
+</p>
 </section>
 </div>
 
@@ -96,77 +122,22 @@ of approximately 30&deg;, and each season starts at a multiple of 90&deg;.
   <thead>
     <tr>
       <th class="ls-now-header">Planet<br></th>
-      <th class="ls-now-header">Current L<sub>s</sub> (approximate)</br><b id="date-now"></b></th>
+      <th class="ls-now-header">Current L<sub>s</sub>*</br><b id="date-now"></b></th>
     </tr>
   </thead>
   <tbody id="ls-now-tbody">
     <tr>
-      <!-- <td id="lsnow-mercury-label" class="ls-now-planet-name">Mercury</td>
-      <td id="lsnow-mercury"></td> -->
+      <!-- table is filled in by JS -->
     </tr>
-    <!-- <tr>
-      <td id="lsnow-venus-label" class="ls-now-planet-name">Venus</td>
-      <td id="lsnow-venus"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-earth-label" class="ls-now-planet-name">Earth</td>
-      <td id="lsnow-earth"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-mars-label" class="ls-now-planet-name">Mars</td>
-      <td id="lsnow-mars"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-jupiter-label" class="ls-now-planet-name">Jupiter</td>
-      <td id="lsnow-jupiter"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-saturn-label" class="ls-now-planet-name">Saturn</td>
-      <td id="lsnow-saturn"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-uranus-label" class="ls-now-planet-name">Uranus</td>
-      <td id="lsnow-uranus"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-neptune-label" class="ls-now-planet-name">Neptune</td>
-      <td id="lsnow-neptune"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-pluto-label" class="ls-now-planet-name">Pluto</td>
-      <td id="lsnow-pluto"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-bennu-label" class="ls-now-planet-name">Bennu</td>
-      <td id="lsnow-bennu"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-eros-label" class="ls-now-planet-name">Eros</td>
-      <td id="lsnow-eros"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-didymos-label" class="ls-now-planet-name">Didymos</td>
-      <td id="lsnow-didymos"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-ceres-label" class="ls-now-planet-name">Ceres</td>
-      <td id="lsnow-ceres"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-cg67p-label" class="ls-now-planet-name">67P/Churyumov–Gerasimenko</td>
-      <td id="lsnow-cg67p"></td>
-    </tr>
-    <tr>
-      <td id="lsnow-arrokoth-label" class="ls-now-planet-name">Arrokoth</td>
-      <td id="lsnow-arrokoth"></td>
-    </tr> -->
   </tbody>
 </table>
+<span id="ls-now-note"><small>*Interpolation of timeseries obtained from the <a href="https://ssd.jpl.nasa.gov/horizons/">JPL/Horizons portal</a>, 
+  calculated using JPL's <a href="https://ssd.jpl.nasa.gov/doc/de440_de441.html">DE440 and DE441 ephemerides</a>.</small></span>
 
 <h2>Solar longitude tables for solar system objects</h2>
 Click a solar system body for a table of solar longitude between 1960 and 2070.
 
-<table class="bodylist">
+<table id="bodylist" class="bodylist">
   <thead>
     <tr>
       <th title="According to the popular/pre-2006 definition.">Planets</th>
@@ -207,24 +178,7 @@ Click a solar system body for a table of solar longitude between 1960 and 2070.
 </table>
 
 
-
-<span id="mercury" class="tablediv hidden">
-  <h2>Mercury Solar Longitude</h2>
-  <table id="ls-mercury" class="display compact" style="width:80%">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Mercury L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <th>Date</th>
-        <th>Mercury L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
+<!-- 
 
 <span id="mercury" class="tablediv hidden">
   <h2>Mercury Solar Longitude</h2>
@@ -380,6 +334,7 @@ Click a solar system body for a table of solar longitude between 1960 and 2070.
   
 <span id="pluto" class="tablediv hidden">
   <h2>Pluto Solar Longitude</h2>
+  Download <a href="/assets/data/solar-longitude/pluto.json">json</a>, <a href="/assets/data/solar-longitude/pluto.csv">csv</a>
   <table id="ls-pluto" class="display" style="width:80%">
     <thead>
       <tr>
@@ -503,6 +458,6 @@ Click a solar system body for a table of solar longitude between 1960 and 2070.
     </tfoot>
   </table>
 </span>
-
+ -->
 
   

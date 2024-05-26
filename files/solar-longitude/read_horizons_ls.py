@@ -95,17 +95,11 @@ for planet in planet_list:
     df = ingest_horizon_ephem("horizons_output/"+fn)
     df = format_date(df)
     dt = df["date_dt"]
-    lx = (dt >= "1960-01-01") & (dt <= "2070-01-01")
-    if planet in ["saturn", "uranus", "neptune", "pluto", "arrokoth"]:
-        lx &= df["date"].str.contains("-01-")
-    elif planet == "earth":
-        lx = (dt >= "2000-01-01") & (dt <= "2040-01-01")
-    else:
-        pass
-        # lx &= df["date"].str.contains("-Jan-") | df["date"].str.contains("-Jun-")
+    lx = (dt >= "1950-01-01") & (dt <= "2070-01-01")
+    if planet in ["uranus", "neptune", "pluto", "arrokoth"]:
+        lx &= df["date"].str.contains("-01-") | df["date"].str.contains("-06-")
     df = df.loc[lx]
-    # df["date"] = df["date"].str.strip().str[:11]
-    df["Ls"] = df["Ls"].round(2)
+    df["Ls"] = df["Ls"].round(3)
     # planet-specific processing
     if planet.lower() == "mars":
         df = do_extra_mars(df)
@@ -113,9 +107,10 @@ for planet in planet_list:
         df = df[["date","Ls"]]
     # fsdssaf
     fn = f"{planet}.json"
-    df.set_index("date").to_json("../../_data/"+fn, orient="table")
+    # df.set_index("date").to_json("../../_data/"+fn, orient="table")
     df.set_index("date").to_json("../../assets/data/solar-longitude/"+fn, orient="table")
-    df.set_index("date").to_json(fn, orient="table")
+    df.set_index("date").to_csv("../../assets/data/solar-longitude/"+planet+".csv", index_label="date")
+    # df.set_index("date").to_json(fn, orient="table")
 
     # if planet in ("didymos", "arrokoth"):
     #     continue

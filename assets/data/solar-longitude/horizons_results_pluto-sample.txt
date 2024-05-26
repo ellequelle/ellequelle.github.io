@@ -1,0 +1,204 @@
+*******************************************************************************
+ Revised: Apr 03, 2024              134340 Pluto                            999
+ 
+ Pre-computed solution PLU060/DE440. Fit to post New Horizons encounter and
+ Gaia data through 2023. For discussion, see ...
+
+ M. Brozovic, R. A. Jacobson (2024) "Post-New Horizons orbits and masses
+ for the satellites of Pluto". AJ (in press)
+
+ PHYSICAL DATA (updated 2021-Jun-07; Mc= Charon mass, radius is IAU 2015):
+  Mass x10^22 (kg)      = 1.307+-0.018    Volume, 10^10 km^3    = 0.697
+  GM (planet) km^3/s^2  = 869.326         Density (R=1195 km)   = 1.86 g/cm^3
+  GM 1-sigma, km^3/s^2  = 0.4             Surface gravity       = 0.611 m/s^2 
+  Vol. mean radius (km) = 1188.3+-1.6     Mass ratio (Mc/Mp)    = 0.122
+  Sidereal rot. period  = 153.29335198 h  Sid. rot. rat, rad/s  = 0.0000113856
+  Mean solar day, h     = 153.2820        Mean orbit velocity   = 4.67 km/s
+  Sidereal orbit period = 249.58932 yr    Escape speed, km/s    = 1.21            
+                                 Perihelion  Aphelion    Mean
+  Solar Constant (W/m^2)         1.56        0.56        0.88
+  Maximum Planetary IR (W/m^2)   0.8         0.3         0.5
+  Minimum Planetary IR (W/m^2)   0.8         0.3         0.5
+*******************************************************************************
+
+
+*******************************************************************************
+Ephemeris / WWW_USER Sat May 25 21:15:44 2024 Pasadena, USA      / Horizons    
+*******************************************************************************
+Target body name: Pluto (999)                     {source: plu060_merged}
+Center body name: Sun (10)                        {source: plu060_merged}
+Center-site name: BODYCENTRIC
+*******************************************************************************
+Start time      : A.D. 2020-Jan-01 00:00:00.0000 UT      
+Stop  time      : A.D. 2020-Feb-01 00:00:00.0000 UT      
+Step-size       : 1440 minutes
+*******************************************************************************
+Target pole/equ : IAU_PLUTO                       {East-longitude positive}
+Target radii    : 1188.3, 1188.3, 1188.3 km       {Equator_a, b, pole_c}       
+Center geodetic : 0.0, 0.0, -695700.0             {E-lon(deg),Lat(deg),Alt(km)}
+Center cylindric: 0.0, 0.0, 0.0                   {E-lon(deg),Dxy(km),Dz(km)}
+Center pole/equ : IAU_SUN                         {East-longitude positive}
+Center radii    : 695700.0, 695700.0, 695700.0 km {Equator_a, b, pole_c}       
+Target primary  : Sun
+Vis. interferer : None
+Rel. light bend : Sun                             {source: plu060_merged}
+Rel. lght bnd GM: 1.3271E+11 km^3/s^2                                          
+Atmos refraction: NO (AIRLESS)
+RA format       : DEG
+Time format     : CAL 
+Calendar mode   : Mixed Julian/Gregorian
+EOP file        : eop.240523.p240816                                           
+EOP coverage    : DATA-BASED 1962-JAN-20 TO 2024-MAY-23. PREDICTS-> 2024-AUG-15
+Units conversion: 1 au= 149597870.700 km, c= 299792.458 km/s, 1 day= 86400.0 s 
+Table cut-offs 1: Elevation (-90.0deg=NO ),Airmass     n.a.    , Daylight (NO )
+Table cut-offs 2: Solar elongation (  0.0,180.0=NO ),Local Hour Angle( 0.0=NO )
+Table cut-offs 3: RA/DEC angular rate (     0.0=NO )                           
+Table format    : Comma Separated Values (spreadsheet)
+*******************************************************************************************************************************
+ Date__(UT)__HR:MN, , , R.A._(ICRF), DEC_(ICRF),  dRA*cosD, d(DEC)/dt,  hEcl-Lon,hEcl-Lat,      PlAng,  Tru_Anom,  App_Lon_Sun,
+*******************************************************************************************************************************
+$$SOE
+ 2020-Jan-01 00:00, , ,   294.38625,  -22.22588,  0.766873,  -0.14996,  292.4721, -0.6690,   -0.00045,   68.0463,   72.9135626,
+ 2020-Jan-02 00:00, , ,   294.39184,  -22.22656,  0.769985,  -0.15064,  292.4771, -0.6705,   -0.00045,   66.1206,   72.9212374,
+ 2020-Jan-03 00:00, , ,   294.39745,  -22.22724,  0.771571,  -0.15346,  292.4822, -0.6720,   -0.00046,   65.0597,   73.0236344,
+ 2020-Jan-04 00:00, , ,   294.40306,  -22.22794,  0.770190,  -0.15591,  292.4872, -0.6736,   -0.00047,   65.7631,   73.1345455,
+ 2020-Jan-05 00:00, , ,   294.40866,  -22.22866,  0.767048,  -0.15579,  292.4922, -0.6751,   -0.00047,   67.6112,   73.1601537,
+ 2020-Jan-06 00:00, , ,   294.41423,  -22.22936,  0.764919,  -0.15322,  292.4971, -0.6767,   -0.00047,   69.0064,   73.0814085,
+ 2020-Jan-07 00:00, , ,   294.41980,  -22.23005,  0.765677,  -0.15048,  292.5021, -0.6782,   -0.00047,   68.6697,   72.9733861,
+ 2020-Jan-08 00:00, , ,   294.42538,  -22.23072,  0.768619,  -0.15002,  292.5071, -0.6797,   -0.00047,   66.8865,   72.9378294,
+ 2020-Jan-09 00:00, , ,   294.43099,  -22.23140,  0.771092,  -0.15224,  292.5121, -0.6812,   -0.00048,   65.3064,   73.0103863,
+ 2020-Jan-10 00:00, , ,   294.43660,  -22.23209,  0.770863,  -0.15517,  292.5171, -0.6828,   -0.00049,   65.3188,   73.1308451,
+ 2020-Jan-11 00:00, , ,   294.44220,  -22.23280,  0.768110,  -0.15619,  292.5221, -0.6843,   -0.00049,   66.8825,   73.1972369,
+ 2020-Jan-12 00:00, , ,   294.44778,  -22.23351,  0.765262,  -0.15439,  292.5271, -0.6859,   -0.00050,   68.6570,   73.1544787,
+ 2020-Jan-13 00:00, , ,   294.45335,  -22.23420,  0.764832,  -0.15137,  292.5321, -0.6874,   -0.00050,   69.0595,   73.0449001,
+ 2020-Jan-14 00:00, , ,   294.45892,  -22.23488,  0.767178,  -0.14983,  292.5370, -0.6889,   -0.00050,   67.6873,   72.9717743,
+ 2020-Jan-15 00:00, , ,   294.46452,  -22.23555,  0.770180,  -0.15114,  292.5420, -0.6904,   -0.00050,   65.8093,   73.0047869,
+ 2020-Jan-16 00:00, , ,   294.47013,  -22.23623,  0.771131,  -0.15412,  292.5470, -0.6919,   -0.00051,   65.1218,   73.1184553,
+ 2020-Jan-17 00:00, , ,   294.47574,  -22.23694,  0.769157,  -0.15612,  292.5520, -0.6935,   -0.00052,   66.1884,   73.2167719,
+ 2020-Jan-18 00:00, , ,   294.48133,  -22.23765,  0.765992,  -0.15535,  292.5570, -0.6951,   -0.00052,   68.0880,   73.2167996,
+ 2020-Jan-19 00:00, , ,   294.48690,  -22.23835,  0.764432,  -0.15250,  292.5620, -0.6966,   -0.00052,   69.1628,   73.1223152,
+ 2020-Jan-20 00:00, , ,   294.49246,  -22.23902,  0.765842,  -0.15010,  292.5670, -0.6981,   -0.00052,   68.4078,   73.0227867,
+ 2020-Jan-21 00:00, , ,   294.49805,  -22.23969,  0.768939,  -0.15031,  292.5720, -0.6996,   -0.00052,   66.5053,   73.0120961,
+ 2020-Jan-22 00:00, , ,   294.50365,  -22.24037,  0.770930,  -0.15292,  292.5770, -0.7011,   -0.00053,   65.2048,   73.1035786,
+ 2020-Jan-23 00:00, , ,   294.50927,  -22.24107,  0.770013,  -0.15562,  292.5820, -0.7027,   -0.00054,   65.6277,   73.2205140,
+ 2020-Jan-24 00:00, , ,   294.51486,  -22.24178,  0.766980,  -0.15598,  292.5870, -0.7042,   -0.00055,   67.3878,   73.2639111,
+ 2020-Jan-25 00:00, , ,   294.52044,  -22.24248,  0.764509,  -0.15370,  292.5919, -0.7058,   -0.00055,   68.9711,   73.1989420,
+ 2020-Jan-26 00:00, , ,   294.52600,  -22.24316,  0.764777,  -0.15079,  292.5969, -0.7073,   -0.00055,   68.9436,   73.0881116,
+ 2020-Jan-27 00:00, , ,   294.53158,  -22.24383,  0.767520,  -0.14986,  292.6019, -0.7088,   -0.00055,   67.3004,   73.0357854,
+ 2020-Jan-28 00:00, , ,   294.53717,  -22.24450,  0.770263,  -0.15173,  292.6069, -0.7103,   -0.00055,   65.5642,   73.0927500,
+ 2020-Jan-29 00:00, , ,   294.54278,  -22.24519,  0.770530,  -0.15474,  292.6119, -0.7119,   -0.00056,   65.2802,   73.2124409,
+ 2020-Jan-30 00:00, , ,   294.54839,  -22.24590,  0.768058,  -0.15619,  292.6169, -0.7134,   -0.00057,   66.6604,   73.2935917,
+ 2020-Jan-31 00:00, , ,   294.55397,  -22.24660,  0.765025,  -0.15479,  292.6219, -0.7150,   -0.00057,   68.5209,   73.2681973,
+ 2020-Feb-01 00:00, , ,   294.55953,  -22.24729,  0.764108,  -0.15180,  292.6268, -0.7165,   -0.00057,   69.2183,   73.1628841,
+$$EOE
+*******************************************************************************************************************************
+Column meaning:
+ 
+TIME
+
+  Times PRIOR to 1962 are UT1, a mean-solar time closely related to the
+prior but now-deprecated GMT. Times AFTER 1962 are in UTC, the current
+civil or "wall-clock" time-scale. UTC is kept within 0.9 seconds of UT1
+using integer leap-seconds for 1972 and later years.
+
+  Conversion from the internal Barycentric Dynamical Time (TDB) of solar
+system dynamics to the non-uniform civil UT time-scale requested for output
+has not been determined for UTC times after the next July or January 1st.
+Therefore, the last known leap-second is used as a constant over future
+intervals.
+
+  Time tags refer to the UT time-scale conversion from TDB on Earth
+regardless of observer location within the solar system, although clock
+rates may differ due to the local gravity field and no analog to "UT"
+may be defined for that location.
+
+  Any 'b' symbol in the 1st-column denotes a B.C. date. First-column blank
+(" ") denotes an A.D. date.
+ 
+CALENDAR SYSTEM
+
+  Mixed calendar mode was active such that calendar dates after AD 1582-Oct-15
+(if any) are in the modern Gregorian system. Dates prior to 1582-Oct-5 (if any)
+are in the Julian calendar system, which is automatically extended for dates
+prior to its adoption on 45-Jan-1 BC.  The Julian calendar is useful for
+matching historical dates. The Gregorian calendar more accurately corresponds
+to the Earth's orbital motion and seasons. A "Gregorian-only" calendar mode is
+available if such physical events are the primary interest.
+
+  NOTE: "n.a." in output means quantity "not available" at the print-time.
+ 
+ 'R.A._(ICRF), DEC_(ICRF),' =
+  Astrometric right ascension and declination of the target center with
+respect to the observing site (coordinate origin) in the reference frame of
+the planetary ephemeris (ICRF). Compensated for down-leg light-time delay
+aberration.
+
+  Units: RA  in decimal degrees,  ddd.fffff{ffff}
+         DEC in decimal degrees,  sdd.fffff{ffff}
+ 
+ 'dRA*cosD, d(DEC)/dt,' =
+  The angular rate of change in aparent RA and DEC of the target. This is
+with respect to the non-inertial IAU76/80 Earth true equator and equinox
+of-date reference frame.  d(RA)/dt is multiplied by the cosine of declination
+to provide a linear rate in the plane-of-sky. Units: ARCSECONDS PER HOUR
+ 
+ 'hEcl-Lon,hEcl-Lat,' =
+    Geometric heliocentric J2000 ecliptic longitude and latitude of target
+center at the instant light leaves it to be observed at print time (print time
+minus down-leg light-time).  Units: DEGREES
+ 
+ 'PlAng,' =
+   Angle between observer and target orbital plane, measured from center
+of target at the moment light seen at observation time leaves the target.
+Positive values indicate observer is above the objects' orbital plane, in
+the direction of reference-frame +z axis.  Units: DEGREES
+ 
+ 'Tru_Anom,' =
+   Apparent true anomaly angle of the targets' heliocentric orbit position;
+the angle in the targets' instantaneous orbit plane from the orbital periapse
+direction to the target, measured positively in the direction of motion.
+The position of the target is taken to be at the moment light seen by the
+observer at print-time would have left the center of the object. That is,
+the heliocentric position of the target used to compute the true anomaly is
+one down-leg light-time prior to the print-time. Units: DEGREES
+ 
+ 'App_Lon_Sun,' =
+  The apparent target-centered longitude of the Sun ("apparent L_s") as seen at
+the target when the light recorded by the observer at print-time reflected off
+the target. It is referred to a coordinate system where the x-axis is the
+equinox direction defined by the targets' instantaneous IAU2015 pole direction
+and heliocentric orbit plane at reflection time, and is measured positively in
+an eastward direction (counter-clockwise around the positive pole of the solar
+system angular momentum vector). On bodies other than the Earth, the quantity
+can indicate boundary dates for the seasons:
+
+             Northern hemisphere           Southern hemisphere
+               0= Spring Equinox             0= Autumn Equinox
+              90= Summer Solstice           90= Winter Solstice
+             180= Autumn Equinox           180= Spring Equinox
+             270= Winter Solstice          270= Summer Solstice
+
+For Earth seasons, instead see quantity #31 ("ObsEcLon") as seen from the
+geocenter, with the Sun as a target.
+
+If the target has no associated spin-pole model (common for asteroids and
+comets), "n.a." will be output. Units: DEGREES
+
+Computations by ...
+
+    Solar System Dynamics Group, Horizons On-Line Ephemeris System
+    4800 Oak Grove Drive, Jet Propulsion Laboratory
+    Pasadena, CA  91109   USA
+
+    General site: https://ssd.jpl.nasa.gov/
+    Mailing list: https://ssd.jpl.nasa.gov/email_list.html
+    System news : https://ssd.jpl.nasa.gov/horizons/news.html
+    User Guide  : https://ssd.jpl.nasa.gov/horizons/manual.html
+    Connect     : browser        https://ssd.jpl.nasa.gov/horizons/app.html#/x
+                  API            https://ssd-api.jpl.nasa.gov/doc/horizons.html
+                  command-line   telnet ssd.jpl.nasa.gov 6775
+                  e-mail/batch   https://ssd.jpl.nasa.gov/ftp/ssd/hrzn_batch.txt
+                  scripts        https://ssd.jpl.nasa.gov/ftp/ssd/SCRIPTS
+    Author      : Jon.D.Giorgini@jpl.nasa.gov
+
+*******************************************************************************************************************************

@@ -1,5 +1,6 @@
-const planetList = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto',
-      'bennu', 'eros', 'didymos', 'ceres', 'cp67p', 'arrokoth'];
+const planets = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto'];
+const smallBodies = ['bennu', 'eros', 'didymos', 'ceres', 'cp67p', 'arrokoth'];
+const planetList = planets.concat(smallBodies);
 
 var planetLsDict = {};
 for (let i=0; i<planetList.length; i++) {
@@ -16,40 +17,6 @@ function showPlanet(e, pname) {
     el = document.getElementById(pname);
     el.className = el.className.replace(' hidden', ' active');
   }
-
-  /*
-  function getLsPlanet(date_int, planet) {
-    tableid = '#ls-'+planet;
-    table_rows = document.querySelectorAll(tableid + ' > tbody:nth-child(2) > tr');
-    let dt0 = 0;
-    let dt1 = 0;
-    let ls0 = 0;
-    let ls1 = 0;
-    for (i=0; i<table_rows.length; i++) {
-      tr_cells = table_rows[i].querySelectorAll('td');
-      trdate_int = Date.parse(tr_cells[0].textContent);
-      trls = parseFloat(tr_cells[1].textContent);
-      if (trdate_int <= datenow_int) {
-        dt0 = trdate_int;
-        ls0 = trls;
-      } else if (trdate_int >= datenow_int) {
-        dt1 = trdate_int;
-        ls1 = trls;
-        break;
-      }
-    }
-    if (ls1 < ls0) {
-      ls1 = ls1-360.0;
-    }
-    dt = dt1 - dt0;
-    dls = ls1 - ls0;
-    ls = ls0 + dls / dt*(datenow_int - dt0);
-    if (ls <= 0) {
-      ls += 360.0;
-    }
-    return ls.toFixed(1);
-  }
-  */
 
   function getDateJSONFileExt(date_int) {
 
@@ -189,10 +156,10 @@ function showPlanet(e, pname) {
     fn = '/assets/data/solar-longitude/ls-hires/hires-' + planet + fileExt + '.json';
 
     /* Send request to get JSON table (list of rows). */
-    const response = await fetch(fn, {
+    const resp = await fetch(fn, {
         method: 'GET',
-    });
-    return response.json().then(
+    })
+    return resp.json().then(
         (resp) => {
             var dtable = resp['data'];
 
@@ -215,17 +182,16 @@ function showPlanet(e, pname) {
                 break;
             }
             }
-            // yearEnd = false;
-            if (ls1 < ls0) {
-            /* account for crossing end of year */
-            ls1 = ls1 + 360.0;
+            if ((ls0 > 300) & (ls1 < 60)) {
+                /* account for crossing end of year */
+                ls1 = ls1 + 360.0;
             }
             /* linear interpolation to estimate Ls at date */
             dt = dt1 - dt0;
             dls = ls1 - ls0;
             ls = ls0 + dls / dt*(date_int - dt0);
             if (ls > 360) {
-            ls = ls - 360.0;
+                ls = ls - 360.0;
             }
             
             if (LsInfoDict != false) {
@@ -241,7 +207,7 @@ function showPlanet(e, pname) {
   function updateDateNow() {
     datenow = new Date();
     document.getElementById('date-now').innerHTML = datenow.toLocaleString();
-    updateLsCells(datenow.getTime());
+    updateLsCells(datenow.getTime()-86400*2*1000);
   }
 
   function updateLsCells(now_int) {
@@ -288,6 +254,7 @@ function showPlanet(e, pname) {
       cell0.setAttribute('class', 'ls-now-planet-name');
       cell1 = row.insertCell();
       cell1.setAttribute('class', 'ls-values');
+      cell1.setAttribute('id', pl+'-ls-values');
       planetLsDict[pl] = {'LsCell':cell1};
       /*
       lsinfo = getLsPlanetTime(datenow_int, pl, true);
@@ -296,7 +263,7 @@ function showPlanet(e, pname) {
       cell1.innerHTML = formatLs(lsval, decimals, width);
       */
       getLsPlanetTimeAsync2(datenow_int, pl, planetLsDict[pl]).then((ls) => {
-            cell1.innerHTML = formatLs(ls);
+            document.getElementById(pl+'-ls-values').innerHTML = formatLs(ls);
         });
     }
 
@@ -305,6 +272,46 @@ function showPlanet(e, pname) {
 
   }
 
+  function createPlanetTable(planetName) {
+    const pretty = prettyName(planetName);
+    /* create table tag */
+    const table = document.createElement('table');
+    table.setAttribute('id', 'ls-'+planetName);
+    table.setAttribute('class', 'display');
+    table.setAttribute('style', 'width:80%');
+    /* create head & foot */
+    const thead = document.createElement('thead');
+    if (planetName == 'mars') {
+        thRow = '<tr>';
+        thRow += '<th>Date</th>';
+        thRow += '<th>Mars Year (<a href="/images/Clancy-etal-JGR-2000.pdf" title="From Clancy et al. (2000)">Clancy+2000</a>)</th>';
+        thRow += '<th>Mars L<sub>s</sub></th>';
+        thRow += '<th>Mars Sol Date (<a href="/images/Allison-etal-PSS-2000.pdf" title="From Equation 32 in Allison et al. (2000)">Allison+2000</a>)</th>';
+        thRow += '</tr>';
+    } else {
+        thRow = '<tr><th>Date</th><th>' + pretty + ' L<sub>s</sub></th></tr>';
+    }
+    thead.insertAdjacentHTML('afterbegin', thRow);
+    const tfoot = document.createElement('tfoot');
+    tfoot.insertAdjacentHTML('afterbegin', thRow)
+    /* add head & foot */
+    table.insertAdjacentElement('afterbegin', thead);
+    table.insertAdjacentElement('beforeend', tfoot);
+    /* make span to contain table */
+    const pspan = document.createElement('span');
+    pspan.setAttribute('id', planetName);
+    pspan.setAttribute('class', 'tablediv hidden');
+    pspan.insertAdjacentHTML('afterbegin', '<h2>'+pretty+' Solar Longitude</h2>');
+    pspan.insertAdjacentHTML('beforeend', 
+        '<small>Download <a href="/assets/data/solar-longitude/'+planetName+'.json">json</a>, '
+        + '<a href="/assets/data/solar-longitude/'+planetName+'.csv">csv</a></small>');
+    /* add table to span and return */
+    pspan.insertAdjacentElement('beforeend', table);
+    return pspan;
+  }
+
+
+
   function initPage() {
 
     // handle collapsible
@@ -312,11 +319,13 @@ function showPlanet(e, pname) {
     var i;
     for (i = 0; i < coll.length; i++) {
         var title = document.getElementById(coll[i].id + '-title');
-        title.innerHTML = "&ndash; " + title.innerHTML;
+        if (coll[i].classList.contains('pactive')) {
+            title.innerHTML = "&ndash; " + title.innerHTML;
+        } else {
+            title.innerHTML = "&plus; " + title.innerHTML;
+        }
         coll[i].addEventListener("click", function() {
             this.classList.toggle("pactive");
-            /* var title = document.getElementById(this.id + '-title'); */
-            /* var content = this.nextElementSibling; */
             var content = document.getElementById(this.id + '-content');
             if (content.style.display === "block") {
                 content.style.display = "none";
@@ -332,13 +341,18 @@ function showPlanet(e, pname) {
     // calculate current Ls values for table
     initLsNowTable();
 
+    let lastEl = document.getElementById('bodylist');
+
     for (let i=0; i<planetList.length; i++) {
         column_list = [{ data : 'date' }, { data : 'Ls' }];
         planet = planetList[i];
         if (planet.toLowerCase() == 'mars') {
             column_list = [{ data : 'date' }, { data : 'MY' }, { data : 'Ls' }, { data : 'MSD' } ];
         }
-        let dtable = new DataTable('#ls-' + planet, {
+        ptable = createPlanetTable(planet);
+        lastEl.insertAdjacentElement('afterend', ptable);
+        lastEl = ptable;
+        new DataTable('#ls-' + planet, {
             ajax : 'assets/data/solar-longitude/' + planet + '.json',
             columns : column_list,
             // scrollY : true,
@@ -347,6 +361,7 @@ function showPlanet(e, pname) {
             columnDefs: {
                 targets : -1,
                 className : 'dt-center',
+                deferRender: true,
             },
             // displayStart: 20,
             initComplete : function () {
@@ -369,18 +384,8 @@ function showPlanet(e, pname) {
                         });
                     });
             },
-            })
+            });
     }
-
-    /*
-    new DataTable('#dt-mercury', {
-        ajax : 'assets/data/solar-longitude/mercury.json',
-        columns : [
-            { data : 'date' },
-            { data : 'Ls' }
-        ]
-    });
-    */
 
   }
 
