@@ -46,8 +46,7 @@ def ingest_horizon_ephem(fn):
 
 def do_extra_mars(df):
     # calculate julian date
-    df["date_ts"] = pd.to_datetime(df["date"])
-    df["JD"] = (df["date_ts"] - pd.to_datetime("1970-01-01")).astype(int)/1e9/86400 + 2440587.5
+    df["JD"] = (df["date_dt"] - pd.to_datetime("1970-01-01")).astype(int)/1e9/86400 + 2440587.5
     # calculate Mars Standard Date (from eq 32 in Allison+2020,
     #  neglecting any difference between TAI and UTC)
     # df["MSD"] = (df["JD"] - 2405522)/1.02749
@@ -82,15 +81,20 @@ def do_extra_mars(df):
 
     # round MSD to single digit precision
     df["MSD"] = df["MSD"].round(1)
-    return df[["date", "Ls", "MSD", "MY"]]
+    return df[["date", "Ls", "MSD", "MY", "date_dt"]]
+
+def format_date(df):
+    df["date_dt"] = pd.to_datetime(df.date)
+    df["date"] = df["date_dt"].dt.strftime("%Y-%m-%d")
+    return df
 
 for planet in planet_list:
     print(planet)
     fn = "horizons_results_" + planet + ".txt"
 
     df = ingest_horizon_ephem("horizons_output/"+fn)
-    dt = pd.to_datetime(df.date)
-    df["date"] = dt.dt.strftime("%Y-%m-%d")
+    df = format_date(df)
+    dt = df["date_dt"]
     lx = (dt >= "1960-01-01") & (dt <= "2070-01-01")
     if planet in ["saturn", "uranus", "neptune", "pluto", "arrokoth"]:
         lx &= df["date"].str.contains("-01-")
@@ -100,8 +104,8 @@ for planet in planet_list:
         pass
         # lx &= df["date"].str.contains("-Jan-") | df["date"].str.contains("-Jun-")
     df = df.loc[lx]
-    df["date"] = df["date"].str.strip().str[:11]
-    df["Ls"] = df["Ls"].round(1)
+    # df["date"] = df["date"].str.strip().str[:11]
+    df["Ls"] = df["Ls"].round(2)
     # planet-specific processing
     if planet.lower() == "mars":
         df = do_extra_mars(df)
@@ -117,19 +121,20 @@ for planet in planet_list:
     #     continue
     fn_hires = "horizons_hires/horizons_results_hires-" + planet + ".txt"
     df = ingest_horizon_ephem("horizons_output/"+fn_hires)
+    df = format_date(df)
     # planet-specific processing
     if planet.lower() == "mars":
         df = do_extra_mars(df)
     else:
-        df = df[["date","Ls"]]
+        df = df[["date","Ls","date_dt"]]
     
-    df["date"] = df["date"].str.strip().str[:11]
-    df["Ls"] = df["Ls"].round(3)
+    # df["date"] = df["date"].str.strip().str[:11]
+    df["Ls"] = df["Ls"].round(6)
     df = df.set_index("date")
     fn = f"../../assets/data/solar-longitude/ls-hires/hires-{planet}.json"
     # fn = f"../../_data/ls-hires/hires-{planet}.json"
 
-    dt = pd.to_datetime(df.index)
+    dt = df["date_dt"]
 
     # split up into multiple smaller files with 3 months overlap
     lx = (dt <= "1980-03-05")
