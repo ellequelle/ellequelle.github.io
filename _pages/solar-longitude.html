@@ -23,11 +23,64 @@ redirect_from:
     display: block;
   }
 
+  .pcollapsible {
+    outline: #444;
+    outline-width: 1px;
+    outline-color: #444;
+  }
+
+  .pcollapsible-title {
+    margin-top: 0.5em;
+  }
+
+  .collapsible-section {
+    outline: #aaa;
+    outline-width: 1px;
+    outline-style: solid;
+    padding: 5px;
+    padding-top: 5px;
+    background-color: #fafafa;
+  }
+
+  .bodylist {
+    font-size: 1em;
+    padding: 0px;
+    line-height: 1.2;
+    vertical-align: top;
+  }
+
+  .bodylistcell {
+    width: 50%;
+  }
+
+  .ls-values {
+    font-family: monospace;
+    text-align: center;
+  }
+
+  .ls-now-planet-name {
+    text-align: center;
+  }  
+
+  .ls-now-header {
+    text-align: center;
+  }
+
+  #ls-now-table {
+    font-size: 0.8em;
+    line-height: 1.2;
+  }
+
+  #date-now {
+    font-family: monospace;
+    font-size: 0.9em;
+  }
 </style>
 
-<h2 class="pcollapsible">Solar Longitude description</h2>
-<section id="ls-description" class="ls-description pcontent">
-Solar longitude, often written <em>L<sub>s</sub></em>, is a kind of calendar to measure the time 
+<div id="ls-description" class="pcollapsible collapsible-section pactive">
+<h3 id="ls-description-title" class="pcollapsible-title">Solar Longitude description</h3>
+<section id="ls-description-content" class="ls-description pcontent" style="display: block">
+<a href="https://en.wikipedia.org/wiki/Solar_longitude">Solar longitude</a>, often written <em>L<sub>s</sub></em>, is a kind of calendar to measure the time 
 of year for solar system bodies other than the Earth. Since the 
 <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian Calendar</a> 
 is based on Earth's 365.25 day orbital period, it isn't as useful for other planetary bodies that may have 
@@ -35,43 +88,124 @@ much shorter or longer seasons. Instead, solar longitude measures the time of ye
 vernal (spring) equinox in the northern hemisphere. One month on Earth corresponds to a solar longitude interval 
 of approximately 30&deg;, and each season starts at a multiple of 90&deg;.
 </section>
+</div>
 
 </br>
 
-<table id="ls-now-table" class="display" style="width:80%">
+<table id="ls-now-table" class="display" style="width:80%; margin-left: auto; margin-right: auto;">
   <thead>
     <tr>
-      <th>Planet</th>
-      <th>Current L<sub>s</sub> (approximate)</br><b id="date-now"></b></th>
+      <th class="ls-now-header">Planet<br></th>
+      <th class="ls-now-header">Current L<sub>s</sub> (approximate)</br><b id="date-now"></b></th>
     </tr>
   </thead>
   <tbody id="ls-now-tbody">
-    <tr></tr>
+    <tr>
+      <!-- <td id="lsnow-mercury-label" class="ls-now-planet-name">Mercury</td>
+      <td id="lsnow-mercury"></td> -->
+    </tr>
+    <!-- <tr>
+      <td id="lsnow-venus-label" class="ls-now-planet-name">Venus</td>
+      <td id="lsnow-venus"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-earth-label" class="ls-now-planet-name">Earth</td>
+      <td id="lsnow-earth"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-mars-label" class="ls-now-planet-name">Mars</td>
+      <td id="lsnow-mars"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-jupiter-label" class="ls-now-planet-name">Jupiter</td>
+      <td id="lsnow-jupiter"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-saturn-label" class="ls-now-planet-name">Saturn</td>
+      <td id="lsnow-saturn"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-uranus-label" class="ls-now-planet-name">Uranus</td>
+      <td id="lsnow-uranus"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-neptune-label" class="ls-now-planet-name">Neptune</td>
+      <td id="lsnow-neptune"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-pluto-label" class="ls-now-planet-name">Pluto</td>
+      <td id="lsnow-pluto"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-bennu-label" class="ls-now-planet-name">Bennu</td>
+      <td id="lsnow-bennu"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-eros-label" class="ls-now-planet-name">Eros</td>
+      <td id="lsnow-eros"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-didymos-label" class="ls-now-planet-name">Didymos</td>
+      <td id="lsnow-didymos"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-ceres-label" class="ls-now-planet-name">Ceres</td>
+      <td id="lsnow-ceres"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-cg67p-label" class="ls-now-planet-name">67P/Churyumov–Gerasimenko</td>
+      <td id="lsnow-cg67p"></td>
+    </tr>
+    <tr>
+      <td id="lsnow-arrokoth-label" class="ls-now-planet-name">Arrokoth</td>
+      <td id="lsnow-arrokoth"></td>
+    </tr> -->
   </tbody>
 </table>
 
-
 <h2>Solar longitude tables for solar system objects</h2>
-Click a solar system body for a table of solar longitude every terrestrial month from 1960 to 2070.
+Click a solar system body for a table of solar longitude between 1960 and 2070.
 
+<table class="bodylist">
+  <thead>
+    <tr>
+      <th title="According to the popular/pre-2006 definition.">Planets</th>
+      <th>Small bodies</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="bodylist">
+      <td class="bodylist bodylistcell">
+        <ul>
+          <li><a href="#-ls-mercury" onclick="showPlanet(event, 'mercury')">Mercury</a></li>
+          <li><a href="#-ls-venus" onclick="showPlanet(event, 'venus')">Venus</a></li>
+          <li><a href="#-ls-earth" onclick="showPlanet(event, 'earth')">Earth</a></li>
+          <li><a href="#-ls-mars" onclick="showPlanet(event, 'mars')">Mars</a></li>
+        <!-- </ul>
+      </td>
+      <td class="bodylist bodylistcell">
+        <ul> -->
+          <li><a href="#-ls-jupiter" onclick="showPlanet(event, 'jupiter')">Jupiter</a></li>
+          <li><a href="#-ls-saturn" onclick="showPlanet(event, 'saturn')">Saturn</a></li>
+          <li><a href="#-ls-uranus" onclick="showPlanet(event, 'uranus')">Uranus</a></li>
+          <li><a href="#-ls-neptune" onclick="showPlanet(event, 'neptune')">Neptune</a></li>
+          <li><a href="#-ls-pluto" onclick="showPlanet(event, 'pluto')">Pluto</a></li>
+        </ul>
+      </td>
+      <td class="bodylist bodylistcell">
+        <ul>
+          <li><a href="#-ls-bennu" onclick="showPlanet(event, 'bennu')">Bennu</a></li>
+          <li><a href="#-ls-eros" onclick="showPlanet(event, 'eros')">Eros</a></li>
+          <li><a href="#-ls-didymos" onclick="showPlanet(event, 'didymos')">Didymos</a></li>
+          <li><a href="#-ls-ceres" onclick="showPlanet(event, 'ceres')">Ceres</a></li>
+          <li><a href="#-ls-cp67p" onclick="showPlanet(event, 'cp67p')">67P/Churyumov–Gerasimenko</a></li>
+          <li><a href="#-ls-arrokoth" onclick="showPlanet(event, 'arrokoth')">Arrokoth</a></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-<ul>
-  <li><a href="#-ls-mercury" onclick="showPlanet(event, 'mercury')">Mercury</a></li>
-  <li><a href="#-ls-venus" onclick="showPlanet(event, 'venus')">Venus</a></li>
-  <li><a href="#-ls-earth" onclick="showPlanet(event, 'earth')">Earth</a></li>
-  <li><a href="#-ls-mars" onclick="showPlanet(event, 'mars')">Mars</a></li>
-  <li><a href="#-ls-jupiter" onclick="showPlanet(event, 'jupiter')">Jupiter</a></li>
-  <li><a href="#-ls-saturn" onclick="showPlanet(event, 'saturn')">Saturn</a></li>
-  <li><a href="#-ls-uranus" onclick="showPlanet(event, 'uranus')">Uranus</a></li>
-  <li><a href="#-ls-neptune" onclick="showPlanet(event, 'neptune')">Neptune</a></li>
-  <li><a href="#-ls-pluto" onclick="showPlanet(event, 'pluto')">Pluto</a></li>
-  <li><a href="#-ls-cp67p" onclick="showPlanet(event, 'cp67p')">67P/Churyumov–Gerasimenko</a></li>
-  <li><a href="#-ls-eros" onclick="showPlanet(event, 'eros')">Eros</a></li>
-  <li><a href="#-ls-ceres" onclick="showPlanet(event, 'ceres')">Ceres</a></li>
-  <li><a href="#-ls-bennu" onclick="showPlanet(event, 'bennu')">Bennu</a></li>
-  <li><a href="#-ls-didymos" onclick="showPlanet(event, 'didymos')">Didymos</a></li>
-  <li><a href="#-ls-arrokoth" onclick="showPlanet(event, 'arrokoth')">Arrokoth</a></li>
-</ul>
 
 
 <span id="mercury" class="tablediv hidden">
@@ -371,170 +505,4 @@ Click a solar system body for a table of solar longitude every terrestrial month
 </span>
 
 
-<!-- <div class="tab">
-  <button class="tablinks active" onclick="openPlanet(event, 'Jupiter')">Jupiter</button>
-  <button class="tablinks" onclick="openPlanet(event, 'Saturn')">Saturn</button>
-  <button class="tablinks" onclick="openPlanet(event, 'Uranus')">Uranus</button>
-</div>
-
-<div id="Jupiter" class="tabcontent">
-<table id="jupiter-table" class="display"><thead>
-  <tr>
-      <th>Date</th>
-      <th>Jupiter Ls</th>
-  </tr>
-</thead>
-<tfoot>
-  <tr>
-    <th>Date</th>
-    <th>Jupiter Ls</th>
-  </tr>
-</tfoot>
-</table>
-</div>
-
-<div id="Saturn" class="tabcontent">
-<table id="saturn-table" class="display"><thead>
-  <tr>
-      <th>Date</th>
-      <th>Saturn Ls</th>
-  </tr>
-</thead>
-<tfoot>
-  <tr>
-    <th>Date</th>
-    <th>Saturn Ls</th>
-  </tr>
-</tfoot>
-</table>
-</div>
-
-<div id="Uranus" class="tabcontent">
-<table id="uranus-table" class="display"><thead>
-  <tr>
-      <th>Date</th>
-      <th>Uranus Ls</th>
-  </tr>
-</thead>
-<tfoot>
-  <tr>
-    <th>Date</th>
-    <th>Uranus Ls</th>
-  </tr>
-</tfoot>
-</table>
-</div>
-
-
-<script type="text/javascript">
-
-function openPlanet(evt, planetName) {
-  // Declare all variables
-  var i, tabcontent, tablinks;
-
-  // Get all elements with class="tabcontent" and hide them
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-
-  // Get all elements with class="tablinks" and remove the class "active"
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-
-  // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(planetName).style.display = "";
-  evt.currentTarget.className += " active";
-} 
-
-
-new DataTable('#jupiter-table', {
-    ajax: 'files/solar-longitude/jupiter.json',
-    columns: [
-        { data: 'date' },
-        { data: 'Ls' },
-        // { title: 'Office' },
-        // { title: 'Extn.' },
-        // { title: 'Start date' },
-        // { title: 'Salary' }
-    ]
-});
-  
-
-new DataTable('#saturn-table', {
-    ajax: 'files/solar-longitude/saturn.json',
-    columns: [
-        { data: 'date' },
-        { data: 'Ls' },
-        // { title: 'Office' },
-        // { title: 'Extn.' },
-        // { title: 'Start date' },
-        // { title: 'Salary' }
-    ]
-});
-
-
-
-new DataTable('#uranus-table', {
-    ajax: 'files/solar-longitude/uranus.json',
-    columns: [
-        { data: 'date' },
-        { data: 'Ls' },
-        // { title: 'Office' },
-        // { title: 'Extn.' },
-        // { title: 'Start date' },
-        // { title: 'Salary' }
-    ]
-});
-
-
-</script>
-
-
-<style > /* Style the tab */
-  .tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-  }
-  
-  /* Style the buttons that are used to open the tab content */
-  .tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-  }
-  
-  /* Change background color of buttons on hover */
-  .tab button:hover {
-    background-color: #ddd;
-  }
-  
-  /* Create an active/current tablink class */
-  .tab button.active {
-    background-color: #ccc;
-  }
-  
-  /* Style the tab content */
-  .tabcontent {
-    /* display: none; */
-    /* padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none; */
-  } </style> -->
-
-
-
-
-  <script type="text/javascript">
-
-  </script>
-  
-  
   
