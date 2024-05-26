@@ -213,7 +213,7 @@ function showPlanet(e, pname) {
   function updateDateNow() {
     datenow = new Date();
     document.getElementById('date-now').innerHTML = datenow.toLocaleString();
-    updateLsCells(datenow.getTime()-86400*2*1000);
+    updateLsCells(datenow.getTime());
   }
 
   function updateLsCells(now_int) {
