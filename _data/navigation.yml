@@ -1,24 +1,22 @@
 # main links links
 main:
-  - title: "Publications"
-    url: /publications/
+  # - title: "Publications"
+  #   url: /publications/
 
   # - title: "Talks"
   #   url: /talks/
 
-  - title: "Teaching"
-    url: /teaching/    
-    
-#  - title: "Portfolio"
-#    url: /portfolio/
-        
-  - title: "Blog Posts"
-    url: /year-archive/
-    
   - title: "CV"
     url: /files/cv/leh-cv-20240611.html
-    
-  - title: "Solar Longitude Tables"
+
+#  - title: "Portfolio"
+#    url: /portfolio/
+
+  - title: "Posts"
+    url: /year-archive/
+
+  - title: "Teaching"
+    url: /teaching/
+
+  - title: "Solar Longitude"
     url: /Ls/
-#  - title: "Guide"
-#    url: /markdown/
