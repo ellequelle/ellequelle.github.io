@@ -15,8 +15,11 @@ main:
   - title: "Posts"
     url: /year-archive/
 
-  - title: "Teaching"
-    url: /teaching/
+  - title: "Software"
+    url: /software/
 
   - title: "Solar Longitude"
     url: /Ls/
+
+  - title: "Teaching"
+    url: /teaching/
