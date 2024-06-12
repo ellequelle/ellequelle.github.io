@@ -4,17 +4,54 @@ permalink: /software
 author_profile: true
 ---
 
-
 None of these are "release" quality and they are not actively being maintained, but I may 
 push updates every so often.
 Please let me know if you find any of these useful, or if you have any questions or comments!
 <ul>
-  <li><a href="https://github.com/ellequelle/solar-longitude">SaturnLs</a>: a 
-    command line tool to convert Saturn L<sub>s</sub> and date.</li>
-  <li><a href="https://github.com/ellequelle/mcspy">MCSPy</a>: a python package to 
-    download and access atmospheric profiles from the Mars Climate Sounder.</li>
-  <li><a href="https://github.com/ellequelle/contourdyn">contourdyn</a>: a 
-    vorticity contour dynamics script based on a code by Darryn Waugh.</li>
+  <li>
+    <b><a href="https://github.com/ellequelle/solar-longitude">SaturnLs</a></b>: a 
+    command line tool to convert Saturn L<sub>s</sub> and date.<br/>
+      Measurements or observations of Titan's atmosphere are usually reported in terms of 
+      time and date on the Earth-based
+       <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian calendar</a>,
+      but it's easier to understand Titan's climate and seasonal cycles using a
+      calendar system based on Saturn's position in its orbit. I wrote SaturnLs to provide
+      a way to easily convert from Earth date to solar longitude and back using a simple 
+      command line tool. The script uses ephemeris downloaded from JPL's Horizons tool
+      and is used as follows:
+    <pre 
+    style="font-size: small; font-family: monospace;
+    background-color: #f0f0f0; margin-left: 10%; margin-right: 20%;
+    padding: 0.6em;
+    border: #888; border-style: solid; border-width: 1px;">
+> saturnLs 2012-08-03 # convert date to Ls
+ Ls(2012-08-03) = SY 9, 35.8979°
+
+> saturnLs 26.3 # convert Ls to date
+ Date(SY 9, 26.3°) = 2011-10-09 20:43:29.169254400
+
+> saturnLs -s 2012-08-03 35.9 # simple output
+ 9 35.8979
+ 2012-08-03 01:28:42.530291200
+ 
+> saturnLs 2012-08-03 35.9 # convert multiple dates
+ Ls(2012-08-03) = SY 9, 35.8979°
+ Date(SY 9, 35.9°) = 2012-08-03 01:28:42.530291200
+
+> saturnLs -S 8 35.9 # specify Saturn year
+ Date(SY 8, 35.9°) = 1983-02-22 17:23:45.891884032
+
+> saturnLs -j 63.2 # return Julian date
+ Date(SY 9, 63.2°) = 2457015.818940</pre>
+  </li>
+  <li>
+    <b><a href="https://github.com/ellequelle/mcspy">MCSPy</a></b>: a python package to 
+    download and access atmospheric profiles from the Mars Climate Sounder.
+  </li>
+  <li>
+    <b><a href="https://github.com/ellequelle/contourdyn">contourdyn</a></b>: a 
+    vorticity contour dynamics script based on a code by Darryn Waugh.
+  </li>
 </ul>
 
 
