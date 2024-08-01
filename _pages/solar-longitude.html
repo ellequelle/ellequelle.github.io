@@ -1,10 +1,11 @@
 ---
-title: "Solar Longitude Tables"
-excerpt: "Tables of solar longitude for solar system objects"
+title: "Solar Longitude Clock"
+excerpt: "Solar longitudes of solar system objects"
 permalink: /Ls.html
 author_profile: true
 redirect_from:
   - /Ls/
+  - /solar-longitude.html
 ---
 
 
@@ -80,28 +81,129 @@ redirect_from:
     margin-right: 10%;
   }
 
-  #date-now {
+  .datenow {
     font-family: monospace;
     font-size: 0.9em;
   }
+
+  #ls-seasons {
+    text-align: center;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 </style>
 
-<div id="ls-description" class="pcollapsible collapsible-section pactive">
-<h3 id="ls-description-title" class="pcollapsible-title">Description of Solar Longitude</h3>
-<section id="ls-description-content" class="ls-description pcontent" style="display: block">
+
+<table id="ls-now-table" class="display" style="width:80%; margin-left: auto; margin-right: auto;">
+  <thead>
+    <tr>
+      <th class="ls-now-header">Planet<br></th>
+      <th class="ls-now-header">Current L<sub>s</sub>*<br/><b
+  id="date-now" class="datenow"></b><br/><b id="date-utc" class="datenow"></b></th>
+    </tr>
+  </thead>
+  <tbody id="ls-now-tbody">
+    <tr>
+      <!-- table is filled in by JS -->
+    </tr>
+  </tbody>
+</table>
+<span id="ls-now-note"><small>*Interpolation of timeseries obtained from the <a href="https://ssd.jpl.nasa.gov/horizons/">JPL/Horizons portal</a>, 
+  calculated using JPL's <a href="https://ssd.jpl.nasa.gov/doc/de440_de441.html">DE440 and DE441 ephemerides</a>.</small></span>
+
+
+<div id="ls-description" class="">
+<h3 id="ls-description-title" class="">Description of Solar Longitude</h3>
+<section id="ls-description-content" class="" style="display: block">
 <p>
   <a href="https://en.wikipedia.org/wiki/Solar_longitude">Solar longitude</a>, often written
-  <em>L<sub>s</sub></em>, is a kind of calendar to measure the time of year for solar system bodies other 
-  than the Earth. Since the <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian Calendar</a> 
-  is based on Earth's 365.25 day orbital period, it isn't as useful for other planetary bodies that may have 
-  much shorter or longer seasons. Instead, solar longitude denotes the time of year as an angle measured from 
-  vernal equinox in the northern hemisphere, which occurs when the Sun crosses the equator into the northern 
-  hemisphere.
+  <em>L<sub>s</sub></em> can be used as a kind of calendar (this is an approximation, see below for
+  more details) to measure the time of year for solar system bodies other than the Earth. Since the 
+  <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian Calendar</a> 
+  is based on Earth's 365.25 day orbital period, it isn't as useful for other planetary bodies that have 
+  much shorter or longer seasons. Instead, solar longitude denotes the time of year as an angle measured
+  from the northern spring equinox, which occurs when the Sun crosses the equator into the northern
+  hemisphere. Each season starts at a L<sub>s</sub> multiple of 90&deg; as follows: 
+<table id="ls-seasons">
+  <thead>
+    <tr>
+      <th class="ls-now-header">L<sub>s</sub></th>
+      <th class="ls-now-header">Northern hemisphere</th>
+      <th class="ls-now-header">Southern hemisphere</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>0&deg;</td>
+    <td>Spring (vernal) equinox</td>
+    <td>Fall (autumnal) equinox</td>
+  </tr>
+  <tr>
+    <td>90&deg;</td>
+    <td>Summer solstice</td>
+    <td>Winter solstice</td>
+  </tr>
+  <tr>
+    <td>180&deg;</td>
+    <td>Fall (autumnal) equinox</td>
+    <td>Spring (vernal) equinox</td>
+  </tr>
+  <tr>
+    <td>270&deg;</td>
+    <td>Winter solstice</td>
+    <td>Summer solstice</td>
+  </tr>
+  </tbody>
+</table>
+  On Earth, one month corresponds to a solar longitude interval of
+approximately 30&deg;, but that is not always true. Seasons on planets
+like Mars or Saturn, which have more eccentric orbits than Earth, have
+wildly varying durations. For example, during the current Saturn year,
+northern summer will last about 7.95 terrestrial years (May 2017 to
+May 2025), while northern winter will only last 6.78 terrestrial years
+(April 2032 to January 2039), even though are both exactly 90&deg; long when
+measured in terms of solar longitude. Because of this, planetary
+scientists often use solar longitude in papers when discussing
+seasonal phenomena like weather, climate, solar radiation, or space
+weather.
 </p>
-<p>One month on Earth corresponds to a solar longitude interval of approximately 30&deg; and each season 
-  starts at a multiple of 90&deg;. Spring in the northern hemisphere begins at L<sub>s</sub> = 0&deg;
-   (the vernal equinox), summer at L<sub>s</sub> = 90&deg; (the summer solstice), fall at L<sub>s</sub> = 
-   180&deg; (the autumnal equinox), and winter at L<sub>s</sub> = 270&deg; (the winter solstice).
+<p>
+Since solar longitude is difficult to calculate I provide tables below
+listing the solar longitudes of each body from 1960 to 2070. In the
+future I plan to add a tool to look up L<sub>s</sub>, but for now I
+include a clock indicating the current L<sub>s</sub> at each body.
+</p>
+</section>
+</div>
+
+
+<div id="ls-description2" class="pcollapsible collapsible-section">
+<h3 id="ls-description2-title" class="pcollapsible-title">Additional details</h3>
+<section id="ls-description2-content" class="ls-description pcontent" style="display: none">
+
+<p>
+  While solar longitude can be treated as a useful calendar, it is
+  actually defined as the position of the Sun from the perspective
+  of a given planet, expressed as the angle of the Sun from the
+  vernal equinox, measured in the planet's orbital plane, which on Earth
+  is simply the
+  <a
+  href="https://en.wikipedia.org/wiki/Ecliptic_coordinate_system#Spherical_coordinates">ecliptic
+  longitude</a> of the Sun. For a planet with a circular orbit and no moons,
+  the solar longitude would always increase at a constant rate. In an
+  eccentric orbit, the solar longitude increases slower when the planet
+  is farther from the sun and faster when it is close to the Sun. This
+  is relatively simple to predict since the planet still follows a simple
+  elliptical path. Moons orbiting the planet make the situation far more
+  complicated. Gravity from an orbiting moon pulls on the planet,
+  making the planet speed up and slow down depending on the position of 
+  the moon in its orbit. These perturbations in the planet's orbital
+  velocity cause small changes in the derivative of solar
+  longitude, and if the moons are large enough compared to the planet,
+  they can even make the derivative of solar longitude temporarily
+  flip signs.
 </p>
 <p>
   <b>Why is Pluto's L<sub>s</sub> changing so fast compared to Uranus and Neptune?</b> Charon, Pluto's largest 
@@ -114,26 +216,37 @@ redirect_from:
   changes so that on average Pluto only orbits about 1.45&deg; every Earth year, less than 0.004&deg; per 
   Earth day.
 </p>
+<h4 style="font-size:1em;">A mean solar longitude</h4>
+<p>
+The potential for solar longitude to temporarily change direction
+makes it significantly less useful as a calendar, since a calendar
+should be able to uniquely specify a given point in time. Instead, we
+can take a cue from historical orbital mechanics, which often defines 
+<emph>true</emph> and <emph>mean</emph> quantities, such that the
+<emph>mean</emph> variable is equivalent to the <emph>true</emph>
+variable if the orbit was idealized in some way. For example, the true
+  anomaly is the actual angular position of a body in its orbit, while
+  the mean anomaly is the angular position it would be at if the orbit
+  was circular. This is convenient because the mean anomaly angle
+  increases at a nearly constant rate, so it can be calculated by
+  simply multiplying the mean orbital speed by time. On the other hand,
+  calculating the true anomaly involves accounting for the
+  eccentricity, which can be difficult.
+</p>
+<p>
+Neither the mean nor the true anomaly make good calendars, since
+they are both based on periapsis rather than the solstice, but we 
+can image a similar "mean solar longitude" that preserves the seasonal
+information but not perturbations due to moons. I define "mean solar
+longitude" as the solar longitude as observed from the barycenter of 
+the planetary system, but still measured from the longitude of the
+vernal equinox of the planet primary. The values calculated and listed
+below are the standard solar longitude and not the "mean solar longitude."
+</p>
 </section>
 </div>
 
 </br>
-
-<table id="ls-now-table" class="display" style="width:80%; margin-left: auto; margin-right: auto;">
-  <thead>
-    <tr>
-      <th class="ls-now-header">Planet<br></th>
-      <th class="ls-now-header">Current L<sub>s</sub>*</br><b id="date-now"></b></th>
-    </tr>
-  </thead>
-  <tbody id="ls-now-tbody">
-    <tr>
-      <!-- table is filled in by JS -->
-    </tr>
-  </tbody>
-</table>
-<span id="ls-now-note"><small>*Interpolation of timeseries obtained from the <a href="https://ssd.jpl.nasa.gov/horizons/">JPL/Horizons portal</a>, 
-  calculated using JPL's <a href="https://ssd.jpl.nasa.gov/doc/de440_de441.html">DE440 and DE441 ephemerides</a>.</small></span>
 
 <h2>Solar longitude tables for solar system objects</h2>
 Click a solar system body for a table of solar longitude between 1960 and 2070.

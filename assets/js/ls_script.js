@@ -210,9 +210,13 @@ function showPlanet(e, pname) {
     });
   }
 
+  redate = new RegExp("\\(.+\\)", "i");
+
   function updateDateNow() {
     datenow = new Date();
-    document.getElementById('date-now').innerHTML = datenow.toLocaleString();
+    document.getElementById('date-now').innerHTML = datenow.toString().replace(redate, "");
+    //document.getElementById('date-now').innerHTML = datenow.toLocaleString();
+    //document.getElementById('date-utc').innerHTML = "(" + datenow.toUTCString() + ")";
     updateLsCells(datenow.getTime());
   }
 
