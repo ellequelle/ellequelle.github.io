@@ -35,7 +35,11 @@ each of the the four giant planets.
 When the four giant planets are all on the same side the barycenter is pulled far beyond the solar radius,
 and when they are all pulling in different directions the barycenter falls close to the center of the Sun.
 
-<a href="https://ellequelle.github.io/images/barycenter.html"><img src="https://ellequelle.github.io/images/barycenter.gif" style="width:500px;"></a>
+<a href="/images/barycenter.html"><img src="/images/barycenter.gif" style="width:500px;"></a>
+
+This essentially matches Figure 2 from [Park et al. (2021)](https://doi.org/10.3847/1538-3881/abd414), which shows the position of the barycenter between the years 2000 and 2100:
+
+<img src="/images/Park-etal-ApJ-2021-Fig2.png" style="width:900px;"/>
 
 Next, I wanted to see the position of the barycenter in all three coordinates over the entire time period.
 The figure below shows the Sun-barycenter distance in the x, y, and z directions, with the bottom plot showing the euclidian distance.
@@ -44,6 +48,8 @@ According to these calculations the solar system barycenter spends about 62% of 
 The barycenter is only within the Sun about 38% of the time and within half a solar radius of the Sun's center less than 7% of the time.
 In other words, you could say Earth actually spends less than half of its time "orbiting the Sun."
 
-<img src="https://ellequelle.github.io/images/barycenter-400.png">
+<img src="/images/barycenter-400.png" style="width:600px;">
+
+The vertical axis is in units of solar radius, and dashed lines indicate &plusmn;1 solar radius in each plot.
 
 Calculations can be reproduced using <a href="/files/ss_barycenter.ipynb">this Jupyter notebook</a> (<a href="/files/ss_barycenter.pdf">also available as pdf</a>).
