@@ -12,7 +12,7 @@ location: "University Park, PA and Baltimore, MD"
 
 ## Johns Hopkins University
 ### Department of Earth and Planetary Sciences 
-* A Guided Tour of the Solar System (Spring 2023, expected)
+* Guided Tour: The Planets (Spring 2023, Spring 2024)
 
 ## Penn State University
 ### Department of Meteorology and Atmospheric Science
