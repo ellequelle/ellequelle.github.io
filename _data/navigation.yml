@@ -1,8 +1,5 @@
 # main links links
 main:
-  # - title: "Publications"
-  #   url: /publications/
-
   # - title: "Talks"
   #   url: /talks/
 
@@ -10,8 +7,14 @@ main:
     url: /cv/
     # url: /files/cv/leh-cv-20240614.html
 
+  - title: "Research"
+    url: /research/
+
 #  - title: "Portfolio"
 #    url: /portfolio/
+
+  - title: "Teaching"
+    url: /teaching/
 
   - title: "Posts"
     url: /year-archive/
@@ -21,6 +24,3 @@ main:
 
   - title: "Solar Longitudes"
     url: /Ls/
-
-  - title: "Teaching"
-    url: /teaching/
