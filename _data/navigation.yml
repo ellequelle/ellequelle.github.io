@@ -13,9 +13,6 @@ main:
 #  - title: "Portfolio"
 #    url: /portfolio/
 
-  - title: "Teaching"
-    url: /teaching/
-
   - title: "Posts"
     url: /year-archive/
 
@@ -24,3 +21,6 @@ main:
 
   - title: "Solar Longitudes"
     url: /Ls/
+
+  - title: "Teaching"
+    url: /teaching/
