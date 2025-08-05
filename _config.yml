@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Lavender Elle Hanson"
 title_separator          : "-"
 name                     : &name "Elle Hanson"
-description              : &description "Graduate student at Johns Hopkins University"
+description              : &description "Postdoc at University of Amsterdam"
 url                      : https://ellehanson.com # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "ellequelle/ellequelle.github.io"
@@ -82,14 +82,14 @@ atom_feed:
 author:
   name             : "Lavender Elle Hanson"
   avatar           : "2020-07-01_Lavendelblueten.jpg" #"laveder-bokeh-crop.jpg"
-  bio              : "Graduate student studying clouds on other planets."
-  location         : "Baltimore, MD"
-  employer         : "Johns Hopkins University"
+  bio              : "Postdoc studying atmospheres on other planets."
+  location         : "Amsterdam"
+  employer         : "University of Amsterdam"
   pubmed           : # "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
   googlescholar    : "https://scholar.google.com/citations?user=4Q3F054AAAAJ"
   email            : "contact@ellehanson.com"
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
-  uri              : "https://eps.jhu.edu/directory/elle-hanson/"
+  uri              : "https://api.uva.nl/profile/h/a/l.e.hanson/l.e.hanson.html" # (guess)
   bitbucket        :
   codepen          :
   dribbble         :
