@@ -49,10 +49,10 @@
          }
 
          // check form input
-         inval = form.elements[idx].value.replace(",","");
+         inval = form.elements[idx].value.replace(",", "");
          if (Number.parseFloat(inval) < 0) {
             inval = -inval;
-            form.elements[idx].value = form.elements[idx].value.replace("-","");
+            form.elements[idx].value = form.elements[idx].value.replace("-", "");
          }
 
          // find number of characters in input string for significant figure functions
@@ -60,11 +60,11 @@
 
          // calculate the base energy in Hartrees
          // if (idx < 7) {
-            energy = inval / conv[idx];
+         energy = inval / conv[idx];
          // } else
          if (idx == iBoltz) {
             boltztemp = form.elements.
-            energy = Math.log(inval) * btemp / conv[idx];
+               energy = Math.log(inval) * btemp / conv[idx];
          } else if (idx == inm) {
             energy = conv[idx] / inval;
          }
@@ -74,7 +74,7 @@
             var ceng = 0;
             if (i != idx) {
                // if (i < 7) {
-                  ceng = trunc(energy * conv[i], nchars);
+               ceng = trunc(energy * conv[i], nchars);
                // } else 
                if (i == iBoltz) {
                   ceng = trunc(Math.exp(energy * conv[i] / btemp), 4);
@@ -95,7 +95,7 @@
          document.getElementById("btemp").innerText = T;
          boltzman();
          displayInfo(document.Hartree, "K");
-      }      
+      }
 
       function boltzman() {
          // calculate boltzman fractions and voltage for general conditions
@@ -140,8 +140,10 @@
 
 <BODY onload="document.getElementById('eVinput').focus()">
    <H3>Energy Units Converter</H3>
-   <H4>Adapted from the <a href="https://www.colby.edu/chemistry/PChem/Hartree.html">energy
-         units converter by Colby pchem</a> to add wavelength.</H4>
+   <small><em>Adapted from the <a href="https://www.colby.edu/chemistry/PChem/Hartree.html">energy
+            units converter by Colby pchem</a> to add wavelength.</em><br />
+      See also: my <a href="pressure.html">pressure units converter</a> and <a href="/tools">other tools</a>.
+   </small>
    <P>
    <FORM NAME="Hartree" METHOD=POST>
 
@@ -153,7 +155,8 @@
       <INPUT TYPE="text" NAME="GHz" VALUE=0 oninput="displayInfo(this.form,this.name);">GHz<BR>
       <INPUT TYPE="text" NAME="V" VALUE=0 oninput="displayInfo(this.form,this.name);">V for 1e<sup>-</sup> transfer<BR>
       <INPUT TYPE="text" NAME="K" VALUE=0 oninput="displayInfo(this.form,this.name);">K (equivalent temerature)<BR>
-      <INPUT TYPE="text" NAME="B" VALUE=1 oninput="displayInfo(this.form,this.name);">Boltzman population ratio at <b id="btemp">298.15</b> K<BR>
+      <INPUT TYPE="text" NAME="B" VALUE=1 oninput="displayInfo(this.form,this.name);">Boltzman population ratio at <b
+         id="btemp">298.15</b> K<BR>
       <INPUT TYPE="text" NAME="nm" VALUE=1 oninput="displayInfo(this.form,this.name);">nm
 
    </FORM>
@@ -187,6 +190,7 @@
       <INPUT TYPE="text" NAME="V" VALUE=0 onFocus="blur();">V<BR>
 
    </FORM>
+   <p><em>*Use at your own risk. I make no guarantees regarding the accuracy of these calculations.*</em></p>
 </BODY>
 
 </HTML>

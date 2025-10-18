@@ -182,15 +182,6 @@
 
 
       function displayInfo(form, infield) {
-         // var btemp = Number.parseFloat(document.Boltzman.T.value);
-
-         // // find field index
-         // for (var i = 0; i <= nfields; i++) {
-         //    if (form.elements[i].name == field) {
-         //       idx = i;
-         //       break;
-         //    }
-         // }
 
          // check form input
          var inval = form.elements[infield].value.replace(",", "");
@@ -266,10 +257,10 @@
 
 <BODY onload="document.getElementById('Pa').focus();">
    <H3>Pressure Units Converter</H3>
-<small><em>Inspired by the <a href="https://www.colby.edu/chemistry/PChem/Hartree.html">energy
-         units converter by Colby pchem</a>.</em><br/>
-         See also: <a href="energy.html">energy units converter</a> and <a href="/tools">other tools</a>.
-      </small>
+   <small><em>Inspired by the <a href="https://www.colby.edu/chemistry/PChem/Hartree.html">energy
+            units converter by Colby pchem</a>.</em><br />
+      See also: <a href="energy.html">energy units converter</a> and <a href="/tools">other tools</a>.
+   </small>
    <P>
    <FORM NAME="Pressures" METHOD=POST>
       <em>Standard units</em><br />
@@ -331,39 +322,7 @@
       cm<sup>-3</sup> (<a tabindex="-1" href="https://en.wikipedia.org/wiki/Electron_degeneracy_pressure">electron
          degeneracy pressure</a> density)<BR />
    </FORM>
-   <p>Use at your own risk. I make no guarantees regarding the accuracy of these calculations.</p>
-   <!--
-   <HR>
-   <H5>Boltzman Populations</H5>
-   Change the temperature and degeneracies:
-   <FORM NAME="Boltzman" METHOD=POST>
-      <TABLE>
-         <TR>
-            <TD><INPUT TYPE="text" NAME="T" SIZE=6 VALUE=298.15 oninput="updateTemp();">K</TD>
-            <TD></TD>
-            <TD></TD>
-         </TR>
-         <TR>
-            <TD>
-               upper degeneracy=<INPUT TYPE="text" NAME="gj" SIZE="2" VALUE=1 oninput="boltzman();"></TD>
-            <TD><INPUT TYPE="text" NAME="fup" SIZE=7 VALUE=50.0 onFocus="blur();">%</TD>
-            <TD><INPUT TYPE="text" NAME="up" SIZE=12 VALUE="-ooooo-" onFocus="blur();"></TD>
-         </TR>
-         <TR>
-            <TD>
-               lower degeneracy=<INPUT TYPE="text" NAME="gi" SIZE="2" VALUE=1 oninput="boltzman();"></TD>
-            <TD><INPUT TYPE="text" NAME="flow" SIZE=7 VALUE=50.0 onFocus="blur();">%</TD>
-            <TD><INPUT TYPE="text" NAME="low" SIZE=12 VALUE="-ooooo-" onFocus="blur();"></TD>
-         </TR>
-      </TABLE>
-      <H5>Electrochemical Voltage</H5>
-      Change the number of electrons transferred, z=
-      <INPUT TYPE="text" NAME="z" SIZE=2 VALUE=1 oninput="boltzman();"><BR/>
-      Then, V=
-      <INPUT TYPE="text" NAME="V" VALUE=0 onFocus="blur();">V<BR/>
-
-   </FORM>
-   -->
+   <p><em>*Use at your own risk. I make no guarantees regarding the accuracy of these calculations.*</em></p>
 </BODY>
 
 </HTML>
