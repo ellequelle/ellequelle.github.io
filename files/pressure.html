@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<HTML>
+
+<HEAD>
+   <TITLE>Pressure Converter</TITLE>
+
+   <SCRIPT LANGUAGE="JavaScript">
+
+      const BASEUNIT = "Pa";
+      // [unit / Pa]
+      const conversions = {
+         Pa: 1, // [Pa / Pa]
+         hPa: 1e-2, // [hPa / Pa]
+         atm: 1.0 / 101325, // [atm / Pa]
+         bar: 1e-5, // [bar / Pa]
+         torr: 760.0 / 101325.0, // [torr / Pa]
+         inHg: 1.0 / 3386.389, // [inHg / Pa]
+         inH2O: 1.0 / 249.08891, // [inH2O / Pa]
+         psi: 1.0 / 6.894757e3, // [psi / Pa]
+         msw: 1.0 / 10.0381e3, // [msw / Pa]
+         ftsw: 1.0 / 3064.3, // [ftsw / Pa]
+         barye: 10, // [Ba / Pa]
+         pz: 1e-3, // [pz / Pa]
+         dB: [pa_to_db, db_to_pa], // [from Pa, to Pa]
+         alt: [pa_to_alt, alt_to_pa], // [from Pa, to Pa]
+         psc: 299792458 / 1361, // [solar rad prs / Pa]
+         vatm: 1 / (92.1 * 101325), // [venus atmosphere / Pa]
+         Mspc2: Math.pow(3.0857e16, 2) / 1.988475e30, // [kg/pc^2 / Pa]
+         dab: 1e-28 / 1.66053906892e-27, // [da/b / Pa]
+         rhoe: [pa_to_rhoe, rhoe_to_pa], // [from Pa, to Pa]
+         sqcm: 1 / (0.5 * 9.81 * 1e6), // [squirrel cm^-2 / Pa]
+         h2oprs: [vap_prs_to_tk, evap_h2o_liq], // [from Pa, to Pa]
+         psph: 1e3 / (2 * 34.4e6), // [mm / Pa]
+      };
+
+      // fields allowed to be negative
+      const negativeOk = [
+         "dB", "alt"
+      ];
+
+      // convert to and from dBspl
+      function pa_to_db(pa) {
+         return 20 * Math.log10(pa / 20e-6);
+      }
+      function db_to_pa(db) {
+         return 20e-6 * Math.pow(10, db / 20);
+      }
+      // convert to and from pressure altitude in Earth's atmosphere
+      function pa_to_alt(pa) {
+         return 0.3048 * 145366 * (1 - Math.pow(pa / 101325, 0.190284));
+      }
+      function alt_to_pa(alt) {
+         return 101325 * Math.pow(1 - alt / 44307, 5.25530);
+      }
+      // electron degeneracy pressure for density rhoe
+      function rhoe_to_pa(rhoe) {
+         const pow = Math.pow;
+         const pi = Math.PI;
+         const me = 9.1093837139e-31; // electron mass [kg]
+         const hbar = 1.054571817e-34; // [J / s]
+         const coef = pow((3 * pi * pi), 2 / 3) * hbar * hbar / (5 * me);
+         return coef * pow(rhoe * 1e6, 5 / 3);
+      }
+      function pa_to_rhoe(pa) {
+         const pow = Math.pow;
+         const pi = Math.PI;
+         const me = 9.1093837139e-31; // electron mass [kg]
+         const hbar = 1.054571817e-34; // [J / s]
+         const coef = pow((3 * pi * pi), 2 / 3) * hbar * hbar / (5 * me);
+         return pow(pa / coef, 3 / 5) * 1e-6;
+      }
+      // water vapor saturation (liq)
+      function evap_h2o_liq(tk) {
+         const pow = Math.pow;
+         const Tc = 647.096; // [K]
+         const pc = 22.064e6; // [Pa]
+         const a1 = -7.85951783;
+         const a2 = 1.84408259;
+         const a3 = -11.7866497;
+         const a4 = 22.6807411;
+         const a5 = -15.9618719;
+         const a6 = 1.80122502;
+         const vv = 1 - tk / Tc;
+         const poly = a1 * vv + a2 * pow(vv, 1.5) + a3 * pow(vv, 3) + a4 * pow(vv, 3.5) + a5 * pow(vv, 4) + a6 * pow(vv, 7.5);
+         const rhs = Tc / tk * poly;
+         return pc * Math.exp(rhs);
+      }
+      function vap_prs_to_tk(pa) {
+         try {
+            return brent(
+               (x) => { return evap_h2o_liq(x) - pa },
+               10, 647, 0.1, 50
+            )
+         } catch (err) {
+            return NaN;
+         }
+      }
+
+      function brent(f, lowerBound, upperBound, tolerance, maxIterations
+      ) {
+         // from https://gist.github.com/ryanspradlin/18c1010b7dd2d875284933d018c5c908
+         let a = lowerBound;
+         let b = upperBound;
+         let fa = f(a);
+         let fb = f(b);
+
+         if (fa * fb > 0) {
+            // Root is not bracketed.
+            throw new Error(`Root is not bracketed: [${fa}, ${fb}].`);
+         }
+
+         if (Math.abs(fa) < Math.abs(fb)) {
+            [a, b] = [b, a];
+            [fa, fb] = [fb, fa];
+         }
+
+         let c = a;
+         let fc = fa;
+         let s = 0;
+         let d = 0;
+         let mflag = true;
+         for (let i = 0; i < maxIterations; i++) {
+            // Check if we have succeeded...
+            if (fb === 0 || Math.abs(b - a) <= tolerance) {
+               // Root found!
+               return b;
+            }
+
+            // Try to use fast/less-reliable methods first...
+            if (fa !== fc && fb !== fc) {
+               // Inverse quadratic interpolation.
+               s =
+                  (a * fb * fc) / ((fa - fb) * (fa - fc)) +
+                  (b * fa * fc) / ((fb - fa) * (fb - fc)) +
+                  (c * fa * fb) / ((fc - fa) * (fc - fb));
+            } else {
+               // Secant method.
+               s = b - fb * ((b - a) / (fb - fa));
+            }
+
+            // If necessary, fallback to slow/more-reliable method...
+            if (
+               (s - (3 * a + b) / 4) * (s - b) >= 0 ||
+               (mflag && Math.abs(s - b) >= Math.abs(b - c) / 2) ||
+               (!mflag && Math.abs(s - b) >= Math.abs(c - d) / 2) ||
+               (mflag && Math.abs(b - c) < Math.abs(tolerance)) ||
+               (!mflag && Math.abs(c - d) < Math.abs(tolerance))
+            ) {
+               // Bisection method.
+               s = (a + b) / 2;
+               mflag = true;
+            } else {
+               mflag = false;
+            }
+
+            d = c;
+            c = b;
+            fc = fb;
+
+            const fs = f(s);
+            if (fa * fs < 0) {
+               b = s;
+               fb = fs;
+            } else {
+               a = s;
+               fa = fs;
+            }
+
+            if (Math.abs(fa) < Math.abs(fb)) {
+               [a, b] = [b, a];
+               [fa, fb] = [fb, fa];
+            }
+         }
+
+         console.log(a, b, fa, fb);
+         // Could not achieve required tolerance within iteration limit.
+         throw new Error(
+            'Could not achieve required tolerance within iteration limit.'
+         );
+      }
+
+
+
+      function displayInfo(form, infield) {
+         // var btemp = Number.parseFloat(document.Boltzman.T.value);
+
+         // // find field index
+         // for (var i = 0; i <= nfields; i++) {
+         //    if (form.elements[i].name == field) {
+         //       idx = i;
+         //       break;
+         //    }
+         // }
+
+         // check form input
+         var inval = form.elements[infield].value.replace(",", "");
+         if (Number.parseFloat(inval) < 0 && !negativeOk.includes(infield)) {
+            inval = -inval;
+            form.elements[infield].value = form.elements[infield].value.replace("-", "");
+         }
+
+         // don't update if number is invalid
+         if (isNaN(Number(inval))) return;
+
+         // find number of characters in input string for significant figure functions
+         const nchars = form.elements[infield].value.length + 1;
+
+
+         function format(x) {
+            // s = trunc(x, nchars);
+            s = Number(x).toPrecision(nchars);
+            if (Math.abs(x) >= 1e9 || Math.abs(x) < 1e-3) {
+               s = x.toPrecision(nchars);
+               // remove excessive zeros
+               s = s.replace(/00+[e]/, '0e');
+            }
+            if (!Number.isFinite(x)) {
+               return '---';
+            }
+            // if (Math.abs(x) < 1e-30) x = 0;
+            return s;
+         }
+
+         var valPa = inval;
+         // convert to Pa
+         if (infield != BASEUNIT) {
+            conv = conversions[infield];
+            if (Array.isArray(conv)) {
+               valPa = conv[1](inval);
+            } else {
+               valPa = inval / conv;
+            }
+            form.elements[BASEUNIT].value = format(valPa);
+         }
+
+         // convert to other units
+         for (var i = 0; i < form.elements.length; i++) {
+            var uval = 0;
+            const fieldname = form.elements[i].name;
+            if (fieldname != infield) {
+               conv = conversions[fieldname];
+               if (Array.isArray(conv)) {
+                  uval = conv[0](valPa);
+               } else {
+                  uval = valPa * conv;
+               }
+               form.elements[i].value = format(uval, nchars)
+            }
+         }
+      }
+
+      // Significant figure functions
+      function ord(x) {
+         return Math.floor(Math.log(Math.abs(x + 1e-35)) / 2.303)
+      }
+      // Truncate to n sign. figures
+      function trunc(x, n) {
+         return Math.floor(x * Math.pow(10, -ord(x) + n - 1) + .5) / Math.pow(10, -ord(x) + n - 1)
+      }
+
+   </SCRIPT>
+</HEAD>
+
+<script>
+</script>
+
+<BODY onload="document.getElementById('Pa').focus();">
+   <H3>Pressure Units Converter</H3>
+<small><em>Inspired by the <a href="https://www.colby.edu/chemistry/PChem/Hartree.html">energy
+         units converter by Colby pchem</a>.</em><br/>
+         See also: <a href="energy.html">energy units converter</a> and <a href="/tools">other tools</a>.
+      </small>
+   <P>
+   <FORM NAME="Pressures" METHOD=POST>
+      <em>Standard units</em><br />
+      <INPUT TYPE="text" ID="Pa" NAME="Pa" VALUE=0 oninput="displayInfo(this.form,this.name);" /> Pa (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Pascal_(unit)">pascal</a>)<BR />
+      <INPUT TYPE="text" NAME="hPa" VALUE=0 oninput="displayInfo(this.form,this.name);" /> hPa (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Pascal_(unit)#Hectopascal_and_millibar_units">mbar</a>)<BR />
+      <INPUT TYPE="text" NAME="atm" VALUE=0 oninput="displayInfo(this.form,this.name);" /> atm (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Standard_atmosphere_(unit)">standard atmosphere</a>)<BR />
+      <INPUT TYPE="text" NAME="bar" VALUE=0 oninput="displayInfo(this.form,this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Bar_(unit)">bar</a><BR />
+      <INPUT TYPE="text" NAME="torr" VALUE=0 oninput="displayInfo(this.form,this.name);" /> torr, mm Hg (<a
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Torr">torr</a>, or <a
+         href="https://en.wikipedia.org/wiki/Millimetre_of_mercury">mm of mercury</a>)<BR />
+      <INPUT TYPE="text" NAME="inHg" VALUE=0 oninput="displayInfo(this.form,this.name);" /> in Hg (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Inch_of_mercury">inches of mercury</a>)<BR />
+      <hr>
+      <em>Specialized units</em><br />
+      <INPUT TYPE="text" NAME="inH2O" VALUE=0 oninput="displayInfo(this.form,this.name);" /> in water (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Inch_of_water">inches of water</a>)<BR />
+      <INPUT TYPE="text" NAME="psi" VALUE=0 oninput="displayInfo(this.form,this.name);" /> psi (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Pound_per_square_inch">pounds per square inch</a>)<BR />
+      <INPUT TYPE="text" NAME="msw" VALUE=0 oninput="displayInfo(this.form,this.name);" /> msw (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Metre_sea_water">m seawater</a>)<BR />
+      <INPUT TYPE="text" NAME="ftsw" VALUE=0 oninput="displayInfo(this.form,this.name);" /> fsw (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Metre_sea_water#Feet_of_sea_water">ft seawater</a>)<BR />
+      <INPUT TYPE="text" NAME="barye" VALUE=0 oninput="displayInfo(this.form,this.name);" /> Ba (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Barye">barye</a>)<BR />
+      <INPUT TYPE="text" NAME="pz" VALUE=0 oninput="displayInfo(this.form,this.name);" /> pz (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Pi%C3%A8ze">Pièze</a>)<BR />
+      <INPUT TYPE="text" NAME="dB" VALUE=0 oninput="displayInfo(this.form,this.name);" /> dB<sub>SPL</sub> (<a
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Sound_pressure#Sound_pressure_level">sound pressure
+         level</a>)<BR />
+      <INPUT TYPE="text" NAME="alt" VALUE=0 oninput="displayInfo(this.form,this.name);" /> m <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Pressure_altitude">pressure altitude</a> above mean sea level,
+      approximate<BR />
+      <hr>
+      <em>Unusual units</em><br />
+      <INPUT TYPE="text" NAME="psc" VALUE=0 oninput="displayInfo(this.form,this.name);" /> p<sub>solar</sub> (<a
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Radiation_pressure#Solar_radiation_pressure">solar radiation
+         pressure</a> at 1 AU)<BR />
+      <INPUT TYPE="text" NAME="sqcm" VALUE=0 oninput="displayInfo(this.form,this.name);" /> squirrel cm<sup>-2</sup> (<a
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Eastern_gray_squirrel">squirrels</a> per square cm)<BR />
+      <INPUT TYPE="text" NAME="psph" VALUE=0 oninput="displayInfo(this.form,this.name);" /> mm (minimum <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Barlow%27s_formula">wall thickness</a> for 1 m pressure vessel made of <a
+         tabindex="-1" href="https://doi.org/10.1007/s10570-009-9373-2">celery</a><BR />
+      <INPUT TYPE="text" NAME="vatm" VALUE=0 oninput="displayInfo(this.form,this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Radiation_pressure#Solar_radiation_pressure">venusian atmosphere</a><BR />
+      <INPUT TYPE="text" NAME="Mspc2" VALUE=0 oninput="displayInfo(this.form,this.name);" /> M<sub>☉</sub>
+      pc<sup>2</sup> (<a tabindex="-1" href="https://en.wikipedia.org/wiki/Solar_mass">solar mass</a> per square <a
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Parsec">parsec</a>)<BR />
+      <INPUT TYPE="text" NAME="h2oprs" VALUE=0 oninput="displayInfo(this.form,this.name);" /> K (liquid water <a
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Vapor_pressure">vapor saturation</a> temperature, <a
+         tabindex="-1" href="https://doi.org/10.1063/1.1461829">IAPWS 95</a>)<BR />
+      <INPUT TYPE="text" NAME="dab" VALUE=0 oninput="displayInfo(this.form,this.name);" /> da b<sup>-1</sup> (<a
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Dalton_(unit)">dalton</a> per <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Barn_(unit)">barn</a>)<BR />
+      <INPUT TYPE="text" NAME="rhoe" VALUE=0 oninput="displayInfo(this.form,this.name);" /> e<sup>-</sup>
+      cm<sup>-3</sup> (<a tabindex="-1" href="https://en.wikipedia.org/wiki/Electron_degeneracy_pressure">electron
+         degeneracy pressure</a> density)<BR />
+   </FORM>
+   <p>Use at your own risk. I make no guarantees regarding the accuracy of these calculations.</p>
+   <!--
+   <HR>
+   <H5>Boltzman Populations</H5>
+   Change the temperature and degeneracies:
+   <FORM NAME="Boltzman" METHOD=POST>
+      <TABLE>
+         <TR>
+            <TD><INPUT TYPE="text" NAME="T" SIZE=6 VALUE=298.15 oninput="updateTemp();">K</TD>
+            <TD></TD>
+            <TD></TD>
+         </TR>
+         <TR>
+            <TD>
+               upper degeneracy=<INPUT TYPE="text" NAME="gj" SIZE="2" VALUE=1 oninput="boltzman();"></TD>
+            <TD><INPUT TYPE="text" NAME="fup" SIZE=7 VALUE=50.0 onFocus="blur();">%</TD>
+            <TD><INPUT TYPE="text" NAME="up" SIZE=12 VALUE="-ooooo-" onFocus="blur();"></TD>
+         </TR>
+         <TR>
+            <TD>
+               lower degeneracy=<INPUT TYPE="text" NAME="gi" SIZE="2" VALUE=1 oninput="boltzman();"></TD>
+            <TD><INPUT TYPE="text" NAME="flow" SIZE=7 VALUE=50.0 onFocus="blur();">%</TD>
+            <TD><INPUT TYPE="text" NAME="low" SIZE=12 VALUE="-ooooo-" onFocus="blur();"></TD>
+         </TR>
+      </TABLE>
+      <H5>Electrochemical Voltage</H5>
+      Change the number of electrons transferred, z=
+      <INPUT TYPE="text" NAME="z" SIZE=2 VALUE=1 oninput="boltzman();"><BR/>
+      Then, V=
+      <INPUT TYPE="text" NAME="V" VALUE=0 onFocus="blur();">V<BR/>
+
+   </FORM>
+   -->
+</BODY>
+
+</HTML>
