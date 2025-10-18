@@ -9,7 +9,7 @@
       const BASEUNIT = "Pa";
       // [unit / Pa]
       const conversions = {
-         Pa: 1, // [Pa / Pa]
+         Pa: 1.0, // [Pa / Pa]
          hPa: 1e-2, // [hPa / Pa]
          atm: 1.0 / 101325, // [atm / Pa]
          bar: 1e-5, // [bar / Pa]
@@ -28,7 +28,7 @@
          Mspc2: Math.pow(3.0857e16, 2) / 1.988475e30, // [kg/pc^2 / Pa]
          dab: 1e-28 / 1.66053906892e-27, // [da/b / Pa]
          rhoe: [pa_to_rhoe, rhoe_to_pa], // [from Pa, to Pa]
-         sqcm: 1 / (0.5 * 9.81 * 1e6), // [squirrel cm^-2 / Pa]
+         sqcm: 1 / (0.5 * 9.81 * 1e4), // [squirrel cm^-2 / Pa]
          h2oprs: [vap_prs_to_tk, evap_h2o_liq], // [from Pa, to Pa]
          psph: 1e3 / (2 * 34.4e6), // [mm / Pa]
       };
@@ -200,11 +200,11 @@
          function format(x) {
             // s = trunc(x, nchars);
             s = Number(x).toPrecision(nchars);
-            if (Math.abs(x) >= 1e9 || Math.abs(x) < 1e-3) {
-               s = x.toPrecision(nchars);
-               // remove excessive zeros
-               s = s.replace(/00+[e]/, '0e');
-            }
+            // if (Math.abs(x) >= 1e9 || Math.abs(x) < 1e-3) {
+            //    s = x.toPrecision(nchars);
+            //    // remove excessive zeros
+            //    s = s.replace(/00+[e]/, '0e');
+            // }
             if (!Number.isFinite(x)) {
                return '---';
             }
@@ -212,16 +212,16 @@
             return s;
          }
 
-         var valPa = inval;
+         var valRefUnit = inval;
          // convert to Pa
          if (infield != BASEUNIT) {
             conv = conversions[infield];
             if (Array.isArray(conv)) {
-               valPa = conv[1](inval);
+               valRefUnit = conv[1](inval);
             } else {
-               valPa = inval / conv;
+               valRefUnit = inval / conv;
             }
-            form.elements[BASEUNIT].value = format(valPa);
+            form.elements[BASEUNIT].value = format(valRefUnit);
          }
 
          // convert to other units
@@ -231,11 +231,11 @@
             if (fieldname != infield) {
                conv = conversions[fieldname];
                if (Array.isArray(conv)) {
-                  uval = conv[0](valPa);
+                  uval = conv[0](valRefUnit);
                } else {
-                  uval = valPa * conv;
+                  uval = valRefUnit * conv;
                }
-               form.elements[i].value = format(uval, nchars)
+               form.elements[i].value = format(uval)
             }
          }
       }
@@ -274,7 +274,7 @@
          href="https://en.wikipedia.org/wiki/Bar_(unit)">bar</a><BR />
       <INPUT TYPE="text" NAME="torr" VALUE=0 oninput="displayInfo(this.form,this.name);" /> torr, mm Hg (<a
          tabindex="-1" href="https://en.wikipedia.org/wiki/Torr">torr</a>, or <a
-         href="https://en.wikipedia.org/wiki/Millimetre_of_mercury">mm of mercury</a>)<BR />
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Millimetre_of_mercury">mm of mercury</a>)<BR />
       <INPUT TYPE="text" NAME="inHg" VALUE=0 oninput="displayInfo(this.form,this.name);" /> in Hg (<a tabindex="-1"
          href="https://en.wikipedia.org/wiki/Inch_of_mercury">inches of mercury</a>)<BR />
       <hr>
@@ -304,13 +304,13 @@
          pressure</a> at 1 AU)<BR />
       <INPUT TYPE="text" NAME="sqcm" VALUE=0 oninput="displayInfo(this.form,this.name);" /> squirrel cm<sup>-2</sup> (<a
          tabindex="-1" href="https://en.wikipedia.org/wiki/Eastern_gray_squirrel">squirrels</a> per square cm)<BR />
-      <INPUT TYPE="text" NAME="psph" VALUE=0 oninput="displayInfo(this.form,this.name);" /> mm (minimum <a tabindex="-1"
-         href="https://en.wikipedia.org/wiki/Barlow%27s_formula">wall thickness</a> for 1 m pressure vessel made of <a
-         tabindex="-1" href="https://doi.org/10.1007/s10570-009-9373-2">celery</a><BR />
+      <INPUT TYPE="text" NAME="psph" VALUE=0 oninput="displayInfo(this.form,this.name);" /> mm (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Barlow%27s_formula">minimum wall thickness</a> for 1 m pressure vessel made of <a
+         tabindex="-1" href="https://doi.org/10.1007/s10570-009-9373-2">celery</a>)<BR />
       <INPUT TYPE="text" NAME="vatm" VALUE=0 oninput="displayInfo(this.form,this.name);" /> <a tabindex="-1"
          href="https://en.wikipedia.org/wiki/Radiation_pressure#Solar_radiation_pressure">venusian atmosphere</a><BR />
       <INPUT TYPE="text" NAME="Mspc2" VALUE=0 oninput="displayInfo(this.form,this.name);" /> M<sub>☉</sub>
-      pc<sup>2</sup> (<a tabindex="-1" href="https://en.wikipedia.org/wiki/Solar_mass">solar mass</a> per square <a
+      pc<sup>-2</sup> (<a tabindex="-1" href="https://en.wikipedia.org/wiki/Solar_mass">solar mass</a> per square <a
          tabindex="-1" href="https://en.wikipedia.org/wiki/Parsec">parsec</a>)<BR />
       <INPUT TYPE="text" NAME="h2oprs" VALUE=0 oninput="displayInfo(this.form,this.name);" /> K (liquid water <a
          tabindex="-1" href="https://en.wikipedia.org/wiki/Vapor_pressure">vapor saturation</a> temperature, <a
