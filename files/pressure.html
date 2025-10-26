@@ -6,6 +6,10 @@
 
    <SCRIPT LANGUAGE="JavaScript">
 
+      function invconv(fact) {
+         return (x) => { return fact / x; };
+      }
+
       const BASEUNIT = "Pa";
       // [unit / Pa]
       const conversions = {
@@ -31,6 +35,7 @@
          sqcm: 1 / (0.5 * 9.81 * 1e4), // [squirrel cm^-2 / Pa]
          h2oprs: [vap_prs_to_tk, evap_h2o_liq], // [from Pa, to Pa]
          psph: 1e3 / (2 * 34.4e6), // [mm / Pa]
+         ylrad: invconv(2 * 71.97e-3 * 1e6), // [N/um / Pa]
       };
 
       // fields allowed to be negative
@@ -218,6 +223,8 @@
             conv = conversions[infield];
             if (Array.isArray(conv)) {
                valRefUnit = conv[1](inval);
+            } else if (conv instanceof Function) {
+               valRefUnit = conv(inval);
             } else {
                valRefUnit = inval / conv;
             }
@@ -232,6 +239,8 @@
                conv = conversions[fieldname];
                if (Array.isArray(conv)) {
                   uval = conv[0](valRefUnit);
+               } else if (conv instanceof Function) {
+                  uval = conv(valRefUnit);
                } else {
                   uval = valRefUnit * conv;
                }
@@ -273,8 +282,8 @@
       <INPUT TYPE="text" NAME="bar" VALUE=0 oninput="displayInfo(this.form,this.name);" /> <a tabindex="-1"
          href="https://en.wikipedia.org/wiki/Bar_(unit)">bar</a><BR />
       <INPUT TYPE="text" NAME="torr" VALUE=0 oninput="displayInfo(this.form,this.name);" /> torr, mm Hg (<a
-         tabindex="-1" href="https://en.wikipedia.org/wiki/Torr">torr</a>, or <a
-         tabindex="-1" href="https://en.wikipedia.org/wiki/Millimetre_of_mercury">mm of mercury</a>)<BR />
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Torr">torr</a>, or <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Millimetre_of_mercury">mm of mercury</a>)<BR />
       <INPUT TYPE="text" NAME="inHg" VALUE=0 oninput="displayInfo(this.form,this.name);" /> in Hg (<a tabindex="-1"
          href="https://en.wikipedia.org/wiki/Inch_of_mercury">inches of mercury</a>)<BR />
       <hr>
@@ -302,14 +311,18 @@
       <INPUT TYPE="text" NAME="psc" VALUE=0 oninput="displayInfo(this.form,this.name);" /> p<sub>solar</sub> (<a
          tabindex="-1" href="https://en.wikipedia.org/wiki/Radiation_pressure#Solar_radiation_pressure">solar radiation
          pressure</a> at 1 AU)<BR />
+      <INPUT TYPE="text" NAME="ylrad" VALUE=0 oninput="displayInfo(this.form,this.name);" /> &#x3BC;m
+      (<a tabindex="-1" href="https://en.wikipedia.org/wiki/Young–Laplace_equation">equivalent Young-Laplace radius</a>
+      of a
+      25&#xb0;C water droplet)<BR />
       <INPUT TYPE="text" NAME="sqcm" VALUE=0 oninput="displayInfo(this.form,this.name);" /> squirrel cm<sup>-2</sup> (<a
          tabindex="-1" href="https://en.wikipedia.org/wiki/Eastern_gray_squirrel">squirrels</a> per square cm)<BR />
       <INPUT TYPE="text" NAME="psph" VALUE=0 oninput="displayInfo(this.form,this.name);" /> mm (<a tabindex="-1"
-         href="https://en.wikipedia.org/wiki/Barlow%27s_formula">minimum wall thickness</a> for 1 m pressure vessel made of <a
-         tabindex="-1" href="https://doi.org/10.1007/s10570-009-9373-2">celery</a>)<BR />
+         href="https://en.wikipedia.org/wiki/Barlow%27s_formula">minimum wall thickness</a> for 1 m pressure vessel made
+      of <a tabindex="-1" href="https://doi.org/10.1007/s10570-009-9373-2">celery</a>)<BR />
       <INPUT TYPE="text" NAME="vatm" VALUE=0 oninput="displayInfo(this.form,this.name);" /> <a tabindex="-1"
          href="https://en.wikipedia.org/wiki/Radiation_pressure#Solar_radiation_pressure">venusian atmosphere</a><BR />
-      <INPUT TYPE="text" NAME="Mspc2" VALUE=0 oninput="displayInfo(this.form,this.name);" /> M<sub>☉</sub>
+      <INPUT TYPE="text" NAME="Mspc2" VALUE=0 oninput="displayInfo(this.form,this.name);" /> M<sub>&#8857;</sub>
       pc<sup>-2</sup> (<a tabindex="-1" href="https://en.wikipedia.org/wiki/Solar_mass">solar mass</a> per square <a
          tabindex="-1" href="https://en.wikipedia.org/wiki/Parsec">parsec</a>)<BR />
       <INPUT TYPE="text" NAME="h2oprs" VALUE=0 oninput="displayInfo(this.form,this.name);" /> K (liquid water <a
