@@ -203,17 +203,10 @@
 
 
          function format(x) {
-            // s = trunc(x, nchars);
             s = Number(x).toPrecision(nchars);
-            // if (Math.abs(x) >= 1e9 || Math.abs(x) < 1e-3) {
-            //    s = x.toPrecision(nchars);
-            //    // remove excessive zeros
-            //    s = s.replace(/00+[e]/, '0e');
-            // }
             if (!Number.isFinite(x)) {
                return '---';
             }
-            // if (Math.abs(x) < 1e-30) x = 0;
             return s;
          }
 
