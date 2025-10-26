@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<HTML>
+
+<HEAD>
+   <TITLE>Energy Units Converter</TITLE>
+
+   <SCRIPT LANGUAGE="JavaScript">
+
+      function invconv(fact) {
+         return (x) => { return fact / x; };
+      }
+
+      const BASEUNIT = "eV";
+
+      const nA = 6.02214076e23; // [mol^-1]
+      const hplank = 4.13566769e-15; // [eV s]
+      const clight = 2.99792458e8; // [m s^-1]
+      const kB = 8.617333262e-5; // [eV K^-1]
+      const JeV = 1.602176634e-19; // [J ev^-1]
+      const Grav = 6.67430e-11; // [m^3 kg^-1 s^-2]
+      const Mearth = 5.9736e24; // [kg]
+      const Rearth = 6.371e6; // [m]
+
+      // [unit / BASEUNIT]
+      const conversions = {
+         Eh: 1 / 27.211386245981, // [Eh / eV] (hartree)
+         eV: 1.0, // [eV / eV]
+         kJmol: JeV * nA * 1e-3, // [kJ/mol / eV]
+         kcalmol: JeV * nA * 1e-3 / 4.184, // [kcal/mol / eV]
+         J: JeV, // [J / eV]
+         wavenum: 1 / (clight * 1e2 * hplank), // [cm-1 / eV]
+         THz: 1e-12 / hplank, // [THz / eV]
+         // Velec: 2.6255002E+06 / 96484.6, // [V (e-) / eV]
+         kelv: 1 / kB, // [K / eV]
+         boltz: [eV_to_boltz, boltz_to_eV], // [from eV, to eV]
+         nm: invconv(1239.84198), // [nm eV]
+         Ry: 1 / 13.605693122990, // [Ry / eV]
+         foe: 1 / (1e44 / JeV), // [foe / eV]
+         erg: 1 / 6.2415e11, // [erg / eV]
+         kwh: 1 / (3.6e3 / JeV), // [kWh / eV]
+         btu: 1 / (1055 / JeV), // [btu / eV]
+         ftlb: 1 / (1.355818 / JeV), // [ft lb / eV]
+         cmb: 1 / (2.72548 * kB), // [u / ev]
+         darel: 1 / 931.49410372e6, // [da c^2 / ev]
+         melec: 1 / 0.51099895069e6, // [e- c^2 / ev]
+         earthG: 1 / (2.24e32 / JeV), // [ / eV]
+         suns: 1 / (3.828e26 / JeV), // [ / eV]
+         escEarth: 1 / (Grav * Mearth / Rearth / JeV), // [kg / eV]
+         planckE: 1 / (1.9561e9 / JeV), // [Ep / eV]
+         tonTNT: 1 / (4.184e9 / JeV), // [tTNT / eV]
+         t1a: 1 / (1e44 / JeV), // [type 1a / eV]
+         ktimpact: 1 / (1.9e43), // [type 1a / eV]
+         ushouse: 1 / (10791e3 * 3600 / JeV), // [type 1a / eV]
+         sugarg: 1 / (1632e3 / 100 / JeV), // [g / eV]
+
+         dissocH2: 1 / 4.52, // [bond / ev]
+         dissocO2: 1 / 5.15, // [bond / ev]
+         dissocN2: 1 / 9.79, // [bond / ev]
+         dissocCO: 1 / 11.16, // [bond / ev]
+         dissocCCalkane: 1 / 3.75, // [bond / eV]
+         dissocCCalkene: 1 / 7.4, // [bond / eV]
+         dissocCCalkyne: 1 / 10.0, // [bond / eV]
+         dissocNH3: 1 / 4.666, // [bond / eV]
+         dissocAlkH: 1 / 4.384, // [bond / eV]
+         dissocVinH: 1 / 4.809, // [bond / eV]
+         dissocAcetH: 1 / 5.763, // [bond / eV]
+         dissocPhH: 1 / 4.902, // [bond / eV]
+
+         ionH: 1 / 13.598, // [elec / eV]
+         ionH2: 1 / 15.422, // [elec / eV]
+         ionN: 1 / 14.531, // [elec / eV]
+         ionN2: 1 / 15.577, // [elec / eV]
+         ionC: 1 / 11.260, // [elec / eV]
+         ionO: 1 / 13.618, // [elec / eV]
+         ionO2: 1 / 12.07, // [elec / eV]
+         ionC6H6: 1 / 9.37, // [elec / eV]
+
+         mosq: KE_eV_conversion(2e-6), // (KE of mosquito, mass 2 mg, to eV)
+      };
+      function eV_to_boltz(eh) {
+         const btemp = Number(document.getElementById("btemp").textContent);
+         return Math.exp(eh * kB / btemp);
+      }
+      function boltz_to_eV(inval) {
+         const btemp = Number(document.getElementById("btemp").textContent);
+         return Math.log(inval) * btemp / kB;
+      }
+      function KE_eV_conversion(mass) {
+         return [
+            (eV) => { return Math.sqrt(eV * JeV * 2 / mass); }, // from eV
+            (vel) => { return 0.5 * mass * vel ** 2 / JeV; }, // to eV
+         ];
+      }
+
+      // // fields allowed to be negative
+      // const negativeOk = [
+      //    "dB", "alt"
+      // ];
+
+      function brent(f, lowerBound, upperBound, tolerance, maxIterations
+      ) {
+         // from https://gist.github.com/ryanspradlin/18c1010b7dd2d875284933d018c5c908
+         let a = lowerBound;
+         let b = upperBound;
+         let fa = f(a);
+         let fb = f(b);
+
+         if (fa * fb > 0) {
+            // Root is not bracketed.
+            throw new Error(`Root is not bracketed: [${fa}, ${fb}].`);
+         }
+
+         if (Math.abs(fa) < Math.abs(fb)) {
+            [a, b] = [b, a];
+            [fa, fb] = [fb, fa];
+         }
+
+         let c = a;
+         let fc = fa;
+         let s = 0;
+         let d = 0;
+         let mflag = true;
+         for (let i = 0; i < maxIterations; i++) {
+            // Check if we have succeeded...
+            if (fb === 0 || Math.abs(b - a) <= tolerance) {
+               // Root found!
+               return b;
+            }
+
+            // Try to use fast/less-reliable methods first...
+            if (fa !== fc && fb !== fc) {
+               // Inverse quadratic interpolation.
+               s =
+                  (a * fb * fc) / ((fa - fb) * (fa - fc)) +
+                  (b * fa * fc) / ((fb - fa) * (fb - fc)) +
+                  (c * fa * fb) / ((fc - fa) * (fc - fb));
+            } else {
+               // Secant method.
+               s = b - fb * ((b - a) / (fb - fa));
+            }
+
+            // If necessary, fallback to slow/more-reliable method...
+            if (
+               (s - (3 * a + b) / 4) * (s - b) >= 0 ||
+               (mflag && Math.abs(s - b) >= Math.abs(b - c) / 2) ||
+               (!mflag && Math.abs(s - b) >= Math.abs(c - d) / 2) ||
+               (mflag && Math.abs(b - c) < Math.abs(tolerance)) ||
+               (!mflag && Math.abs(c - d) < Math.abs(tolerance))
+            ) {
+               // Bisection method.
+               s = (a + b) / 2;
+               mflag = true;
+            } else {
+               mflag = false;
+            }
+
+            d = c;
+            c = b;
+            fc = fb;
+
+            const fs = f(s);
+            if (fa * fs < 0) {
+               b = s;
+               fb = fs;
+            } else {
+               a = s;
+               fa = fs;
+            }
+
+            if (Math.abs(fa) < Math.abs(fb)) {
+               [a, b] = [b, a];
+               [fa, fb] = [fb, fa];
+            }
+         }
+
+         console.log(a, b, fa, fb);
+         // Could not achieve required tolerance within iteration limit.
+         throw new Error(
+            'Could not achieve required tolerance within iteration limit.'
+         );
+      }
+
+      function displayInfo(infield) {
+
+         const form = document.conversionForm;
+
+         // check form input
+         var inval = form.elements[infield].value.replace(",", "");
+         if (Number.parseFloat(inval) < 0 && !negativeOk.includes(infield)) {
+            inval = -inval;
+            form.elements[infield].value = form.elements[infield].value.replace("-", "");
+         }
+
+         // don't update if number is invalid
+         if (isNaN(Number(inval))) return;
+
+         // find number of characters in input string for significant figure functions
+         const nchars = form.elements[infield].value.length + 1;
+
+         // format function, reduce output to `nchars` digits
+         function format(x) {
+            s = Number(x).toPrecision(nchars);
+            if (!Number.isFinite(x)) {
+               return '---';
+            }
+            return s;
+         }
+
+         var valRefUnit = inval;
+         // convert to base unit
+         if (infield != BASEUNIT) {
+            conv = conversions[infield];
+            if (Array.isArray(conv)) {
+               valRefUnit = conv[1](inval);
+            } else if (conv instanceof Function) {
+               valRefUnit = conv(inval);
+            } else {
+               valRefUnit = inval / conv;
+            }
+            form.elements[BASEUNIT].value = format(valRefUnit);
+         }
+
+         // convert to other units
+         for (var i = 0; i < form.elements.length; i++) {
+            var uval = 0;
+            const fieldname = form.elements[i].name;
+            if (fieldname != infield) {
+               conv = conversions[fieldname];
+               if (Array.isArray(conv)) {
+                  uval = conv[0](valRefUnit);
+               } else if (conv instanceof Function) {
+                  uval = conv(valRefUnit);
+               } else {
+                  uval = valRefUnit * conv;
+               }
+               form.elements[i].value = format(uval)
+            }
+         }
+      }
+
+      // Significant figure functions
+      function ord(x) {
+         return Math.floor(Math.log(Math.abs(x + 1e-35)) / 2.303)
+      }
+      // Truncate to n sign. figures
+      function trunc(x, n) {
+         return Math.floor(x * Math.pow(10, -ord(x) + n - 1) + .5) / Math.pow(10, -ord(x) + n - 1)
+      }
+
+   </SCRIPT>
+</HEAD>
+
+<script>
+</script>
+
+<BODY onload="document.getElementById('eV').focus();">
+   <H3>Energy Units Converter</H3>
+   <small><em>Inspired by the <a href="https://www.colby.edu/chemistry/PChem/Hartree.html">energy
+            units converter by Colby pchem</a>.</em><br />
+      See also: <a href="pressure.html">pressure units converter</a> and <a href="/tools">other tools</a>.
+   </small>
+   <P>
+   <FORM NAME="conversionForm" METHOD=POST>
+      <em>Standard units</em><br />
+      <INPUT TYPE="text" NAME="J" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Joule">J</a><BR />
+      <INPUT TYPE="text" ID="eV" NAME="eV" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Electronvolt">eV</a><BR />
+      <INPUT TYPE="text" NAME="kJmol" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Joule_per_mole">kJ/mol</a><BR />
+      <INPUT TYPE="text" NAME="kcalmol" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Kilocalorie_per_mole">kcal/mol</a><BR />
+      <INPUT TYPE="text" NAME="wavenum" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Wavenumber">cm<sup>-1</sup></a><BR />
+      <INPUT TYPE="text" NAME="erg" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Foe_(unit)">erg</a><BR />
+      <INPUT TYPE="text" NAME="THz" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Hertz">THz</a><BR />
+      <INPUT TYPE="text" NAME="Eh" VALUE=0 oninput="displayInfo(this.name);" /> E<sub>h</sub> (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Hartree">Hartrees</a>)<BR />
+      <INPUT TYPE="text" NAME="kelv" VALUE=0 oninput="displayInfo(this.name);" /> K (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/KT_(energy)">equivalent temperature</a>)<BR />
+      <INPUT TYPE="text" NAME="nm" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Planck_constant#Photon_energy">nm</a><BR />
+      <INPUT TYPE="text" NAME="btu" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/British_thermal_unit">BTU</a><BR />
+      <INPUT TYPE="text" NAME="kwh" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Kilowatt-hour">kWh (kilowatt-hour)</a><BR />
+      <hr>
+
+
+      <em>Specialized and unusual units</em><br />
+      <INPUT TYPE="text" NAME="Ry" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Rydberg_constant#Rydberg_unit_of_energy">Ry (Rydberg)</a><BR />
+      <INPUT TYPE="text" NAME="ftlb" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Foot-pound_(energy)">ft lb</a><BR />
+      <INPUT TYPE="text" NAME="foe" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Foe_(unit)">foe</a><BR />
+      <INPUT TYPE="text" NAME="boltz" VALUE=1 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://chem.libretexts.org/Courses/Western_Washington_University/Biophysical_Chemistry_(Smirnov_and_McCarty)/01%3A_Biochemical_Thermodynamics/1.05%3A_The_Boltzmann_Distribution_and_the_Statistical_Definition_of_Entropy">Boltzmann
+         population ratio</a>
+      at <b id="btemp">298.15</b> K<BR />
+      <INPUT TYPE="text" NAME="cmb" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Cosmic_microwave_background">cosmic microwave background</a><BR />
+      <INPUT TYPE="text" NAME="darel" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Dalton_(unit)">Da</a> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Speed_of_light">c<sup>2</sup></a> (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Mass%E2%80%93energy_equivalence">rest mass</a>)<BR />
+      <INPUT TYPE="text" NAME="melec" VALUE=0 oninput="displayInfo(this.name);" /> e<sup>-1</sup> c<sup>2</sup> (<a
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Electron_mass">electron</a> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Mass%E2%80%93energy_equivalence">rest mass</a>)<BR />
+      <!-- <INPUT TYPE="text" NAME="earthG" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Gravitational_binding_energy">Earth binding energy</a><BR /> -->
+      <INPUT TYPE="text" NAME="suns" VALUE=0 oninput="displayInfo(this.name);" /> s (seconds of <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Solar_luminosity">solar luminosity</a>)<BR />
+      <INPUT TYPE="text" NAME="escEarth" VALUE=0 oninput="displayInfo(this.name);" /> kg (accelerated to <a
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Escape_velocity">escape Earth's gravity well</a>)<BR />
+      <INPUT TYPE="text" NAME="planckE" VALUE=0 oninput="displayInfo(this.name);" /> E<sub>P</sub> (<a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Planck_units#Derived_units">planck energy units</a>)<BR />
+      <INPUT TYPE="text" NAME="tonTNT" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/TNT_equivalent">ton TNT</a><BR />
+      <INPUT TYPE="text" NAME="t1a" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Type_Ia_supernova">type 1a supernova</a><BR />
+      <INPUT TYPE="text" NAME="ktimpact" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Chicxulub_crater">Chicxulub impact</a><BR />
+      <INPUT TYPE="text" NAME="ushouse" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://www.eia.gov/tools/faqs/faq.php?id=97&t=3">annual US household electricity</a><BR />
+      <INPUT TYPE="text" NAME="sugarg" VALUE=0 oninput="displayInfo(this.name);" /> <a tabindex="-1"
+         href="https://fdc.nal.usda.gov/food-details/169655/nutrients">g table sugar</a><BR />
+      <INPUT TYPE="text" NAME="mosq" VALUE=0 oninput="displayInfo(this.name);" /> m s<sup>-1</sup> (kinetic energy of a
+      2 mg mosquito)<BR />
+
+      <hr>
+
+      <table>
+         <tr style="vertical-align:top">
+            <td style="padding-right:50pt">
+
+               <em><a tabindex="-1" href="https://en.wikipedia.org/wiki/Bond_dissociation_energy">Bond dissociation
+                     energy</a></em><br />
+               <INPUT TYPE="text" NAME="dissocH2" VALUE=0 oninput="displayInfo(this.name);" /> H-H<br />
+               <INPUT TYPE="text" NAME="dissocO2" VALUE=0 oninput="displayInfo(this.name);" /> O=O<br />
+               <INPUT TYPE="text" NAME="dissocN2" VALUE=0 oninput="displayInfo(this.name);" /> N&equiv;N</sub><br />
+               <INPUT TYPE="text" NAME="dissocCO" VALUE=0 oninput="displayInfo(this.name);" /> C&equiv;O<br />
+               <INPUT TYPE="text" NAME="dissocCCalkane" VALUE=0 oninput="displayInfo(this.name);" /> C-C (alkane)<br />
+               <INPUT TYPE="text" NAME="dissocCCalkene" VALUE=0 oninput="displayInfo(this.name);" /> C=C (alkene)<br />
+               <INPUT TYPE="text" NAME="dissocCCalkyne" VALUE=0 oninput="displayInfo(this.name);" /> C&equiv;C
+               (alkyne)<br />
+               <INPUT TYPE="text" NAME="dissocNH3" VALUE=0 oninput="displayInfo(this.name);" /> H<sub>2</sub>N-H<br />
+               <INPUT TYPE="text" NAME="dissocAlkH" VALUE=0 oninput="displayInfo(this.name);" />
+               CH<sub>3</sub>CH<sub>2</sub>-H
+               (alkyl C-H)<br />
+               <INPUT TYPE="text" NAME="dissocVinH" VALUE=0 oninput="displayInfo(this.name);" /> CH<sub>2</sub>CH-H
+               (vinyl
+               C-H)<br />
+               <INPUT TYPE="text" NAME="dissocAcetH" VALUE=0 oninput="displayInfo(this.name);" /> HCC-H (alkyne
+               C-H)<br />
+               <INPUT TYPE="text" NAME="dissocPhH" VALUE=0 oninput="displayInfo(this.name);" /> Ph-H<br />
+               <!-- <hr> -->
+            </td>
+            <td>
+               <em><a tabindex="-1" href="https://en.wikipedia.org/wiki/Ionization_energy">Ionization energy</a>
+                  (NIST)</em><br />
+               <INPUT TYPE="text" NAME="ionH" VALUE=0 oninput="displayInfo(this.name);" /> H<br />
+               <INPUT TYPE="text" NAME="ionH2" VALUE=0 oninput="displayInfo(this.name);" /> H<sub>2</sub><br />
+               <INPUT TYPE="text" NAME="ionN" VALUE=0 oninput="displayInfo(this.name);" /> N<br />
+               <INPUT TYPE="text" NAME="ionN2" VALUE=0 oninput="displayInfo(this.name);" /> N<sub>2</sub><br />
+               <INPUT TYPE="text" NAME="ionC" VALUE=0 oninput="displayInfo(this.name);" /> C<br />
+               <INPUT TYPE="text" NAME="ionO" VALUE=0 oninput="displayInfo(this.name);" /> O<br />
+               <INPUT TYPE="text" NAME="ionO2" VALUE=0 oninput="displayInfo(this.name);" /> O<sub>2</sub><br />
+               <INPUT TYPE="text" NAME="ionC6H6" VALUE=0 oninput="displayInfo(this.name);" />
+               C<sub>6</sub>H<sub>6</sub><br />
+
+            </td>
+         </tr>
+
+      </table>
+
+
+
+
+
+   </FORM>
+   <p>Is there a unit you think I should include? <a href="mailto:contact@ellehanson.com">Let me know!</a></p>
+   <p><em>*Use at your own risk. I make no guarantees regarding the accuracy of these calculations.*</em></p>
+</BODY>
+
+</HTML>
