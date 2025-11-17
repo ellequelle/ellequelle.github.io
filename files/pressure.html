@@ -3,7 +3,11 @@
 
 <HEAD>
    <TITLE>Pressure Converter</TITLE>
-
+   <style LANGUAGE="CSS">
+      .outOfRange {
+         background-color : #f0f0f0; 
+      }
+   </style>
    <SCRIPT LANGUAGE="JavaScript">
 
       function invconv(fact) {
@@ -31,11 +35,14 @@
          vatm: 1 / (92.1 * 101325), // [venus atmosphere / Pa]
          Mspc2: Math.pow(3.0857e16, 2) / 1.988475e30, // [kg/pc^2 / Pa]
          dab: 1e-28 / 1.66053906892e-27, // [da/b / Pa]
-         rhoe: [pa_to_rhoe, rhoe_to_pa], // [from Pa, to Pa]
+         rhoe: [pa_to_rhoe, rhoe_to_pa], // [from Pa, to Pa] (Wagner & Pruss 2002)
          sqcm: 1 / (0.5 * 9.81 * 1e4), // [squirrel cm^-2 / Pa]
          h2oprs: [vap_prs_to_tk, evap_h2o_liq], // [from Pa, to Pa]
          psph: 1e3 / (2 * 34.4e6), // [mm / Pa]
          ylrad: invconv(2 * 71.97e-3 * 1e6), // [N/um / Pa]
+      };
+      const validRange = {
+         h2oprs: [273, 650], // Temp limits (Wagner & Pruss 2002)
       };
 
       // fields allowed to be negative
@@ -238,6 +245,14 @@
                   uval = valRefUnit * conv;
                }
                form.elements[i].value = format(uval)
+            }
+            if (validRange.hasOwnProperty(fieldname)) {
+               let val = form.elements[i].value;
+               if (val < validRange[fieldname][0] || val > validRange[fieldname][1]) {
+                  form.elements[i].classList.add("outOfRange")
+               } else {
+                  form.elements[i].classList.remove("outOfRange")
+               }
             }
          }
       }
