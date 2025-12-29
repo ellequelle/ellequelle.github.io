@@ -24,23 +24,23 @@ redirect_from:
     display: block;
   }
 
-  .pcollapsible {
-    outline: #444;
-    outline-width: 1px;
-    outline-color: #444;
+  .ls-table {
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .pcollapsible-title {
-    margin-top: 0.5em;
+  .dt-picker {
+    width: 10%;
+    min-width: 16em;
   }
 
-  .collapsible-section {
-    outline: #aaa;
-    outline-width: 1px;
-    outline-style: solid;
-    padding: 5px;
-    padding-top: 5px;
-    background-color: #fafafa;
+  input:valid {
+    color: black;
+  }
+
+  input:invalid {
+    color: red;
   }
 
   .bodylist {
@@ -59,11 +59,11 @@ redirect_from:
     text-align: center;
   }
 
-  .ls-now-planet-name {
+  .ls-planet-name {
     text-align: center;
   }  
 
-  .ls-now-header {
+  .ls-header {
     text-align: center;
   }
 
@@ -96,11 +96,11 @@ redirect_from:
 </style>
 
 
-<table id="ls-now-table" class="display" style="width:80%; margin-left: auto; margin-right: auto;">
+<table id="ls-now-table" class="ls-table display">
   <thead>
     <tr>
-      <th class="ls-now-header">Planet<br></th>
-      <th class="ls-now-header">Current L<sub>s</sub>*<br/><b
+      <th class="ls-header">Planet<br></th>
+      <th class="ls-header">Current L<sub>s</sub>*<br/><b
   id="date-now" class="datenow"></b><br/><b id="date-utc" class="datenow"></b></th>
     </tr>
   </thead>
@@ -113,6 +113,27 @@ redirect_from:
 <span id="ls-now-note"><small>*Interpolation of timeseries obtained from the <a href="https://ssd.jpl.nasa.gov/horizons/">JPL/Horizons portal</a>, 
   calculated using JPL's <a href="https://ssd.jpl.nasa.gov/doc/de440_de441.html">DE440 and DE441 ephemerides</a>.</small></span>
 
+<br/>
+
+<table id="ls-time-table" class="ls-table">
+  <thead>
+    <tr>
+      <th class="ls-header">Planet<br/></th>
+      <th class="ls-header">L<sub>s</sub> at 
+        <input type="datetime-local" id="ls-datetime" class="dt-picker"
+         min="1800-01-01T00:00" max="2300-01-01T00:00" /> UTC
+         <!-- <input class="dt-picker" name="dt-field" id="dt-field"
+         type="text" maxlength="21" placeholder="2000-01-01 00:00" size=23
+          spellcheck="false"/> -->
+      </th>
+    </tr>
+  </thead>
+  <tbody id="ls-time-tbody">
+    <tr>
+      <!-- table is filled in by JS -->
+    </tr>
+  </tbody>
+</table>
 
 <div id="ls-description" class="">
 <h3 id="ls-description-title" class="">Description of Solar Longitude</h3>
@@ -179,9 +200,11 @@ include a clock indicating the current L<sub>s</sub> at each body.
 </div>
 
 
-<div id="ls-description2" class="pcollapsible collapsible-section">
+<details>
+  <summary>Additional details</summary>
+<!-- <div id="ls-description2" class="pcollapsible collapsible-section">
 <h3 id="ls-description2-title" class="pcollapsible-title">Additional details</h3>
-<section id="ls-description2-content" class="ls-description pcontent" style="display: none">
+<section id="ls-description2-content" class="ls-description pcontent" style="display: none"> -->
 
 <p>
   While solar longitude can be treated as a useful calendar, it is
@@ -243,11 +266,11 @@ the planetary system, but still measured from the longitude of the
 vernal equinox of the planet primary. The values calculated and listed
 below are the standard solar longitude and not the "mean solar longitude."
 </p>
-</section>
-</div>
+<!-- </section>
+</div> -->
+</details>
 
-</br>
-
+<!-- 
 <h2>Solar longitude tables for solar system objects</h2>
 Click a solar system body for a table of solar longitude between 1960 and 2070.
 
@@ -266,10 +289,6 @@ Click a solar system body for a table of solar longitude between 1960 and 2070.
           <li><a href="#-ls-venus" onclick="showPlanet(event, 'venus')">Venus</a></li>
           <li><a href="#-ls-earth" onclick="showPlanet(event, 'earth')">Earth</a></li>
           <li><a href="#-ls-mars" onclick="showPlanet(event, 'mars')">Mars</a></li>
-        <!-- </ul>
-      </td>
-      <td class="bodylist bodylistcell">
-        <ul> -->
           <li><a href="#-ls-jupiter" onclick="showPlanet(event, 'jupiter')">Jupiter</a></li>
           <li><a href="#-ls-saturn" onclick="showPlanet(event, 'saturn')">Saturn</a></li>
           <li><a href="#-ls-uranus" onclick="showPlanet(event, 'uranus')">Uranus</a></li>
@@ -289,289 +308,4 @@ Click a solar system body for a table of solar longitude between 1960 and 2070.
       </td>
     </tr>
   </tbody>
-</table>
-
-
-<!-- 
-
-<span id="mercury" class="tablediv hidden">
-  <h2>Mercury Solar Longitude</h2>
-  <table id="ls-mercury" class="display" style="width:80%">
-    <thead>
-    <tr>
-        <th>Date</th>
-        <th>Mercury L<sub>s</sub></th>
-    </tr>
-    </thead>
-    <tfoot>
-      <tr>
-          <th>Date</th>
-          <th>Mercury L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-
-
-<span id="venus" class="tablediv hidden">
-  <h2>Venus Solar Longitude</h2>
-  <table id="ls-venus" class="display" style="width:80%">
-    <thead>
-    <tr>
-        <th>Date</th>
-        <th>Venus L<sub>s</sub></th>
-    </tr>
-    </thead>
-    <tfoot>
-    <tr>
-        <th>Date</th>
-        <th>Venus L<sub>s</sub></th>
-    </tr>
-    </tfoot>
-  </table>
-</span>
-
-<span id="earth" class="tablediv hidden">
-  <h2>Earth Solar Longitude</h2>
-  <table id="ls-earth" class="display" style="width:80%">
-    <thead>
-    <tr>
-        <th>Date</th>
-        <th>Earth L<sub>s</sub></th>
-    </tr>
-    </thead>
-    <tfoot>
-    <tr>
-        <th>Date</th>
-        <th>Earth L<sub>s</sub></th>
-    </tr>
-    </tfoot>
-  </table>
-</span>
-
-
-<span id="mars" class="tablediv hidden">
-  <h2>Mars Solar Longitude</h2>
-  <table id="ls-mars" class="display" style="width:80%">
-    <thead>
-      <tr>
-          <th>Date</th>
-          <th>Mars Year (<a href="/images/Clancy-etal-JGR-2000.pdf" title="From Clancy et al. (2000)">Clancy+2000</a>)</th>
-          <th>Mars L<sub>s</sub></th>
-          <th>Mars Sol Date (<a href="/images/Allison-etal-PSS-2000.pdf" title="From Equation 32 in Allison et al. (2000)">Allison+2000</a>)</th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-          <th>Date</th>
-          <th>Mars Year (<a href="/images/Clancy-etal-JGR-2000.pdf" title="From Clancy et al. (2000)">Clancy+2000</a>)</th>
-          <th>Mars L<sub>s</sub></th>
-          <th>Mars Sol Date (<a href="/images/Allison-etal-PSS-2000.pdf" title="From Equation 32 in Allison et al. (2000)">Allison+2000</a>)</th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-
-
-<span id="jupiter" class="tablediv hidden">
-  <h2>Jupiter Solar Longitude</h2>
-  <table id="ls-jupiter" class="display" style="width:80%">
-    <thead>
-      <tr>
-          <th>Date</th>
-          <th>Jupiter L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-          <th>Date</th>
-          <th>Jupiter L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-
-
-<span id="saturn" class="tablediv hidden">
-  <h2>Saturn Solar Longitude</h2>
-  <table id="ls-saturn" class="display" style="width:80%">
-    <thead>
-      <tr>
-          <th>Date</th>
-          <th>Saturn L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-          <th>Date</th>
-          <th>Saturn L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-
-<span id="uranus" class="tablediv hidden">
-  <h2>Uranus Solar Longitude</h2>
-  <table id="ls-uranus" class="display" style="width:80%">
-    <thead>
-      <tr>
-          <th>Date</th>
-          <th>Uranus L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-          <th>Date</th>
-          <th>Uranus L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-
-<span id="neptune" class="tablediv hidden">
-  <h2>Neptune Solar Longitude</h2>
-  <table id="ls-neptune" class="display" style="width:80%">
-    <thead>
-      <tr>
-          <th>Date</th>
-          <th>Neptune L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-         <th>Date</th>
-         <th>Neptune L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-  
-<span id="pluto" class="tablediv hidden">
-  <h2>Pluto Solar Longitude</h2>
-  Download <a href="/assets/data/solar-longitude/pluto.json">json</a>, <a href="/assets/data/solar-longitude/pluto.csv">csv</a>
-  <table id="ls-pluto" class="display" style="width:80%">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Pluto L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <th>Date</th>
-        <th>Pluto L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-
-<span id="cp67p" class="tablediv hidden">
-  <h2>67P/Churyumov–Gerasimenko Solar Longitude</h2>
-  <table id="ls-cp67p" class="display" style="width:80%">
-    <thead>
-      <tr>
-          <th>Date</th>
-          <th>67P/Churyumov–Gerasimenko L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-          <th>Date</th>
-          <th>67P/Churyumov–Gerasimenko L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-
-<span id="eros" class="tablediv hidden">
-  <h2>Eros Solar Longitude</h2>
-  <table id="ls-eros" class="display" style="width:80%">
-    <thead>
-      <tr>
-          <th>Date</th>
-          <th>Eros L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-          <th>Date</th>
-          <th>Eros L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-
-<span id="ceres" class="tablediv hidden">
-  <h2>Ceres Solar Longitude</h2>
-  <table id="ls-ceres" class="display" style="width:80%">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Ceres L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <th>Date</th>
-        <th>Ceres L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-
-<span id="bennu" class="tablediv hidden">
-  <h2>Bennu Solar Longitude</h2>
-  <table id="ls-bennu" class="display" style="width:80%">
-    <thead>
-      <tr>
-          <th>Date</th>
-          <th>Bennu L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-          <th>Date</th>
-          <th>Bennu L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-
-<span id="didymos" class="tablediv hidden">
-  <h2>Didymos Solar Longitude</h2>
-  <table id="ls-didymos" class="display" style="width:80%">
-    <thead>
-      <tr>
-          <th>Date</th>
-          <th>Didymos L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-          <th>Date</th>
-          <th>Didymos L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
-
-<span id="arrokoth" class="tablediv hidden">
-  <h2>Arrokoth Solar Longitude</h2>
-  <table id="ls-arrokoth" class="display" style="width:80%">
-    <thead>
-      <tr>
-          <th>Date</th>
-          <th>Arrokoth L<sub>s</sub></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-          <th>Date</th>
-          <th>Arrokoth L<sub>s</sub></th>
-      </tr>
-    </tfoot>
-  </table>
-</span>
- -->
-
-  
+</table> -->
