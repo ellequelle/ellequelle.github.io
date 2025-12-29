@@ -222,8 +222,7 @@ async function getLsPlanetTimeAsync2(date_int, planet, LsInfoDict = false) {
     /* Calculate the solar longitude for planet at integer time date_int. */
     /* dLs : return Ls and dLs/dt in deg/second */
     /* Send XMLHTTP request to get Ls from json data file. */
-    // fileExt = getDateJSONFileExt(date_int);
-    // fn = '/assets/data/solar-longitude/ls-hires/hires-' + planet + fileExt + '.json';
+
     let fn = getJSONFilePath(planet, date_int);
     let ls = null;
 

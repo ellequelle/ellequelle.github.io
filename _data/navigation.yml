@@ -13,6 +13,9 @@ main:
 #  - title: "Portfolio"
 #    url: /portfolio/
 
+  - title: "Ls"
+    url: /Ls/
+
   - title: "Posts"
     url: /year-archive/
 

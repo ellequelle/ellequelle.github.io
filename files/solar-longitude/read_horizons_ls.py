@@ -1,6 +1,7 @@
 from io import StringIO
-import pandas as pd
+from datetime import datetime, timedelta
 import numpy as np
+import pandas as pd
 
 file_paths = (
 "horizons_results_eros.txt",
@@ -84,7 +85,7 @@ def do_extra_mars(df):
     return df[["date", "Ls", "MSD", "MY", "date_dt"]]
 
 def format_date(df):
-    df["date_dt"] = pd.to_datetime(df.date)
+    df["date_dt"] = pd.to_datetime(df.date, format="mixed")
     df["date"] = df["date_dt"].dt.strftime("%Y-%m-%d")
     return df
 
@@ -95,6 +96,7 @@ for planet in planet_list:
     df = ingest_horizon_ephem("horizons_output/"+fn)
     df = format_date(df)
     dt = df["date_dt"]
+
     lx = (dt >= "1950-01-01") & (dt <= "2070-01-01")
     if planet in ["uranus", "neptune", "pluto", "arrokoth"]:
         lx &= df["date"].str.contains("-01-") | df["date"].str.contains("-06-")
@@ -126,35 +128,16 @@ for planet in planet_list:
     # df["date"] = df["date"].str.strip().str[:11]
     df["Ls"] = df["Ls"].round(6)
     df = df.set_index("date")
-    fn = f"../../assets/data/solar-longitude/ls-hires/hires-{planet}.json"
+    fn = f"../../assets/data/solar-longitude/ls-hires/hires-{planet}"
     # fn = f"../../_data/ls-hires/hires-{planet}.json"
 
     dt = df["date_dt"]
 
-    # split up into multiple smaller files with 3 months overlap
-    lx = (dt <= "1930-03-05")
-    df.loc[lx].to_json(fn.replace(".json", "-a.json"), orient="table")
-
-    lx = (dt >= "1929-09-01") & (dt <= "1960-03-05")
-    df.loc[lx].to_json(fn.replace(".json", "-b.json"), orient="table")
-
-    lx = (dt >= "1959-09-01") & (dt <= "1980-03-05")
-    df.loc[lx].to_json(fn.replace(".json", "-c.json"), orient="table")
-
-    lx = (dt >= "1979-09-01") & (dt <= "2000-03-05")
-    df.loc[lx].to_json(fn.replace(".json", "-d.json"), orient="table")
-
-    lx = (dt >= "1999-09-01") & (dt <= "2025-03-05")
-    df.loc[lx].to_json(fn.replace(".json", "-e.json"), orient="table")
-
-    lx = (dt >= "2024-09-01") & (dt <= "2050-03-05")
-    df.loc[lx].to_json(fn.replace(".json", "-f.json"), orient="table")
-
-    lx = (dt >= "2049-09-01") & (dt <= "2100-03-05")
-    df.loc[lx].to_json(fn.replace(".json", "-g.json"), orient="table")
-
-    lx = (dt >= "2099-09-01") & (dt <= "2150-03-05")
-    df.loc[lx].to_json(fn.replace(".json", "-h.json"), orient="table")
-
-    lx = (dt >= "2149-09-01") & (dt <= "2200-03-05")
-    df.loc[lx].to_json(fn.replace(".json", "-i.json"), orient="table")
+    # make separate files for each year, with overlap of 40 days
+    years = dt.dt.year.unique()
+    td40 = timedelta(days=40)
+    for yr in years:
+        tmin = datetime(yr, 1, 1) - td40
+        tmax = datetime(yr+1, 1, 1) + td40
+        lx = (dt > tmin) & (dt < tmax)
+        df.loc[lx].to_json(fn + f"-{yr}.json", orient="table")

@@ -1,0 +1,1 @@
+{"schema":{"fields":[{"name":"date","type":"string"},{"name":"Ls","type":"number"},{"name":"date_dt","type":"datetime"}],"primaryKey":["date"],"pandas_version":"1.4.0"},"data":[{"date":"2199-12-01","Ls":109.27604,"date_dt":"2199-12-01T00:00:00.000"},{"date":"2200-01-01","Ls":109.372305,"date_dt":"2200-01-01T00:00:00.000"}]}

@@ -57,6 +57,24 @@ small, .small {
   font-size: $type-size-6;
 }
 
+summary {
+  font-size: $type-size-5;
+  margin: 0.1em 0 0.5em;
+  line-height: 1.2;
+  font-family: $header-font-family;
+  font-weight: bold;
+  color: $text-color;
+}
+
+details {
+  border: 1px solid #aaaaaa;
+  border-radius: 4px;
+  padding: 0.5em 0.5em 0;
+  outline: #444;
+  outline-width: 1px;
+  outline-color: #444;
+}
+
 p {
   margin-bottom: 1.3em;
 }
