@@ -31,6 +31,7 @@
          pz: 1e-3, // [pz / Pa]
          dB: [pa_to_db, db_to_pa], // [from Pa, to Pa]
          alt: [pa_to_alt, alt_to_pa], // [from Pa, to Pa]
+         seadepth: [pa_to_seadepth, seadepth_to_pa], // [from Pa / to sea detph]
          psc: 299792458 / 1361, // [solar rad prs / Pa]
          vatm: 1 / (92.1 * 101325), // [venus atmosphere / Pa]
          Mspc2: Math.pow(3.0857e16, 2) / 1.988475e30, // [kg/pc^2 / Pa]
@@ -40,6 +41,7 @@
          h2oprs: [vap_prs_to_tk, evap_h2o_liq], // [from Pa, to Pa]
          psph: 1e3 / (2 * 34.4e6), // [mm / Pa]
          ylrad: invconv(2 * 71.97e-3 * 1e6), // [N/um / Pa]
+         nbanana: (181.48e-4 / 1), // [N/b.p. / Pa]
       };
       const validRange = {
          h2oprs: [273, 650], // Temp limits (Wagner & Pruss 2002)
@@ -63,6 +65,12 @@
       }
       function alt_to_pa(alt) {
          return 101325 * Math.pow(1 - alt / 44307, 5.25530);
+      }
+      function pa_to_seadepth(pa) {
+         return (pa - 101325) / 10.0381e3;
+      }
+      function seadepth_to_pa(depth) {
+         return 101325 + (depth / 10.0381e3);
       }
       // electron degeneracy pressure for density rhoe
       function rhoe_to_pa(rhoe) {
@@ -301,9 +309,16 @@
       <INPUT TYPE="text" NAME="psi" VALUE=0 oninput="displayInfo(this.form,this.name);" /> psi (<a tabindex="-1"
          href="https://en.wikipedia.org/wiki/Pound_per_square_inch">pounds per square inch</a>)<BR />
       <INPUT TYPE="text" NAME="msw" VALUE=0 oninput="displayInfo(this.form,this.name);" /> msw (<a tabindex="-1"
-         href="https://en.wikipedia.org/wiki/Metre_sea_water">m seawater</a>)<BR />
+         href="https://en.wikipedia.org/wiki/Metre_sea_water">m
+         seawater</a>,
+         <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Pressure_measurement#Absolute,_gauge_and_differential_pressures_%E2%80%94_zero_reference">
+         gague</a>)<BR />
       <INPUT TYPE="text" NAME="ftsw" VALUE=0 oninput="displayInfo(this.form,this.name);" /> fsw (<a tabindex="-1"
-         href="https://en.wikipedia.org/wiki/Metre_sea_water#Feet_of_sea_water">ft seawater</a>)<BR />
+         href="https://en.wikipedia.org/wiki/Metre_sea_water#Feet_of_sea_water">ft seawater</a>,
+         <a tabindex="-1"
+         href="https://en.wikipedia.org/wiki/Pressure_measurement#Absolute,_gauge_and_differential_pressures_%E2%80%94_zero_reference">
+         gague</a>)<BR />
       <INPUT TYPE="text" NAME="barye" VALUE=0 oninput="displayInfo(this.form,this.name);" /> Ba (<a tabindex="-1"
          href="https://en.wikipedia.org/wiki/Barye">barye</a>)<BR />
       <INPUT TYPE="text" NAME="pz" VALUE=0 oninput="displayInfo(this.form,this.name);" /> pz (<a tabindex="-1"
@@ -314,6 +329,7 @@
       <INPUT TYPE="text" NAME="alt" VALUE=0 oninput="displayInfo(this.form,this.name);" /> m <a tabindex="-1"
          href="https://en.wikipedia.org/wiki/Pressure_altitude">pressure altitude</a> above mean sea level,
       approximate<BR />
+      <INPUT TYPE="text" NAME="seadepth" VALUE=0 oninput="displayInfo(this.form,this.name);" /> m depth below sea surface, approximate<BR />
       <hr>
       <em>Unusual units</em><br />
       <INPUT TYPE="text" NAME="psc" VALUE=0 oninput="displayInfo(this.form,this.name);" /> p<sub>solar</sub> (<a
@@ -339,6 +355,9 @@
       <INPUT TYPE="text" NAME="dab" VALUE=0 oninput="displayInfo(this.form,this.name);" /> da b<sup>-1</sup> (<a
          tabindex="-1" href="https://en.wikipedia.org/wiki/Dalton_(unit)">dalton</a> per <a tabindex="-1"
          href="https://en.wikipedia.org/wiki/Barn_(unit)">barn</a>)<BR />
+      <INPUT TYPE="text" NAME="nbanana" VALUE=0 oninput="displayInfo(this.form,this.name);" /> N b.p.<sup>-1</sup> (<a
+         tabindex="-1" href="https://en.wikipedia.org/wiki/Newton (unit)">newtons</a> per <a tabindex="-1"
+         href="https://sanad.iau.ir/Journal/ijasrt/Article/1033850">cavendish banana peel surface area</a>)<BR />
       <INPUT TYPE="text" NAME="rhoe" VALUE=0 oninput="displayInfo(this.form,this.name);" /> e<sup>-</sup>
       cm<sup>-3</sup> (<a tabindex="-1" href="https://en.wikipedia.org/wiki/Electron_degeneracy_pressure">electron
          degeneracy pressure</a> density)<BR />
