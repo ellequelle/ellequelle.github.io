@@ -51,5 +51,6 @@ In other words, you could say Earth actually spends less than half of its time "
 <img src="/images/barycenter-400.png" style="width:600px;">
 
 The vertical axis is in units of solar radius, and dashed lines indicate &plusmn;1 solar radius in each plot.
+(Note: the frame of reference used in these calculations is the `J2000`, whereas the figure from Park et al. (2021) appears to be using an ecliptic reference frame, labeled `ECLIPJ2000` in the SPICE software from JPL/NAIF. This is why there is a significant z-component in the current figure that is not reflect in the figure from Park et al.)
 
 Calculations can be reproduced using <a href="/files/ss_barycenter.ipynb">this Jupyter notebook</a> (<a href="/files/ss_barycenter.pdf">also available as pdf</a>).
