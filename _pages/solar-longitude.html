@@ -95,7 +95,9 @@ redirect_from:
 
 </style>
 
-
+<p>Current solar longitude of each independent solar system body with a defined pole.
+  See the description below for an explanation of solar longitude and why it is used in planetary science.
+</p>
 <table id="ls-now-table" class="ls-table display">
   <thead>
     <tr>
@@ -110,11 +112,11 @@ redirect_from:
     </tr>
   </tbody>
 </table>
-<span id="ls-now-note"><small>*Interpolation of timeseries obtained from the <a href="https://ssd.jpl.nasa.gov/horizons/">JPL/Horizons portal</a>, 
-  calculated using JPL's <a href="https://ssd.jpl.nasa.gov/doc/de440_de441.html">DE440 and DE441 ephemerides</a>.</small></span>
 
 <br/>
 
+<h1>Solar longitude calculator</h1>
+<p>A calculator to look up the solar longitude of a given date and time.</p>
 <table id="ls-time-table" class="ls-table">
   <thead>
     <tr>
@@ -134,6 +136,9 @@ redirect_from:
     </tr>
   </tbody>
 </table>
+<span id="ls-now-note"><small>*Interpolation of timeseries data obtained from the <a href="https://ssd.jpl.nasa.gov/horizons/">JPL/Horizons portal</a>, 
+  calculated using JPL's <a href="https://ssd.jpl.nasa.gov/doc/de440_de441.html">DE440 and DE441 ephemerides</a>.</small></span>
+
 
 <div id="ls-description" class="">
 <h3 id="ls-description-title" class="">Description of Solar Longitude</h3>
@@ -191,11 +196,22 @@ seasonal phenomena like weather, climate, solar radiation, or space
 weather.
 </p>
 <p>
-In the future I hope to add a tool to look up L<sub>s</sub>, but for now I
-include a clock indicating the current L<sub>s</sub> at each body, and
-reccommend the <a href="https://ssd.jpl.nasa.gov/horizons/app.html#/">JPL
-Horizons System</a> for solar longitude calculations (select item 44, 
-"Apparent longitude Sun (L_s)" in the observer table output).
+  Because the solar longitude angle is based on the declination of a body's
+polar spin axis, it can only be calculated for bodies where the polar spin axis
+has been measured. Since the spin axis can only be precisely measured using
+imagery or other data from spacecraft flybys, there are very few bodies with
+well constrained polar axes. In addition, Many solar system bodies are considered 
+<a href="https://en.wikipedia.org/wiki/List_of_tumblers_(small_Solar_System_bodies)">"tumblers,"</a>
+meaning they have no clear axis of rotation, and so the solar longitude is
+undefined. Examples of tumblers include the comet
+<a href="https://en.wikipedia.org/wiki/103P/Hartley">103P/Hartley</a> and the
+near-Earth object <a href="https://en.wikipedia.org/wiki/99942_Apophis">99942 Apophis</a>,
+which is why neither of these objects are included in the solar longitude tables
+despite being visited by spacecraft.
+Finally, while it would theoretically be possible to calculate a solar longitude
+for many solar system moons, it is more common to simply use the solar longitude
+of the parent planet. For example, instead of calculating the solar longitude of 
+Titan, we simply use the solar longitude of Saturn, its parent planet.
 </p>
 </section>
 </div>
