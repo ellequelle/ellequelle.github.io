@@ -123,7 +123,7 @@ redirect_from:
       <th class="ls-header">Planet<br/></th>
       <th class="ls-header">L<sub>s</sub> at 
         <input type="datetime-local" id="ls-datetime" class="dt-picker"
-         min="1800-01-01T00:00" max="2300-01-01T00:00" /> UTC
+         min="1900-01-01T00:00" max="2200-01-01T00:00" /> UTC
          <!-- <input class="dt-picker" name="dt-field" id="dt-field"
          type="text" maxlength="21" placeholder="2000-01-01 00:00" size=23
           spellcheck="false"/> -->
@@ -136,18 +136,18 @@ redirect_from:
     </tr>
   </tbody>
 </table>
-<span id="ls-now-note"><small>*Interpolation of timeseries data obtained from the <a href="https://ssd.jpl.nasa.gov/horizons/">JPL/Horizons portal</a>, 
-  calculated using JPL's <a href="https://ssd.jpl.nasa.gov/doc/de440_de441.html">DE440 and DE441 ephemerides</a>.</small></span>
+<span id="ls-now-note"><small>*Interpolation of timeseries data obtained from the <a href="https://ssd.jpl.nasa.gov/horizons/" target="_blank">JPL/Horizons portal</a>, 
+  calculated using JPL's <a href="https://ssd.jpl.nasa.gov/doc/de440_de441.html" target="_blank">DE440 and DE441 ephemerides</a>.</small></span>
 
 
 <div id="ls-description" class="">
 <h3 id="ls-description-title" class="">Description of Solar Longitude</h3>
 <section id="ls-description-content" class="" style="display: block">
 <p>
-  <a href="https://en.wikipedia.org/wiki/Solar_longitude">Solar longitude</a>, often written
+  <a href="https://en.wikipedia.org/wiki/Solar_longitude" target="_blank">Solar longitude</a>, often written
   <em>L<sub>s</sub></em>, can be used as a kind of calendar (this is an approximation, see below for
   more details) to measure the time of year for solar system bodies other than the Earth. Since the 
-  <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian Calendar</a> 
+  <a href="https://en.wikipedia.org/wiki/Gregorian_calendar" target="_blank">Gregorian Calendar</a> 
   is based on Earth's 365.25 day orbital period, it isn't well suited to other planetary bodies that have 
   much shorter or longer seasons. Instead, solar longitude denotes the time of year as an angle measured
   from the northern spring equinox, which occurs when the Sun crosses the equator into the northern
@@ -201,11 +201,11 @@ polar spin axis, it can only be calculated for bodies where the polar spin axis
 has been measured. Since the spin axis can only be precisely measured using
 imagery or other data from spacecraft flybys, there are very few bodies with
 well constrained polar axes. In addition, Many solar system bodies are considered 
-<a href="https://en.wikipedia.org/wiki/List_of_tumblers_(small_Solar_System_bodies)">"tumblers,"</a>
+<a href="https://en.wikipedia.org/wiki/List_of_tumblers_(small_Solar_System_bodies)" target="_blank">"tumblers,"</a>
 meaning they have no clear axis of rotation, and so the solar longitude is
 undefined. Examples of tumblers include the comet
-<a href="https://en.wikipedia.org/wiki/103P/Hartley">103P/Hartley</a> and the
-near-Earth object <a href="https://en.wikipedia.org/wiki/99942_Apophis">99942 Apophis</a>,
+<a href="https://en.wikipedia.org/wiki/103P/Hartley" target="_blank">103P/Hartley</a> and the
+near-Earth object <a href="https://en.wikipedia.org/wiki/99942_Apophis" target="_blank">99942 Apophis</a>,
 which is why neither of these objects are included in the solar longitude tables
 despite being visited by spacecraft.
 Finally, while it would theoretically be possible to calculate a solar longitude
@@ -230,7 +230,7 @@ Titan, we simply use the solar longitude of Saturn, its parent planet.
   vernal equinox, measured in the planet's orbital plane, which on Earth
   is simply the
   <a
-  href="https://en.wikipedia.org/wiki/Ecliptic_coordinate_system#Spherical_coordinates">ecliptic
+  href="https://en.wikipedia.org/wiki/Ecliptic_coordinate_system#Spherical_coordinates" target="_blank">ecliptic
   longitude</a> of the Sun. For a planet with a circular orbit and no moons,
   the solar longitude would always increase at a constant rate. In an
   eccentric orbit, the solar longitude increases slower when the planet
@@ -250,7 +250,7 @@ Titan, we simply use the solar longitude of Saturn, its parent planet.
   moon, is so large compared with Pluto itself that the two bodies form a binary system centered on a point in
   space between them. Whenever Charon is ahead of Pluto in its orbit, the moon pulls Pluto along and makes 
   it speed up, and when Charon is trailing behind, it slows Pluto so much that the planet fully changes
-  direction and <a href="/assets/data/solar-longitude/horizons_results_pluto-sample.txt">orbits backwards</a>
+  direction and <a href="/assets/data/solar-longitude/horizons_results_pluto-sample.txt" target="_blank">orbits backwards</a>
   about 49.6% of the time. So while it may appear from the rapidly changing solar longitude that Pluto is 
   orbiting too fast, as much as 0.13&deg; per Earth day, its frequent backward motion negates the rapid 
   changes so that on average Pluto only orbits about 1.45&deg; every Earth year, less than 0.004&deg; per 
@@ -283,46 +283,4 @@ the planetary system, but still measured from the longitude of the
 vernal equinox of the planet primary. The values calculated and listed
 here are the standard solar longitude and not the "mean solar longitude."
 </p>
-<!-- </section>
-</div> -->
 </details>
-
-<!-- 
-<h2>Solar longitude tables for solar system objects</h2>
-Click a solar system body for a table of solar longitude between 1960 and 2070.
-
-<table id="bodylist" class="bodylist">
-  <thead>
-    <tr>
-      <th title="According to the popular/pre-2006 definition.">Planets</th>
-      <th>Small bodies</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="bodylist">
-      <td class="bodylist bodylistcell">
-        <ul>
-          <li><a href="#-ls-mercury" onclick="showPlanet(event, 'mercury')">Mercury</a></li>
-          <li><a href="#-ls-venus" onclick="showPlanet(event, 'venus')">Venus</a></li>
-          <li><a href="#-ls-earth" onclick="showPlanet(event, 'earth')">Earth</a></li>
-          <li><a href="#-ls-mars" onclick="showPlanet(event, 'mars')">Mars</a></li>
-          <li><a href="#-ls-jupiter" onclick="showPlanet(event, 'jupiter')">Jupiter</a></li>
-          <li><a href="#-ls-saturn" onclick="showPlanet(event, 'saturn')">Saturn</a></li>
-          <li><a href="#-ls-uranus" onclick="showPlanet(event, 'uranus')">Uranus</a></li>
-          <li><a href="#-ls-neptune" onclick="showPlanet(event, 'neptune')">Neptune</a></li>
-          <li><a href="#-ls-pluto" onclick="showPlanet(event, 'pluto')">Pluto</a></li>
-        </ul>
-      </td>
-      <td class="bodylist bodylistcell">
-        <ul>
-          <li><a href="#-ls-bennu" onclick="showPlanet(event, 'bennu')">Bennu</a></li>
-          <li><a href="#-ls-eros" onclick="showPlanet(event, 'eros')">Eros</a></li>
-          <li><a href="#-ls-didymos" onclick="showPlanet(event, 'didymos')">Didymos</a></li>
-          <li><a href="#-ls-ceres" onclick="showPlanet(event, 'ceres')">Ceres</a></li>
-          <li><a href="#-ls-cp67p" onclick="showPlanet(event, 'cp67p')">67P/Churyumov–Gerasimenko</a></li>
-          <li><a href="#-ls-arrokoth" onclick="showPlanet(event, 'arrokoth')">Arrokoth</a></li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table> -->
