@@ -274,20 +274,25 @@
          return Math.floor(x * Math.pow(10, -ord(x) + n - 1) + .5) / Math.pow(10, -ord(x) + n - 1)
       }
 
+      function onloader() {
+         document.getElementById('Pa').focus();
+         var prsform = document.getElementById('prsform');
+      }
+
    </SCRIPT>
 </HEAD>
 
 <script>
 </script>
 
-<BODY onload="document.getElementById('Pa').focus();">
+<BODY onload="onloader()">
    <H3>Pressure Units Converter</H3>
    <small><em>Inspired by the <a href="https://www.colby.edu/chemistry/PChem/Hartree.html">energy
             units converter by Colby pchem</a>.</em><br />
       See also: <a href="energy.html">energy units converter</a> and <a href="/tools">other tools</a>.
    </small>
    <P>
-   <FORM NAME="Pressures" METHOD=POST>
+   <FORM NAME="Pressures" id="prsform" METHOD=POST>
       <em>Standard units</em><br />
       <INPUT TYPE="text" ID="Pa" NAME="Pa" VALUE=0 oninput="displayInfo(this.form,this.name);" /> Pa (<a tabindex="-1"
          href="https://en.wikipedia.org/wiki/Pascal_(unit)">pascal</a>)<BR />
