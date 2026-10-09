@@ -14,6 +14,8 @@
          return (x) => { return fact / x; };
       }
 
+      var prsform = null;
+      const kB = 1.380649e-23; // [J / K]
       const BASEUNIT = "Pa";
       // [unit / Pa]
       const conversions = {
@@ -39,6 +41,8 @@
          rhoe: [pa_to_rhoe, rhoe_to_pa], // [from Pa, to Pa] (Wagner & Pruss 2002)
          sqcm: 1 / (0.5 * 9.81 * 1e4), // [squirrel cm^-2 / Pa]
          h2oprs: [vap_prs_to_tk, evap_h2o_liq], // [from Pa, to Pa]
+         cc: [pa_to_cc, cc_to_pa], // [from Pa, to Pa]
+         cc_temp: [pa_to_cctemp, cctemp_to_pa], // [from Pa, to Pa]
          psph: 1e3 / (2 * 34.4e6), // [mm / Pa]
          ylrad: invconv(2 * 71.97e-3 * 1e6), // [N/um / Pa]
          nbanana: (181.48e-4 / 1), // [N/b.p. / Pa]
@@ -58,6 +62,24 @@
       }
       function db_to_pa(db) {
          return 20e-6 * Math.pow(10, db / 20);
+      }
+      // convert to and from number density
+      function cc_to_pa(cc) {
+         temp = prsform.cc_temp.value;
+         return (cc*1e6)*kB*temp;
+      }
+      function pa_to_cc(pa) {
+         temp = prsform.cc_temp.value;
+         return pa/(kB*temp)*1e-6;
+      }
+      // convert to and from number density
+      function cctemp_to_pa(temp) {
+         cc = prsform.cc;
+         return (cc*1e6)*kB*temp;
+      }
+      function pa_to_cctemp(pa) {
+         temp = prsform.cc_temp;
+         return pa/(kB*temp)*1e-6;
       }
       // convert to and from pressure altitude in Earth's atmosphere
       function pa_to_alt(pa) {
@@ -200,6 +222,24 @@
       }
 
 
+      function format(x, nchars) {
+         s = Number(x).toPrecision(nchars);
+         if (!Number.isFinite(x)) {
+            return '---';
+         }
+         return s;
+      }
+
+      function valPrecision(val) {
+         let val2 = String(val);
+         if (val2.includes("e")) {
+            val2 = val2.split("e")[0];
+         }
+         if (val2.includes(".")) {
+            return val2.length - 1;
+         }
+         return val2.length;
+      }
 
       function displayInfo(form, infield) {
 
@@ -210,20 +250,23 @@
             form.elements[infield].value = form.elements[infield].value.replace("-", "");
          }
 
+         // if temp is updated, calculate new density first, then update others
+         if (infield == "cc_temp") {
+            let nchars = valPrecision(form.cc.value);
+            let cc = form.cc.value;
+            let pa = form.Pa.value;
+            // calculate old temp
+            let oldtemp = pa/((cc*1e6)*kB);
+            // recalculate cc
+            form.cc.value = format(pa/(kB*oldtemp)*1e-6, nchars);
+            return displayInfo(form, "cc");
+         }
+
          // don't update if number is invalid
          if (isNaN(Number(inval))) return;
 
          // find number of characters in input string for significant figure functions
-         const nchars = form.elements[infield].value.length + 1;
-
-
-         function format(x) {
-            s = Number(x).toPrecision(nchars);
-            if (!Number.isFinite(x)) {
-               return '---';
-            }
-            return s;
-         }
+         const nchars = valPrecision(form[infield].value);
 
          var valRefUnit = inval;
          // convert to Pa
@@ -236,14 +279,14 @@
             } else {
                valRefUnit = inval / conv;
             }
-            form.elements[BASEUNIT].value = format(valRefUnit);
+            form.elements[BASEUNIT].value = format(valRefUnit, nchars);
          }
 
          // convert to other units
          for (var i = 0; i < form.elements.length; i++) {
             var uval = 0;
             const fieldname = form.elements[i].name;
-            if (fieldname != infield) {
+            if (fieldname != infield && fieldname != "cc_temp") {
                conv = conversions[fieldname];
                if (Array.isArray(conv)) {
                   uval = conv[0](valRefUnit);
@@ -252,7 +295,7 @@
                } else {
                   uval = valRefUnit * conv;
                }
-               form.elements[i].value = format(uval)
+               form.elements[i].value = format(uval, nchars)
             }
             if (validRange.hasOwnProperty(fieldname)) {
                let val = form.elements[i].value;
@@ -276,9 +319,8 @@
 
       function onloader() {
          document.getElementById('Pa').focus();
-         var prsform = document.getElementById('prsform');
+         prsform = document.getElementById('prsform');
       }
-
    </SCRIPT>
 </HEAD>
 
@@ -307,6 +349,8 @@
          href="https://en.wikipedia.org/wiki/Millimetre_of_mercury">mm of mercury</a>)<BR />
       <INPUT TYPE="text" NAME="inHg" VALUE=0 oninput="displayInfo(this.form,this.name);" /> in Hg (<a tabindex="-1"
          href="https://en.wikipedia.org/wiki/Inch_of_mercury">inches of mercury</a>)<BR />
+      <INPUT TYPE="text" NAME="cc" VALUE=0 oninput="displayInfo(this.form,this.name);" /> cm<sup>-3</sup> at
+         <INPUT TYPE="text" NAME="cc_temp" VALUE=273 oninput="displayInfo(this.form,this.name);" /> K.<BR />
       <hr>
       <em>Specialized units</em><br />
       <INPUT TYPE="text" NAME="inH2O" VALUE=0 oninput="displayInfo(this.form,this.name);" /> in water (<a tabindex="-1"
